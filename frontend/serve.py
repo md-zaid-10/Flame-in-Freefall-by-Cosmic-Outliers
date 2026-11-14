@@ -4,7 +4,7 @@
 
 The demo questions come from data/demo.js and need no server; opening
 index.html directly works for those. This server adds /api/ask for any other
-question, calling rag.ask() exactly as app.py does.
+question, calling rag.ask() from rag/search.py.
 """
 import functools
 import http.server
