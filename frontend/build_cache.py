@@ -1,0 +1,189 @@
+"""Pre-compute everything the demo screens show, so they render instantly.
+
+Writes frontend/data/demo.js (window.DEMO = {...}). Every figure in it is read
+from the backend or the repo's data files; nothing is typed in by hand.
+
+    venv/bin/python frontend/build_cache.py
+"""
+import datetime
+import json
+import os
+import re
+import sys
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(HERE)
+sys.path[:0] = [ROOT, os.path.join(ROOT, "ml"), HERE]
+
+from rag import search as rag  # noqa: E402
+import model  # noqa: E402
+from gravity_bounds import baselines  # noqa: E402
+from microgravity import flammability as flam  # noqa: E402
+from shape import shape  # noqa: E402
+
+# The three demo beats. `headline_quote` must appear verbatim in a returned
+# NASA passage; the build fails otherwise, so the headline cannot drift.
+PRESETS = [
+    {"id": "smoke", "kind": "quote",
+     "question": "Can a smoke detector built for Earth work in space?",
+     "headline_quote": "Smoke detector design must be based on low-g data"},
+    {"id": "oxygen", "kind": "measured",
+     "question": "How little oxygen does a fire need in space?"},
+    {"id": "moon", "kind": "refusal",
+     "question": "How does fire behave on the Moon?"},
+]
+
+
+def norm(s):
+    return " ".join((s or "").split())
+
+
+def find_quote(ans, quote):
+    for e in ans["evidence"]:
+        if quote.lower() in norm(e["text"]).lower():
+            return {"text": quote, "acronym": e["acronym"], "investigation": e["investigation"],
+                    "doi": e.get("doi"), "file": e["file"], "page": e.get("page")}
+    raise SystemExit(f"headline quote not found verbatim in sources: {quote!r}")
+
+
+def ml_block():
+    lim = flam.limiting_o2()
+    d = flam.load_training()
+    rod = baselines.PMMA_ROD
+    hab = baselines.HABITAT
+    meta = json.load(open(os.path.join(ROOT, "data", "metadata.json"), encoding="utf-8"))
+    return {
+        "material": "acrylic (PMMA) rod",
+        "limit": {k: lim[k] for k in ("o2", "low", "high", "evidence")},
+        "burn_window_cm_s": list(flam.BURN_WINDOW),
+        "earth_bracket": {"low": rod["normal_gravity_bracket"]["low"],
+                          "high": rod["normal_gravity_bracket"]["high"],
+                          "quote": rod["normal_gravity_bracket"]["quote"],
+                          "source": rod["normal_gravity_bracket"]["source"]},
+        "runs": int(len(d)),
+        "outcomes": {k: int(v) for k, v in d["outcome"].value_counts().items()},
+        "o2_tested": [float(d["o2_pct"].min()), float(d["o2_pct"].max())],
+        "flow_tested": [float(d["flow_cm_s"].min()), float(d["flow_cm_s"].max())],
+        "habitat": {k: hab[k] for k in ("earth_air_o2", "moon_base_o2_min",
+                                        "moon_base_pressure_psi_max", "source")},
+        "references": list(baselines.REFERENCES),
+        "source": {"acronym": "BASS-II", "investigation": "PSI-25",
+                   "doi": meta.get("PSI-25", {}).get("doi")},
+    }
+
+
+# The map's controls. predict() is evaluated on every slider position here so
+# the browser shows model output, never a re-implementation of the model.
+MAP_O2 = [round(10 + 0.1 * i, 1) for i in range(251)]          # 10.0 .. 35.0
+MAP_FLOWS = [0.5, 1, 1.5, 2, 3, 5, 7, 10, 15, 20, 30]
+
+
+def _num(x, nd=3):
+    return None if x is None or x != x else round(float(x), nd)    # NaN -> None
+
+
+def map_block():
+    d = flam.load_training()
+    grid = {}
+    for f in MAP_FLOWS:
+        row = []
+        for o in MAP_O2:
+            r = model.predict("pmma_rod", None, o, f)
+            row.append(None if r["p_burn"] != r["p_burn"]
+                       else [_num(r["p_burn"]), _num(r["low"]), _num(r["high"])])
+        grid[str(f)] = row
+    env = flam.envelope()
+    return {
+        "points": [{"run": r.run_id, "o2": float(r.o2_pct), "flow": float(r.flow_cm_s),
+                    "outcome": r.outcome, "burn": int(r.y)} for r in d.itertuples()],
+        "o2_values": MAP_O2, "flows": MAP_FLOWS, "predict": grid,
+        "envelope": [{"o2_band": str(r.o2_band), "flow_band": str(r.flow_band),
+                      "runs": _num(r.n, 0), "burning_runs": _num(r.k, 2),
+                      "p_burn": _num(r.p_burn), "low": _num(r.low), "high": _num(r.high)}
+                     for r in env.itertuples()],
+        "tested_o2": list(model.TESTED_O2_RANGE),
+    }
+
+
+def method_block():
+    import pandas as pd
+    table = pd.read_csv(os.path.join(ROOT, "data", "raw", "tables", "PSI-25",
+                                     "PSI-25_Experimental table_BASS-II.csv"), encoding="utf-8-sig")
+    labels = pd.read_csv(os.path.join(ROOT, "ml", "microgravity", "bass2_labels.csv"))
+    check = pd.read_csv(os.path.join(ROOT, "ml", "microgravity", "handcheck_results.csv"))
+    stats = json.load(open(os.path.join(ROOT, "data", "rag", "corpus_stats.json")))
+    meta = json.load(open(os.path.join(ROOT, "data", "metadata.json"), encoding="utf-8"))
+    rod_runs = flam.load_training()["run_id"].nunique()
+    inv = []
+    for acc, dep in stats["evidence_depth"].items():
+        m = meta.get(acc, {})
+        inv.append({"id": acc, "acronym": dep.get("acronym") or m.get("investigationAcronym") or "",
+                    "title": m.get("title") or dep.get("title") or acc,
+                    "doi": m.get("doi") or "", "evidence_level": dep.get("evidence_level")})
+    inv.sort(key=lambda r: int(r["id"].split("-")[1]))
+    return {
+        "bass2_runs": int(len(table)),
+        "label_steps": int(len(labels)),
+        "rod_runs": int(rod_runs),
+        "recheck": {"n": int(len(check)),
+                    "agree": round(float((check["hand_outcome"] == check["outcome"]).mean()), 3)},
+        "investigations": inv,
+    }
+
+
+def main():
+    if not rag.available():
+        raise SystemExit("RAG corpus not built (data/rag/chunks.jsonl missing).")
+    stats = json.load(open(os.path.join(ROOT, "data", "rag", "corpus_stats.json")))
+    files = json.load(open(os.path.join(HERE, "data", "psi_file_count.json")))
+    ml = ml_block()
+
+    # --keep-answers reuses the answers already in demo.js, so a rebuild for
+    # other data does not regenerate (and possibly change) the AI summaries.
+    kept = {}
+    if "--keep-answers" in sys.argv:
+        prev = open(os.path.join(HERE, "data", "demo.js"), encoding="utf-8").read()
+        prev = json.loads(prev[prev.index("=") + 1:].rstrip().rstrip(";"))
+        kept = {p["question"]: p["ask"] for p in prev["presets"]}
+
+    presets = []
+    for p in PRESETS:
+        if p["question"] in kept:
+            print("keeping:", p["question"], flush=True)
+            ans = kept[p["question"]]
+        else:
+            print("asking:", p["question"], flush=True)
+            ans = shape(rag.ask(p["question"]))
+        item = {k: v for k, v in p.items() if k != "headline_quote"}
+        item["ask"] = ans
+        if p["kind"] == "quote":
+            item["headline"] = find_quote(ans, p["headline_quote"])
+        if p["kind"] == "refusal":
+            hard = [g for g in ans["gaps"] if g["kind"] == "partial_gravity"
+                    and g["severity"] == "hard"]
+            if not hard:
+                raise SystemExit(f"expected a hard partial-gravity gap for {p['question']!r}")
+        presets.append(item)
+
+    out = {
+        "built": datetime.datetime.now().isoformat(timespec="minutes"),
+        "files": {k: files[k] for k in ("total", "investigations", "counted_on", "method")},
+        "corpus": {"investigations": stats["investigations"], "passages": stats["chunks"],
+                   "condition_rows": stats["condition_rows"]},
+        "ml": ml,
+        # Derived, shown on the Moon screen: how far past NASA's tested range a
+        # Moon base would sit.
+        "moon_gap_points": round(ml["habitat"]["moon_base_o2_min"] - ml["o2_tested"][1], 1),
+        "presets": presets,
+        "map": map_block(),
+        "method": method_block(),
+    }
+    path = os.path.join(HERE, "data", "demo.js")
+    with open(path, "w", encoding="utf-8") as fh:
+        fh.write("// Generated by frontend/build_cache.py - do not edit.\n")
+        fh.write("window.DEMO = " + json.dumps(out, ensure_ascii=False, indent=1) + ";\n")
+    print("wrote", os.path.relpath(path, ROOT))
+
+
+if __name__ == "__main__":
+    main()

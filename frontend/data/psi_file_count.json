@@ -1,0 +1,32 @@
+{
+ "total": 66567,
+ "investigations": 24,
+ "per_investigation": {
+  "PSI-26": 210,
+  "PSI-25": 695,
+  "PSI-98": 76,
+  "PSI-99": 217,
+  "PSI-100": 87,
+  "PSI-69": 6555,
+  "PSI-68": 10156,
+  "PSI-39": 2812,
+  "PSI-159": 3756,
+  "PSI-102": 101,
+  "PSI-101": 344,
+  "PSI-47": 33,
+  "PSI-107": 188,
+  "PSI-106": 23463,
+  "PSI-10": 3807,
+  "PSI-20": 2361,
+  "PSI-21": 4883,
+  "PSI-22": 2590,
+  "PSI-23": 4165,
+  "PSI-117": 16,
+  "PSI-142": 3,
+  "PSI-62": 1,
+  "PSI-60": 1,
+  "PSI-115": 47
+ },
+ "counted_on": "2026-11-14",
+ "method": "All files listed by PSI's files API for the 24 combustion investigations."
+}

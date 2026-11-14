@@ -82,6 +82,9 @@ def _sentence_at(text: str, pos: int) -> str:
     return text[start:end].strip()
 
 
+ACCESSION = re.compile(r"\bPSI-\d+\b", re.I)
+
+
 def verify_numbers(answer: str, chunks):
     """Check every number in `answer` against the text of `chunks`.
 
@@ -94,8 +97,14 @@ def verify_numbers(answer: str, chunks):
     # differs" case, which we report separately rather than silently accept.
     source_vals = {v for v, _ in source_nums}
 
+    # PSI accession IDs ("[PSI-117]") are identifiers, not claimed values.
+    # Blank them out, keeping string positions so _sentence_at still works.
+    # Only the ID pattern is masked: a number inside brackets ("[BASS, 0.35%]")
+    # is still checked.
+    masked = ACCESSION.sub(lambda m: " " * len(m.group()), answer)
+
     supported, unsupported, unit_mismatch = [], [], []
-    for v, u, surface, pos in extract_numbers(answer):
+    for v, u, surface, pos in extract_numbers(masked):
         if (v, u) in source_nums or (v, "") in source_nums:
             supported.append(surface)
         elif v in source_vals:
@@ -221,6 +230,12 @@ def _selftest():
         ("bare small integer is ignored",
          "There were 3 configurations [BASS].",
          "pass"),
+        ("accession ID is not a number",
+         "Flow velocity was 5 cm/s [PSI-26].",
+         "pass"),
+        ("number hidden in a citation is still checked",
+         "Flames went out [BASS, 0.35%].",
+         "block"),
     ]
 
     failures = 0

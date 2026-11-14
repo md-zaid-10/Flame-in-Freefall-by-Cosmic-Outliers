@@ -45,8 +45,22 @@ PARTIAL_GRAVITY = [
 ]
 # Microgravity terms, used to tell "what happens in microgravity" apart from
 # "what happens on the Moon".
-MICROGRAVITY = ["microgravity", "micro-gravity", "iss", "orbit", "zero gravity",
+MICROGRAVITY = ["microgravity", "micro-gravity", "iss", "orbit", "orbital", "zero gravity",
                 "zero-g", "weightless", "spaceflight", "space station"]
+# The softer warning is only for questions about whether microgravity data
+# carries over ("does it apply to Mars?"). Merely mentioning the ISS
+# ("would a Moon fire behave like one on the ISS?") still asks how fire
+# behaves on the Moon, which PSI cannot answer.
+APPLICABILITY = re.compile(
+    r"\b(appl(?:y|ies|ied|icable|icability)|extrapolat\w*|transfer\w*|"
+    r"valid\w*|relevan\w*|generali[sz]\w*|carr(?:y|ies) over)\b")
+
+
+def _mentions(terms, low: str):
+    """Terms that occur as whole words, so "iss" does not match "mission"
+    and "mars" does not match "Marshall"."""
+    return [t for t in terms
+            if re.search(rf"(?<![a-z0-9]){re.escape(t)}(?![a-z0-9])", low)]
 
 
 def split(question: str):
@@ -75,13 +89,13 @@ def detect_scope_gaps(question: str):
     """Flag parts of a question that PSI cannot answer in principle."""
     low = question.lower()
     gaps = []
-    hits = [t for t in PARTIAL_GRAVITY if t in low]
+    hits = _mentions(PARTIAL_GRAVITY, low)
     if hits:
-        asks_micro = any(t in low for t in MICROGRAVITY)
+        asks_extrapolation = bool(_mentions(MICROGRAVITY, low)) and bool(APPLICABILITY.search(low))
         gaps.append({
             "kind": "partial_gravity",
             "triggered_by": hits,
-            "severity": "hard" if not asks_micro else "soft",
+            "severity": "soft" if asks_extrapolation else "hard",
             "message": (
                 "PSI contains no partial-gravity combustion data. Every flight "
                 "investigation in this corpus is microgravity (ISS, Cygnus, "
@@ -140,6 +154,11 @@ def _selftest():
         ("What is known about flame spread in microgravity?", False, None),
         ("Does microgravity data apply to Mars habitats?", True, "soft"),
         ("Which experiments measured smoke particle size?", False, None),
+        ("Would a fire on a Moon base behave like one on the ISS?", True, "hard"),
+        ("How does flame spread in microgravity compared to the Moon?", True, "hard"),
+        ("What fire risks does a Moon mission face?", True, "hard"),
+        ("Are ISS results valid for a lunar base?", True, "soft"),
+        ("Are there results from the Marshall flight center?", False, None),
     ]
 
     fails = 0

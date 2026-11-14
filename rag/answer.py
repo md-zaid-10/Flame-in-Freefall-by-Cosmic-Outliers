@@ -270,7 +270,10 @@ class EvidenceLedger:
         prompt = (
             "Rules you must follow exactly:\n"
             "- Use ONLY the sources below. Never add outside knowledge.\n"
-            "- Cite every sentence with [ACRONYM] naming the source you used.\n"
+            "- Cite every sentence with the tag of the source you used, copied "
+            "exactly as it appears in square brackets in front of that source "
+            "below. Only use tags that appear below. Never put section headings, "
+            "file names or row numbers in square brackets.\n"
             "- Do not state any number that is not written verbatim in a source.\n"
             "- If the sources do not answer the question, say so plainly.\n"
             "- Be brief: at most four sentences.\n"
