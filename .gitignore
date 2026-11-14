@@ -48,3 +48,9 @@ CLAUDE.md
 
 # Streamlit secrets (API keys) - never commit
 .streamlit/secrets.toml
+
+# Large raw PSI documents for the RAG corpus (re-fetch with rag/prep/download_documents.py)
+data/raw/documents/
+
+# Cached sentence embeddings (regenerated on first retrieval, ~1 min)
+data/rag/embeddings.npy

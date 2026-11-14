@@ -1,0 +1,572 @@
+{
+ "k": 5,
+ "passed": 26,
+ "total": 26,
+ "cases": [
+  {
+   "id": "pos-pmma",
+   "type": "recall",
+   "question": "Which experiments burned PMMA samples?",
+   "passed": true,
+   "checks": {
+    "recall_all": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-25",
+    "PSI-26"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-cotton",
+   "type": "recall",
+   "question": "What is known about cotton fabric flammability in microgravity?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-100",
+    "PSI-25",
+    "PSI-26",
+    "PSI-98",
+    "PSI-99"
+   ],
+   "gaps": [
+    "thin_evidence"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-sibal",
+   "type": "recall",
+   "question": "Which investigations used SIBAL fabric samples?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-100",
+    "PSI-107",
+    "PSI-26",
+    "PSI-98",
+    "PSI-99"
+   ],
+   "gaps": [
+    "thin_evidence"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-nomex",
+   "type": "recall",
+   "question": "Was Nomex tested for flammability?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-20",
+    "PSI-25",
+    "PSI-26"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-smoke-size",
+   "type": "recall",
+   "question": "What smoke particle sizes were measured in microgravity?",
+   "passed": true,
+   "checks": {
+    "recall_all": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-101",
+    "PSI-102"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-smoke-detector",
+   "type": "recall",
+   "question": "How do spacecraft smoke detectors respond in microgravity?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-102"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-obscuration",
+   "type": "recall",
+   "question": "What obscuration measurements exist for microgravity smoke?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-101",
+    "PSI-102",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-daft",
+   "type": "recall",
+   "question": "What did the dust and aerosol measurement feasibility test find?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-101",
+    "PSI-102",
+    "PSI-47"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-suppression",
+   "type": "recall",
+   "question": "Which fire suppression agents were tested on burning droplets?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-102",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-39",
+    "PSI-69"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-heptane",
+   "type": "recall",
+   "question": "Which experiments burned n-heptane droplets?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-117",
+    "PSI-39",
+    "PSI-68",
+    "PSI-69"
+   ],
+   "gaps": [
+    "ground_investigation",
+    "no_condition_table"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-methanol",
+   "type": "recall",
+   "question": "What was observed burning methanol droplets?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-117",
+    "PSI-39",
+    "PSI-69"
+   ],
+   "gaps": [
+    "ground_investigation",
+    "no_condition_table"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-coolflame",
+   "type": "recall",
+   "question": "What are cool flames and which investigations studied them?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-117",
+    "PSI-159",
+    "PSI-20",
+    "PSI-22",
+    "PSI-39",
+    "PSI-69"
+   ],
+   "gaps": [
+    "ground_investigation",
+    "no_condition_table"
+   ],
+   "parts": 2,
+   "ledger_items": 10
+  },
+  {
+   "id": "pos-efield",
+   "type": "recall",
+   "question": "How do electric fields affect laminar diffusion flames?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-10",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-liftoff",
+   "type": "recall",
+   "question": "What is known about flame liftoff in reduced gravity?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-117",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23"
+   ],
+   "gaps": [
+    "ground_investigation",
+    "no_condition_table"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-bre",
+   "type": "recall",
+   "question": "What is the burning rate emulator and what does it measure?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-10",
+    "PSI-107",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-26"
+   ],
+   "gaps": [],
+   "parts": 2,
+   "ledger_items": 10
+  },
+  {
+   "id": "pos-soot",
+   "type": "recall",
+   "question": "What soot measurements were made on gaseous flames?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-10",
+    "PSI-107",
+    "PSI-20",
+    "PSI-23",
+    "PSI-68"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-smokepoint",
+   "type": "recall",
+   "question": "What did the smoke point in co-flow experiment investigate?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-101",
+    "PSI-102",
+    "PSI-107",
+    "PSI-47"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "pos-saffire",
+   "type": "recall",
+   "question": "What did the large-scale spacecraft fire experiments find?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "gap_detected": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-100",
+    "PSI-98",
+    "PSI-99"
+   ],
+   "gaps": [
+    "thin_evidence"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "neg-lunar",
+   "type": "negative",
+   "question": "How fast does flame spread in a lunar habitat at one sixth gravity?",
+   "passed": true,
+   "checks": {
+    "gap_detected": true,
+    "gap_severity": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-102",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-25",
+    "PSI-26"
+   ],
+   "gaps": [
+    "partial_gravity"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "neg-mars",
+   "type": "negative",
+   "question": "What is the burning rate of PMMA on Mars?",
+   "passed": true,
+   "checks": {
+    "gap_detected": true,
+    "gap_severity": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-20",
+    "PSI-25",
+    "PSI-26"
+   ],
+   "gaps": [
+    "partial_gravity"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "neg-partial-g",
+   "type": "negative",
+   "question": "Show me partial gravity combustion measurements.",
+   "passed": true,
+   "checks": {
+    "gap_detected": true,
+    "gap_severity": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-102",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-26",
+    "PSI-39"
+   ],
+   "gaps": [
+    "partial_gravity"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "neg-micro-vs-mars",
+   "type": "negative",
+   "question": "Does microgravity flammability data apply to Mars habitats?",
+   "passed": true,
+   "checks": {
+    "gap_detected": true,
+    "gap_severity": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-26"
+   ],
+   "gaps": [
+    "partial_gravity"
+   ],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "decomp-two-part",
+   "type": "decomposition",
+   "question": "Which experiments burned solid fuels and what suppression agents worked?",
+   "passed": true,
+   "checks": {
+    "parts": true,
+    "parts_answered": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-102",
+    "PSI-107",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-25",
+    "PSI-26",
+    "PSI-69"
+   ],
+   "gaps": [],
+   "parts": 2,
+   "ledger_items": 10
+  },
+  {
+   "id": "decomp-semicolon",
+   "type": "decomposition",
+   "question": "What smoke particle sizes were measured; how were they detected?",
+   "passed": true,
+   "checks": {
+    "parts": true,
+    "parts_answered": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-101",
+    "PSI-102",
+    "PSI-47"
+   ],
+   "gaps": [],
+   "parts": 2,
+   "ledger_items": 10
+  },
+  {
+   "id": "dedup-acme",
+   "type": "dedup",
+   "question": "Give an overview of the ACME investigations.",
+   "passed": true,
+   "checks": {
+    "no_duplicate_text": true,
+    "retrieved_something": true
+   },
+   "notes": [],
+   "matched": [
+    "PSI-10",
+    "PSI-159",
+    "PSI-20",
+    "PSI-22",
+    "PSI-23",
+    "PSI-39"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  },
+  {
+   "id": "ground-numbers",
+   "type": "grounding",
+   "question": "What oxygen concentrations were used in BASS-II PMMA tests?",
+   "passed": true,
+   "checks": {
+    "recall_any": true,
+    "condition_rows_present": true,
+    "retrieved_something": true
+   },
+   "notes": [
+    "condition rows: 12, verbatim rate 0.1"
+   ],
+   "matched": [
+    "PSI-107",
+    "PSI-25",
+    "PSI-26",
+    "PSI-39",
+    "PSI-68",
+    "PSI-69"
+   ],
+   "gaps": [],
+   "parts": 1,
+   "ledger_items": 5
+  }
+ ]
+}

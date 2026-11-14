@@ -13,7 +13,7 @@ IDS = {  # accession -> short name
     "PSI-100": "Saffire-III", "PSI-102": "SAME", "PSI-101": "SAME-R", "PSI-69": "FLEX",
     "PSI-68": "FLEX-2", "PSI-39": "CFI", "PSI-159": "ACME CFI-G", "PSI-10": "ACME Flame Design",
     "PSI-20": "ACME BRE", "PSI-21": "ACME CLD", "PSI-22": "ACME E-FIELD", "PSI-23": "ACME s-Flame",
-    "PSI-107": "SPICE", "PSI-106": "SLICE",
+    "PSI-107": "SPICE", "PSI-106": "SLICE", "PSI-47": "DAFT",
     "PSI-117": "ground", "PSI-62": "ground", "PSI-60": "ground", "PSI-142": "ground", "PSI-115": "ground",
 }
 MAX_TABLE_MB = 50

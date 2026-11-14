@@ -1,0 +1,182 @@
+{
+ "about": "Gold evaluation set for the Flame-in-Freefall RAG layer. Layer 4 of the accuracy design.",
+ "method": "Expected investigations were derived by counting term occurrences across the built corpus (data/index/chunks.jsonl) and keeping the investigations that dominate each term, not by guessing. 'expect_any' means at least one must be retrieved; 'expect_all' means every one must be. Negative cases assert the system refuses or warns rather than answering.",
+ "built": "2026-11-14",
+ "cases": [
+  {
+   "id": "pos-pmma",
+   "question": "Which experiments burned PMMA samples?",
+   "type": "recall",
+   "expect_all": ["PSI-25", "PSI-26"],
+   "note": "244 PMMA chunks; BASS-II (122) and BASS (75) dominate."
+  },
+  {
+   "id": "pos-cotton",
+   "question": "What is known about cotton fabric flammability in microgravity?",
+   "type": "recall",
+   "expect_any": ["PSI-26", "PSI-25"],
+   "note": "BASS tested cotton-fiberglass blends."
+  },
+  {
+   "id": "pos-sibal",
+   "question": "Which investigations used SIBAL fabric samples?",
+   "type": "recall",
+   "expect_any": ["PSI-25", "PSI-26"],
+   "note": "55 SIBAL chunks, split between BASS-II and BASS."
+  },
+  {
+   "id": "pos-nomex",
+   "question": "Was Nomex tested for flammability?",
+   "type": "recall",
+   "expect_any": ["PSI-26", "PSI-25"]
+  },
+  {
+   "id": "pos-smoke-size",
+   "question": "What smoke particle sizes were measured in microgravity?",
+   "type": "recall",
+   "expect_all": ["PSI-102", "PSI-101"],
+   "note": "SAME (22) and SAME-R (18) hold essentially all of this."
+  },
+  {
+   "id": "pos-smoke-detector",
+   "question": "How do spacecraft smoke detectors respond in microgravity?",
+   "type": "recall",
+   "expect_any": ["PSI-102", "PSI-101", "PSI-47"]
+  },
+  {
+   "id": "pos-obscuration",
+   "question": "What obscuration measurements exist for microgravity smoke?",
+   "type": "recall",
+   "expect_any": ["PSI-102"],
+   "note": "Only 9 chunks corpus-wide; a hard recall case."
+  },
+  {
+   "id": "pos-daft",
+   "question": "What did the dust and aerosol measurement feasibility test find?",
+   "type": "recall",
+   "expect_any": ["PSI-47"]
+  },
+  {
+   "id": "pos-suppression",
+   "question": "Which fire suppression agents were tested on burning droplets?",
+   "type": "recall",
+   "expect_any": ["PSI-69", "PSI-68"],
+   "note": "FLEX test plan carries the suppressant efficacy table."
+  },
+  {
+   "id": "pos-heptane",
+   "question": "Which experiments burned n-heptane droplets?",
+   "type": "recall",
+   "expect_any": ["PSI-117", "PSI-39", "PSI-68", "PSI-69"]
+  },
+  {
+   "id": "pos-methanol",
+   "question": "What was observed burning methanol droplets?",
+   "type": "recall",
+   "expect_any": ["PSI-69", "PSI-117", "PSI-68"]
+  },
+  {
+   "id": "pos-coolflame",
+   "question": "What are cool flames and which investigations studied them?",
+   "type": "recall",
+   "expect_any": ["PSI-39", "PSI-117", "PSI-159"]
+  },
+  {
+   "id": "pos-efield",
+   "question": "How do electric fields affect laminar diffusion flames?",
+   "type": "recall",
+   "expect_any": ["PSI-22"],
+   "note": "359 of 470 electric-field chunks are ACME E-FIELD."
+  },
+  {
+   "id": "pos-liftoff",
+   "question": "What is known about flame liftoff in reduced gravity?",
+   "type": "recall",
+   "expect_any": ["PSI-22", "PSI-20", "PSI-10"],
+   "note": "SLICE (PSI-106) is the natural owner but is excluded - no documents in PSI."
+  },
+  {
+   "id": "pos-bre",
+   "question": "What is the burning rate emulator and what does it measure?",
+   "type": "recall",
+   "expect_any": ["PSI-20"]
+  },
+  {
+   "id": "pos-soot",
+   "question": "What soot measurements were made on gaseous flames?",
+   "type": "recall",
+   "expect_any": ["PSI-10", "PSI-22", "PSI-20", "PSI-23"]
+  },
+  {
+   "id": "pos-smokepoint",
+   "question": "What did the smoke point in co-flow experiment investigate?",
+   "type": "recall",
+   "expect_any": ["PSI-107"]
+  },
+  {
+   "id": "pos-saffire",
+   "question": "What did the large-scale spacecraft fire experiments find?",
+   "type": "recall",
+   "expect_any": ["PSI-98", "PSI-99", "PSI-100"],
+   "expect_gap": ["thin_evidence"],
+   "note": "SAFFIRE must be retrievable AND must be flagged as thin evidence."
+  },
+  {
+   "id": "neg-lunar",
+   "question": "How fast does flame spread in a lunar habitat at one sixth gravity?",
+   "type": "negative",
+   "expect_gap": ["partial_gravity"],
+   "expect_gap_severity": "hard",
+   "note": "PSI has no partial-gravity data. Must warn, not answer."
+  },
+  {
+   "id": "neg-mars",
+   "question": "What is the burning rate of PMMA on Mars?",
+   "type": "negative",
+   "expect_gap": ["partial_gravity"],
+   "expect_gap_severity": "hard"
+  },
+  {
+   "id": "neg-partial-g",
+   "question": "Show me partial gravity combustion measurements.",
+   "type": "negative",
+   "expect_gap": ["partial_gravity"],
+   "expect_gap_severity": "hard"
+  },
+  {
+   "id": "neg-micro-vs-mars",
+   "question": "Does microgravity flammability data apply to Mars habitats?",
+   "type": "negative",
+   "expect_gap": ["partial_gravity"],
+   "expect_gap_severity": "soft",
+   "note": "Asks about the extrapolation itself, so a softer warning is correct."
+  },
+  {
+   "id": "decomp-two-part",
+   "question": "Which experiments burned solid fuels and what suppression agents worked?",
+   "type": "decomposition",
+   "expect_parts": 2,
+   "expect_all_parts_answered": true
+  },
+  {
+   "id": "decomp-semicolon",
+   "question": "What smoke particle sizes were measured; how were they detected?",
+   "type": "decomposition",
+   "expect_parts": 2,
+   "expect_all_parts_answered": true
+  },
+  {
+   "id": "dedup-acme",
+   "question": "Give an overview of the ACME investigations.",
+   "type": "dedup",
+   "note": "ACME documents are byte-identical across PSI-10/20/22/23. The ledger must contain no repeated source text."
+  },
+  {
+   "id": "ground-numbers",
+   "question": "What oxygen concentrations were used in BASS-II PMMA tests?",
+   "type": "grounding",
+   "expect_any": ["PSI-25"],
+   "note": "Any number surfaced must be traceable to a retrieved chunk or a condition row."
+  }
+ ]
+}

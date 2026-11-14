@@ -18,9 +18,9 @@ import model  # noqa: E402
 from gravity_bounds import baselines  # noqa: E402
 from microgravity import flammability as flam  # noqa: E402
 
-try:  # Ananya's RAG module; optional until it lands
+try:  # RAG layer; falls back to keyword search if the corpus is not built
     from rag import search as rag  # noqa: E402
-    HAVE_RAG = True
+    HAVE_RAG = rag.available()
 except Exception:
     HAVE_RAG = False
 
@@ -89,6 +89,29 @@ def consistency():
 
 def fmt_pct(x):
     return "n/a" if x is None or (isinstance(x, float) and math.isnan(x)) else f"{x:.0%}"
+
+
+# The RAG index loads 7,800 chunks plus an embedding model, so build it once
+# per session and cache every query.
+@st.cache_data(show_spinner=False)
+def rag_search(q, k=6):
+    return rag.search(q, k=k)
+
+
+@st.cache_data(show_spinner=False)
+def rag_ask(question, k=6):
+    return rag.ask(question, k=k)
+
+
+@st.cache_data(show_spinner=False)
+def rag_summary(investigation_id):
+    return rag.summarize(investigation_id)
+
+
+EVIDENCE_BADGE = {"rich": "b-gray", "moderate": "b-gray",
+                  "thin": "b-amber", "metadata_only": "b-red"}
+EVIDENCE_LABEL = {"rich": "rich evidence", "moderate": "moderate evidence",
+                  "thin": "thin evidence", "metadata_only": "metadata only"}
 
 
 def dark_layout(fig, height, right=20):
@@ -302,7 +325,7 @@ with tab_search:
                 '<i>droplet combustion</i> · <i>flame spread over fabric</i></span>',
                 unsafe_allow_html=True)
     if HAVE_RAG:
-        hits = rag.search(q, k=6)
+        hits = rag_search(q, 6)
     else:
         from sklearn.feature_extraction.text import TfidfVectorizer
         ids = list(meta)
@@ -334,9 +357,10 @@ with tab_search:
                 for k, lab in [("objective", "Objective"), ("researchImpacts", "Why it matters")]:
                     if s.get(k):
                         st.markdown(f"**{lab}.** {s[k][:1200]}")
-                if HAVE_RAG and hasattr(rag, "summarize"):
-                    if st.button("AI summary", key=f"sum-{hit['id']}"):
-                        st.json(rag.summarize(hit["id"]))
+                if HAVE_RAG:
+                    # Measured from the corpus, not generated: how much
+                    # analysable evidence PSI actually publishes for this study.
+                    st.json(rag_summary(hit["id"]))
     if not HAVE_RAG:
         st.caption("Keyword search over PSI study metadata. The AI search & Q&A module plugs "
                    "in here.")
@@ -344,9 +368,79 @@ with tab_search:
         st.divider()
         question = st.text_input("Ask a question about the PSI combustion studies")
         if question:
-            ans = rag.ask(question)
-            st.markdown(ans["answer"])
-            st.caption("Sources: " + ", ".join(ans.get("sources", [])))
+            with st.spinner("Retrieving and checking sources…"):
+                ans = rag_ask(question)
+            g = ans["grounding"]
+
+            if ans["answer"]:
+                st.markdown(ans["answer"])
+            elif g["verdict"] == "block":
+                st.warning("A draft answer was written but **blocked**: it contained numbers "
+                           "or citations that are not in the retrieved sources. The evidence "
+                           "below is unaffected — read it directly.")
+            else:
+                st.info("No language model reachable, so there is no written summary. "
+                        "The evidence below is the answer.")
+
+            if g["numbers_checked"] or g["verdict"] != "skipped":
+                st.caption(
+                    f"Grounding: **{g['verdict']}** · "
+                    f"{g['numbers_verbatim']}/{g['numbers_checked']} numbers verbatim in "
+                    f"sources · {len(g['invalid_citations'])} invalid citations"
+                    + (f" · {g['backend']}:{g['model']}" if g.get("model") else ""))
+            st.caption("Sources: " + (", ".join(ans.get("sources", [])) or "none"))
+
+            # What NASA's data cannot support. Measured from the corpus, not written by hand.
+            for gap in ans["gaps"]:
+                msg = gap["message"]
+                if gap["severity"] == "hard":
+                    st.error(f"**Evidence gap.** {msg}")
+                elif gap["severity"] == "soft":
+                    st.warning(msg)
+                else:
+                    st.caption(msg)
+
+            # Measured conditions come from PSI's own CSVs, never from the model.
+            if ans["conditions"]:
+                rows = []
+                for c in ans["conditions"]:
+                    row = {"Investigation": c["acronym"] or c["accession"]}
+                    row.update({k.title(): v["value"] for k, v in c["conditions"].items()})
+                    row["Source"] = f"{c['file']} row {c['row']}"
+                    rows.append(row)
+                st.markdown(f"**Tested conditions** <span class='small'>"
+                            f"({ans['conditions_available']} rows available in PSI's "
+                            f"experimental tables)</span>", unsafe_allow_html=True)
+                st.dataframe(pd.DataFrame(rows), width="stretch", hide_index=True)
+
+            comp = ans["completeness"]
+            st.markdown("**Evidence ledger**")
+            st.markdown(
+                f"<span class='small'>Searched {comp['chunks_searched']:,} passages across "
+                f"{comp['investigations_searched']}/19 investigations. Matched: "
+                f"{', '.join(comp['matched'])}."
+                + (f" Considered but below threshold: "
+                   f"{', '.join(comp['considered_below_threshold'])}."
+                   if comp["considered_below_threshold"] else "")
+                + "</span>", unsafe_allow_html=True)
+
+            for e in ans["evidence"]:
+                with st.container(border=True):
+                    c1, c2 = st.columns([5, 1])
+                    name = e["acronym"] or e["investigation"]
+                    about = (f" · text is about {e['about']}"
+                             if e.get("about") and e["about"] != name else "")
+                    where = e["file"] + (f" p.{e['page']}" if e.get("page") else "")
+                    lvl = e["evidence_level"]
+                    c1.markdown(
+                        f"**{name}** <span class='badge {EVIDENCE_BADGE.get(lvl, 'b-gray')}'>"
+                        f"{EVIDENCE_LABEL.get(lvl, lvl)}</span>  \n"
+                        f"<span class='small'>{e['kind']} · {where}{about}</span>",
+                        unsafe_allow_html=True)
+                    if e.get("doi"):
+                        c2.link_button("DOI ↗", f"https://doi.org/{e['doi']}")
+                    st.markdown(f"<span class='small'>“{' '.join(e['text'].split())[:420]}…”"
+                                "</span>", unsafe_allow_html=True)
 
 # ---------------- 4. method & sources ----------------
 with tab_about:
