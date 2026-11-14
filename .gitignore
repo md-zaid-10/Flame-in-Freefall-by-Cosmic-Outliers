@@ -42,3 +42,5 @@ htmlcov/
 # Secrets and credentials
 *.pem
 *.key
+# Large raw PSI downloads (re-fetch with data/fetch_psi.py)
+data/raw/investigations/
