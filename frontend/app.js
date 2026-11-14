@@ -12,6 +12,7 @@
   const scrim = document.querySelector(".scrim");
   const PRESETS = D.presets;
   const byId = Object.fromEntries(PRESETS.map((p) => [p.id, p]));
+  const EXAMPLES = new Map((D.examples || []).map((e) => [e.question.toLowerCase().replace(/[?.!\s]+$/, ""), e]));
   // One-click scenario titles (UI copy only; the answers come from the cache).
   const SCENARIO = {
     smoke: { title: "Spacecraft smoke alarms", tag: "Detection" },
@@ -285,6 +286,10 @@
               <span class="sc-title">${esc(SCENARIO[p.id]?.title || p.question)}</span>
               <span class="sc-q">${esc(p.question)}</span>
             </button>`).join("")}</div>
+          ${D.examples?.length ? `<details class="more-q"${current?.ans && !current.preset ? " open" : ""}>
+            <summary>More questions to try (${D.examples.length})</summary>
+            <div>${D.examples.map((e) => `<button class="ex-q${current?.question === e.question ? " on" : ""}" data-example="${esc(e.question)}">${esc(e.question)}</button>`).join("")}</div>
+          </details>` : ""}
         </aside>
         <div class="results" id="results">${resultView()}</div>
       </div>
@@ -380,7 +385,7 @@
       <li><b>Verification.</b> Every number must appear verbatim in a source and every citation must name a retrieved investigation, or the summary is blocked.</li>
       <li><b>Gap radar.</b> Partial-gravity questions trigger a hard “no data” response; thin coverage is flagged.</li>
       <li><b>Flame model.</b> Empirical burn envelope from BASS-II acrylic-rod runs with Jeffreys intervals.</li>
-    </ol><p class="small muted" style="margin:10px 0 0">${LIVE ? "Live answers on." : "Live answers off: run venv/bin/python frontend/serve.py."} Data cache built ${esc(D.built)}.</p></div>`;
+    </ol><p class="small muted" style="margin:10px 0 0">${LIVE ? "Live answers on." : "Live answers off in this copy: only pre-computed questions are answered (start frontend/serve.py with Ollama for live answers)."} Data cache built ${esc(D.built)}.</p></div>`;
   }
 
   function drawerContent() {
@@ -692,8 +697,15 @@
     const p = PRESETS.find((x) => x.question.toLowerCase() === q.toLowerCase());
     if (p) return setHash(p.id);
     if (location.hash && location.hash !== "#home") history.replaceState(null, "", "#home");
+    // Questions answered at build time work everywhere, including the public
+    // static site, with no AI server.
+    const ex = EXAMPLES.get(q.toLowerCase().replace(/[?.!\s]+$/, ""));
+    if (ex && !live[q]) {
+      current = { question: ex.question, ans: ex.ask, preset: null };
+      return renderResults();
+    }
     if (!LIVE) {
-      current = { question: q, error: "This copy only has the prepared scenarios. Pick one on the left, or run frontend/serve.py for live answers." };
+      current = { question: q, error: "This public version answers the scenarios and the example questions on the left. Answers to new questions come from an AI model that runs on the team's own computer, so they aren't available here." };
       return renderResults();
     }
     current = { question: q, loading: true };
@@ -714,9 +726,15 @@
 
   // ---------- events ----------
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-preset],[data-goto],[data-drawer],[data-close],[data-habitat]");
+    const t = e.target.closest("[data-preset],[data-goto],[data-drawer],[data-close],[data-habitat],[data-example]");
     if (!t) return;
-    if (t.dataset.habitat) { habitat = t.dataset.habitat; render(); }
+    if (t.dataset.example) {
+      const box = document.getElementById("q");
+      if (box) box.value = t.dataset.example;
+      app.querySelectorAll(".ex-q").forEach((b) => b.classList.toggle("on", b === t));
+      ask(t.dataset.example);
+    }
+    else if (t.dataset.habitat) { habitat = t.dataset.habitat; render(); }
     else if (t.dataset.preset) setHash(t.dataset.preset);
     else if (t.dataset.goto) setHash(t.dataset.goto);
     else if (t.hasAttribute("data-drawer")) openDrawer(drawer.hidden);
