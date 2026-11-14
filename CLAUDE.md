@@ -32,13 +32,13 @@ Key facts from the challenge page:
   No NASA logos in AI-generated content. The AI must not come up with the solution idea itself.
 - PSI is the core data source. Other public sources are OK as cited supplements.
 
-## Team and ownership (work in parallel, separate folders)
+## Team and ownership (3 people: Zaid, Ananya, Jaisheel; work in parallel, separate folders)
 | Person | Area | Folder |
 |---|---|---|
 | Zaid | ML: microgravity flammability model, labels, uncertainty, `predict()` | `ml/microgravity/`, `ml/model.py` |
-| ML teammate | Flow-string parser, material-name normalization, 1 g published baseline, Moon bound, LLM-vs-hand-label validation script | `ml/gravity_bounds/`, parser in `ml/` |
+| Jaisheel | Flow-string parser, material-name normalization, 1 g published baseline, Moon bound, LLM-vs-hand-label validation script | `ml/gravity_bounds/`, parser in `ml/` |
 | Ananya | RAG/LLM: search, ranking, summaries, Q&A, LLM label extraction | `rag/` |
-| (3rd member, if separate) | Streamlit dashboard, project page, slides | `app.py`, `pages/`, `docs/` |
+| Unassigned (decide as a team) | Streamlit dashboard, project page, slides | `app.py`, `pages/`, `docs/` |
 
 Rules: don't edit another person's folder; changing an interface needs team agreement; commit small and often.
 Integration point: **Sunday ~14:00**; feature freeze ~18:00.
