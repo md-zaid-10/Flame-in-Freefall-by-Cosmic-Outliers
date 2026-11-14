@@ -131,6 +131,113 @@ def method_block():
     }
 
 
+# ---------------- research map ----------------
+# Grouping by subject (what each study investigated, from its PSI title and
+# objective), never by how much it published. Every corpus investigation must
+# appear exactly once; the build fails otherwise.
+CATEGORIES = [
+    {"id": "flammability", "title": "Material flammability",
+     "blurb": "How cabin materials ignite, spread flame and go out.",
+     "ids": ["PSI-25", "PSI-26", "PSI-98", "PSI-99", "PSI-100"]},
+    {"id": "detection", "title": "Fire & smoke detection",
+     "blurb": "What smoke looks like in low gravity, so alarms can see it.",
+     "ids": ["PSI-102", "PSI-101", "PSI-47", "PSI-115"]},
+    {"id": "suppression", "title": "Suppression & extinction",
+     "blurb": "What puts flames out, and when they go out on their own.",
+     "ids": ["PSI-69", "PSI-68", "PSI-117"]},
+    {"id": "physics", "title": "Flame physics",
+     "blurb": "How flames, soot and fuel droplets behave without gravity.",
+     "ids": ["PSI-10", "PSI-20", "PSI-22", "PSI-23", "PSI-159", "PSI-39", "PSI-107"]},
+]
+
+# One ranking per habitat, from rag.search() (best-passage score, not volume).
+HABITATS = [
+    {"id": "all", "label": "All habitats",
+     "query": "fire safety for crewed spacecraft, space stations and surface habitats"},
+    {"id": "spacecraft", "label": "Spacecraft",
+     "query": "fire safety in a crewed spacecraft cabin: material flammability, smoke detection, fire suppression"},
+    {"id": "station", "label": "Space station",
+     "query": "fire safety on the International Space Station: flammability, smoke detection, extinguishing fires"},
+    {"id": "surface", "label": "Moon or Mars base",
+     "query": "fire safety for lunar and Martian surface habitats: oxygen-enriched atmosphere, reduced pressure, material flammability",
+     "note": "No PSI study ran at Moon or Mars gravity. These are the closest microgravity studies; their results may not carry over."},
+    {"id": "rover", "label": "Pressurized rover",
+     "query": "fire safety in a small pressurized crew vehicle cabin: enriched oxygen, low pressure, ventilation flow, material flammability",
+     "note": "PSI has no rover-specific study. These are the closest small-cabin fire studies."},
+]
+
+# Earth applications. Each quote must appear verbatim in the named source
+# (metadata field or corpus passage); the build fails otherwise.
+EARTH = [
+    {"title": "Smoke detectors for extreme places on Earth", "id": "PSI-102",
+     "quote": "The smoke detectors developed from the results of SAME can also be useful in other extreme environments on Earth, such as submarines or underwater laboratories.",
+     "from": "metadata:researchImpacts"},
+    {"title": "Fire models for detection and suppression on Earth", "id": "PSI-25",
+     "quote": "BASS-II results contribute to the combustion computational models used in the design of fire detection and suppression systems in microgravity and on Earth.",
+     "from": "metadata:objective"},
+    {"title": "Water-mist fire suppression", "id": "PSI-20",
+     "quote": "a space experiment that focused on measuring the extinguishing capability of water mist on a premixed flame propagating along a tube to gain a better understanding of the water mist fire suppression phenomenon",
+     "from": "corpus", "context": "Cited in NASA's ISS researchers' guide to combustion. The challenge statement notes that fine-water-mist extinguishers developed for the ISS have practical uses on Earth."},
+    {"title": "Firefighter gear", "id": None, "quote": None, "from": None,
+     "context": "The challenge statement notes that NASA technology improved firefighter protective clothing and air tanks. None of the PSI combustion studies covers this, so FlameScope has no NASA data to show here."},
+]
+
+
+def _first_sentence(text, max_len=260):
+    t = " ".join((text or "").split())
+    if not t:
+        return ""
+    # Skip fragments like "The objectives are: A." by requiring 60+ characters.
+    end = t.find(". ", 60)
+    if 0 < end < max_len:
+        return t[:end + 1]
+    return t if len(t) <= max_len else t[:max_len].rsplit(" ", 1)[0] + "…"
+
+
+def research_block():
+    stats = json.load(open(os.path.join(ROOT, "data", "rag", "corpus_stats.json")))
+    meta = json.load(open(os.path.join(ROOT, "data", "metadata.json"), encoding="utf-8"))
+    corpus_ids = set(stats["evidence_depth"])
+    listed = [i for c in CATEGORIES for i in c["ids"]]
+    if sorted(listed) != sorted(corpus_ids) or len(listed) != len(set(listed)):
+        raise SystemExit(f"research categories must list each corpus investigation once: "
+                         f"missing {sorted(corpus_ids - set(listed))}, extra {sorted(set(listed) - corpus_ids)}")
+
+    studies = {}
+    for acc in listed:
+        m, dep = meta.get(acc, {}), stats["evidence_depth"][acc]
+        studies[acc] = {
+            "id": acc, "acronym": dep.get("acronym") or m.get("investigationAcronym") or "",
+            "title": m.get("title") or acc, "doi": m.get("doi") or "",
+            "evidence_level": dep.get("evidence_level"),
+            "objective": _first_sentence(m.get("objective")),
+            "impact": _first_sentence(m.get("researchImpacts")),
+        }
+
+    rankings = {}
+    for h in HABITATS:
+        hits = rag.search(h["query"], k=len(listed))
+        rankings[h["id"]] = [{"id": x["id"], "score": x["score"]} for x in hits if x["id"] in studies]
+
+    chunks = [json.loads(l)["text"] for l in open(os.path.join(ROOT, "data", "rag", "chunks.jsonl"), encoding="utf-8")]
+    norm = lambda s: " ".join((s or "").split())
+    earth = []
+    for e in EARTH:
+        if e["quote"]:
+            if e["from"].startswith("metadata:"):
+                src = norm(meta[e["id"]].get(e["from"].split(":")[1]))
+            else:
+                src = next((norm(t) for t in chunks if e["quote"] in norm(t)), "")
+            if e["quote"] not in src:
+                raise SystemExit(f"Earth quote not found verbatim for {e['id']}: {e['quote'][:60]}")
+        earth.append({k: e.get(k) for k in ("title", "id", "quote", "context")} |
+                     {"acronym": studies[e["id"]]["acronym"] if e["id"] else None,
+                      "doi": studies[e["id"]]["doi"] if e["id"] else None})
+
+    return {"categories": CATEGORIES, "habitats": HABITATS, "studies": studies,
+            "rankings": rankings, "earth": earth}
+
+
 def main():
     if not rag.available():
         raise SystemExit("RAG corpus not built (data/rag/chunks.jsonl missing).")
@@ -177,6 +284,7 @@ def main():
         "presets": presets,
         "map": map_block(),
         "method": method_block(),
+        "research": research_block(),
     }
     path = os.path.join(HERE, "data", "demo.js")
     with open(path, "w", encoding="utf-8") as fh:
