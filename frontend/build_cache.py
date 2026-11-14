@@ -34,6 +34,26 @@ PRESETS = [
 ]
 
 
+# Extra questions answered from the cache, so the public static site can answer
+# them without the AI server. Each must behave as expected at build time
+# ("answer": a checked AI answer and no Moon/Mars gap; "no_data": a Moon/Mars
+# gap) or it is left out.
+EXAMPLES = [
+    ("Why are smoke particles bigger in space?", "answer"),
+    ("What size droplets were burned in FLEX?", "answer"),
+    ("Is CO2 or helium better at putting out fires in space?", "answer"),
+    ("Which spacecraft materials did not burn on the ISS?", "answer"),
+    ("How do flames spread differently in microgravity?", "answer"),
+    ("What did the Saffire mission burn?", "answer"),
+    ("How do you put out a fire in space?", "answer"),
+    ("Would a fire on a Moon base behave like one on the ISS?", "no_data"),
+    ("Is a 30% oxygen atmosphere safe for a lunar habitat?", "no_data"),
+    ("Does fire spread faster on Mars?", "no_data"),
+    ("Does microgravity data apply to Mars habitats?", "no_data"),
+    ("What fire risks does a Moon mission face?", "no_data"),
+]
+
+
 def norm(s):
     return " ".join((s or "").split())
 
@@ -252,6 +272,7 @@ def main():
         prev = open(os.path.join(HERE, "data", "demo.js"), encoding="utf-8").read()
         prev = json.loads(prev[prev.index("=") + 1:].rstrip().rstrip(";"))
         kept = {p["question"]: p["ask"] for p in prev["presets"]}
+        kept |= {e["question"]: e["ask"] for e in prev.get("examples", [])}
 
     presets = []
     for p in PRESETS:
@@ -272,6 +293,24 @@ def main():
                 raise SystemExit(f"expected a hard partial-gravity gap for {p['question']!r}")
         presets.append(item)
 
+    examples = []
+    for q, expect in EXAMPLES:
+        ans, why = kept.get(q), "kept"
+        for attempt in range(3):          # answers vary run to run; retry a little
+            if ans is None:
+                print("asking:", q, flush=True)
+                ans = shape(rag.ask(q))
+            moon = any(g["kind"] == "partial_gravity" for g in ans["gaps"])
+            ok = moon if expect == "no_data" else (
+                not moon and bool(ans["answer"]) and ans["grounding"]["verdict"] == "pass")
+            if ok:
+                break
+            why, ans = f"attempt {attempt + 1} did not behave as expected", None
+        if ans is None:
+            print(f"  SKIPPED (did not behave as expected 3 times): {q}")
+            continue
+        examples.append({"question": q, "expect": expect, "ask": ans})
+
     out = {
         "built": datetime.datetime.now().isoformat(timespec="minutes"),
         "files": {k: files[k] for k in ("total", "investigations", "counted_on", "method")},
@@ -282,6 +321,7 @@ def main():
         # Moon base would sit.
         "moon_gap_points": round(ml["habitat"]["moon_base_o2_min"] - ml["o2_tested"][1], 1),
         "presets": presets,
+        "examples": examples,
         "map": map_block(),
         "method": method_block(),
         "research": research_block(),

@@ -380,3 +380,14 @@ code { background: var(--line); border-radius: 4px; padding: 0 5px; font-size: 1
 .rank-pill.dim { color: var(--muted); font-weight: 500; }
 .src.earth.nodata { border-style: dashed; }
 @media (max-width: 640px) { .top5 li { grid-template-columns: 30px 1fr; } .top5 .cat { display: none; } }
+
+/* ---------- more example questions ---------- */
+.more-q { border-top: 1px solid var(--line); padding-top: 10px; }
+.more-q summary { cursor: pointer; font: 600 12px var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); list-style: none; }
+.more-q summary::-webkit-details-marker { display: none; }
+.more-q summary::before { content: "▸ "; }
+.more-q[open] summary::before { content: "▾ "; }
+.more-q > div { display: grid; gap: 4px; margin-top: 8px; }
+.ex-q { text-align: left; background: none; border: 0; border-radius: 8px; padding: 6px 8px; font-size: 13px; color: var(--muted); }
+.ex-q:hover { color: var(--text); background: var(--bg2); }
+.ex-q.on { color: var(--text); background: rgba(255, 122, 61, .08); }
