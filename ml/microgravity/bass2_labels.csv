@@ -29,7 +29,8 @@ B13,4,Bhattacharjee,pmma_film,,0.4,2.0,21.0,2.0,burn,medium,0,,intermediate step
 B13,5,Bhattacharjee,pmma_film,,0.4,2.0,21.0,1.0,burn,medium,0,[claude] fan list shows a further pot 0.35 step after pot 0.4 (1 cm/s); that step outcome not stated,no end marker,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
 B14,0,Bhattacharjee,pmma_film,,0.2,1.0,15.0,5.0,burn,medium,0,,intermediate step -> burn,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
 B14,1,Bhattacharjee,pmma_film,,0.2,1.0,15.0,3.0,burn,medium,0,,intermediate step -> burn,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
-B14,2,Bhattacharjee,pmma_film,,0.2,1.0,15.0,2.0,extinguish,medium,0,,text:N ext,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
+B14,2,Bhattacharjee,pmma_film,,0.2,1.0,15.0,2.0,burn,medium,0,"[review] fan '0.5 and down' after 2 cm/s: flame alive at 2, ext below (blind 2nd pass)",text:N ext,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
+B14,3,Bhattacharjee,pmma_film,,0.2,1.0,15.0,0.5,extinguish,low,0,[review] ext below 2 cm/s after fan turned down; flow est. <1 cm/s,text:N ext,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
 B15,0,Bhattacharjee,pmma_film,,0.1,2.0,21.0,10.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.8,2 cm   0.1 mm PMMA film,1.4 (50) incr to 10.0 pot,10   max
 B16,0,Bhattacharjee,pmma_film,,0.1,2.0,17.3,3.0,burn,medium,0,[claude] moved on from 3 cm/s to pot 0.5 / pot 0.4; final step outcome not stated,no end marker,,17.2,2 cm 100 micron thick PMMA,44 (pot 0.68),3  0.5 pot   0.4 pot
 B16,1,Bhattacharjee,pmma_film,,0.1,2.0,17.3,1.5,burn,low,0,"[claude] added row: pot 0.5 step from raw_air, operators then went to pot 0.4 (pot 0.5)",,added_by_claude,17.2,2 cm 100 micron thick PMMA,44 (pot 0.68),3  0.5 pot   0.4 pot
