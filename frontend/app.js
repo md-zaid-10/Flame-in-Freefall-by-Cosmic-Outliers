@@ -18,7 +18,8 @@
     oxygen: { title: "How little oxygen can fire live on?", tag: "Flammability" },
     moon: { title: "Fire on a Moon base", tag: "Habitats" },
   };
-  const PAGES = new Set(["map", "method"]);
+  const PAGES = new Set(["research", "map", "method"]);
+  let habitat = "all";      // research map filter
   const INV = Object.fromEntries(D.method.investigations.map((r) => [r.id, r]));
   const live = {};          // question -> shaped ask() response from serve.py
   let LIVE = false;         // serve.py reachable?
@@ -196,12 +197,23 @@
   }
 
   function refusalResult(ans, where = "Moon gravity") {
+    // The two gravity levels that ARE measured for the same acrylic rods. We
+    // deliberately do not bracket the Moon value between them: flammability
+    // can behave differently (even peak) between 0 g and 1 g, as noted in
+    // ml/gravity_bounds/baselines.py.
+    const L = D.ml.limit, eb = D.ml.earth_bracket, moon = D.ml.habitat.moon_base_o2_min;
     return {
       status: "none",
       body: `<h2 class="refuse">NASA's archive has no fire data at <em>${esc(where)}</em>.</h2>
-        <p class="sub">Every space fire experiment in it ran in microgravity, on the ISS, Cygnus and the Shuttle. So FlameScope won't guess.</p>
-        ${oxygenScale()}
-        <p class="sub">A Moon base would also run <b>${D.moon_gap_points} points</b> more oxygen than any of NASA's BASS-II solid-material burns.</p>`,
+        <p class="sub">Every space fire experiment in it ran in microgravity, on the ISS, Cygnus and the Shuttle. So FlameScope won't guess a Moon value.</p>
+        <p class="eyebrow">What is measured, for the same acrylic rods</p>
+        <div class="tiles">
+          <div class="tile"><span>Flame limit in space (0 g)</span><b>${L.low}–${L.high}%</b></div>
+          <div class="tile"><span>Flame limit on Earth (1 g)</span><b>${eb.low}–${eb.high}%</b></div>
+          <div class="tile alert"><span>Planned Moon base</span><b>≥ ${moon}%</b></div>
+        </div>
+        <p class="sub">A ${moon}% base sits <b>${+(moon - eb.high).toFixed(1)} points</b> above even the Earth limit. Fire can behave differently between 0 g and 1 g, so the Moon value is unknown, but neither measured limit comes close to ${moon}%.</p>
+        ${oxygenScale()}`,
       cards: pickEvidence(ans, 2).map(evidenceCard),
       cardsLabel: "What NASA does have (microgravity only)",
     };
@@ -373,6 +385,7 @@
 
   function drawerContent() {
     if (current?.page === "map") return `<h1>Flame map</h1>${envelopePanel()}${mlPanel()}`;
+    if (current?.page === "research") return `<h1>Research map</h1>${rankingPanel()}`;
     if (current?.page === "method") return `<h1>How it works</h1>${pipelinePanel()}`;
     if (current?.ans) {
       const { question, ans, preset: p } = current;
@@ -390,6 +403,75 @@
     document.querySelector("[data-drawer]").setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("drawer-open", open);
     if (open) { drawerBody.innerHTML = drawerContent(); drawerBody.scrollTop = 0; drawer.querySelector(".x").focus(); }
+  }
+
+  // ---------- research map ----------
+  // Rankings come from rag.search() per habitat (pre-computed); grouping is
+  // by subject. Card text is NASA's own objective / impact sentence.
+  function researchScreen() {
+    const R = D.research, H = R.habitats.find((h) => h.id === habitat);
+    const order = R.rankings[habitat] || [];
+    const rank = new Map(order.map((r, i) => [r.id, i + 1]));
+    const catOf = Object.fromEntries(R.categories.flatMap((c) => c.ids.map((id) => [id, c])));
+    const byRank = (a, b) => (rank.get(a) ?? 99) - (rank.get(b) ?? 99);
+    const name = (s) => s.acronym || s.id;
+
+    const top = order.slice(0, 5).map((r, i) => {
+      const s = R.studies[r.id], c = catOf[r.id];
+      return `<li><span class="rk">${i + 1}</span><span class="tn"><b>${esc(name(s))}</b> ${esc(s.title)}</span><span class="cat ${c.id}">${esc(c.title)}</span></li>`;
+    }).join("");
+
+    const studyCard = (s) => {
+      const r = rank.get(s.id), url = doiUrl(s.doi);
+      return `<article class="study${r && r <= 5 ? " hot" : ""}">
+        <div class="src-head"><span class="src-name">${esc(name(s))}</span>
+          ${r ? `<span class="rank-pill">#${r} for ${esc(H.label.toLowerCase())}</span>` : '<span class="rank-pill dim">no close match</span>'}</div>
+        <p class="src-title">${esc(s.title)}</p>
+        ${s.objective ? `<p class="lbl">Goal</p><blockquote class="src-quote">“${esc(s.objective)}”</blockquote>` : ""}
+        ${s.impact ? `<p class="lbl">Why it matters</p><blockquote class="src-quote">“${esc(s.impact)}”</blockquote>` : ""}
+        <div class="study-foot">${THIN.has(s.evidence_level) ? '<span class="pill amber">little published text</span>' : ""}
+          ${url ? `<a class="src-link" href="${url}" target="_blank" rel="noopener">Open NASA record ↗</a>` : ""}</div>
+      </article>`;
+    };
+
+    const sections = R.categories.map((c) => `
+      <section class="cat-sec">
+        <div class="cat-head"><h3 class="cat-title ${c.id}">${esc(c.title)}</h3><p>${esc(c.blurb)}</p></div>
+        <div class="study-grid">${[...c.ids].sort(byRank).map((id) => studyCard(R.studies[id])).join("")}</div>
+      </section>`).join("");
+
+    const earth = R.earth.map((e) => `
+      <article class="src earth${e.quote ? "" : " nodata"}">
+        <div class="src-head"><span class="src-name">${esc(e.title)}</span>${e.quote ? "" : '<span class="pill">No NASA data in PSI</span>'}</div>
+        ${e.quote ? `<blockquote class="src-quote">“${esc(e.quote)}”</blockquote><p class="src-meta">${esc(e.acronym || e.id)} · NASA's words</p>` : ""}
+        ${e.context ? `<p class="src-note">${esc(e.context)}</p>` : ""}
+        ${e.doi ? `<a class="src-link" href="${doiUrl(e.doi)}" target="_blank" rel="noopener">Open NASA record ↗</a>` : ""}
+      </article>`).join("");
+
+    return `<div class="page research">
+      <span class="eyebrow fire">Research map · ${Object.keys(R.studies).length} NASA investigations</span>
+      <h1>Which NASA studies matter for which habitat?</h1>
+      <p class="sub">Pick a crew habitat. Studies are ranked by how closely NASA's own documents match its fire-safety needs, and grouped by the job they do.</p>
+      <div class="hab-chips" role="tablist" aria-label="Habitat">${R.habitats.map((h) =>
+        `<button role="tab" aria-selected="${h.id === habitat}" data-habitat="${h.id}">${esc(h.label)}</button>`).join("")}</div>
+      ${H.note ? `<p class="caveat">⚠ ${esc(H.note)}</p>` : ""}
+      <div class="top5"><p class="eyebrow">Most relevant for ${esc(H.label.toLowerCase())}</p><ol>${top}</ol></div>
+      ${sections}
+      <section class="cat-sec">
+        <div class="cat-head"><h3 class="cat-title earth">Fire safety on Earth</h3><p>Where NASA's space fire research reaches back home.</p></div>
+        <div class="study-grid">${earth}</div>
+      </section>
+    </div>`;
+  }
+
+  function rankingPanel() {
+    const R = D.research;
+    return R.habitats.map((h) => `<div class="panel"><h2>${esc(h.label)}: rag.search() ranking</h2>
+      <p class="small muted" style="margin:0 0 8px">Query: “${esc(h.query)}”</p>
+      <table><thead><tr><th>#</th><th>Investigation</th><th>Score</th></tr></thead><tbody>
+      ${(R.rankings[h.id] || []).map((r, i) => `<tr><td>${i + 1}</td><td>${esc(R.studies[r.id].acronym || r.id)} <span class="muted">${esc(r.id)}</span></td><td>${r.score}</td></tr>`).join("")}
+      </tbody></table></div>`).join("") +
+      `<p class="small muted">Score: mean of an investigation's best three passage scores plus a small boost for PSI's research-area labels, so document volume does not decide rank. Grouping into the four categories is by subject, fixed in frontend/build_cache.py.</p>`;
   }
 
   // ---------- flame map ----------
@@ -555,6 +637,7 @@
     document.body.dataset.page = page;
     document.querySelectorAll(".nav [data-goto]").forEach((a) => a.toggleAttribute("aria-current", a.dataset.goto === page));
     if (page === "map") { app.innerHTML = mapScreen(); initMap(); }
+    else if (page === "research") app.innerHTML = researchScreen();
     else if (page === "method") app.innerHTML = methodScreen();
     else {
       app.innerHTML = workspace();
@@ -631,9 +714,10 @@
 
   // ---------- events ----------
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-preset],[data-goto],[data-drawer],[data-close]");
+    const t = e.target.closest("[data-preset],[data-goto],[data-drawer],[data-close],[data-habitat]");
     if (!t) return;
-    if (t.dataset.preset) setHash(t.dataset.preset);
+    if (t.dataset.habitat) { habitat = t.dataset.habitat; render(); }
+    else if (t.dataset.preset) setHash(t.dataset.preset);
     else if (t.dataset.goto) setHash(t.dataset.goto);
     else if (t.hasAttribute("data-drawer")) openDrawer(drawer.hidden);
     else if (t.hasAttribute("data-close")) openDrawer(false);

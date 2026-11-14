@@ -16,11 +16,12 @@ open frontend/index.html                 # prepared questions only, no server ne
 | `d` | open / close the “How it works” drawer (technical details) |
 | `Esc` / `h` | home |
 
-Screens can be linked directly: `#smoke`, `#oxygen`, `#moon`, `#map`, `#method`.
+Screens can be linked directly: `#smoke`, `#oxygen`, `#moon`, `#research`, `#map`, `#method`.
 
 The main screens use plain language only. Verification verdicts, file names, pages, the model name and search methods are in the **How it works** drawer (top right).
 
 - **Flame map**: the BASS-II acrylic-rod runs (oxygen vs airflow) with an oxygen/airflow control. The readout is `model.predict()` evaluated on every slider position at build time, so the browser never re-implements the model. The drawer shows the `model.envelope()` table.
+- **Research map**: all 19 investigations grouped by job (flammability, detection, suppression, flame physics) with NASA's own goal and impact sentences, a habitat filter (spacecraft, station, Moon/Mars base, pressurized rover) that re-ranks them using `rag.search()`, and a "Fire safety on Earth" section. Groupings, habitat queries and Earth quotes are in `build_cache.py`; the build fails if a quote is not verbatim in its source or a study is missing.
 - **Method**: method, limitations, all searched investigations with DOIs, references and the AI-use disclosure.
 
 ## Where every number comes from
