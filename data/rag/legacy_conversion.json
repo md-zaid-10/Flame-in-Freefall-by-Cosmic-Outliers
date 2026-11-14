@@ -1,0 +1,80 @@
+﻿[
+    {
+        "source":  "PSI-102_Presentations_Detection of Smoke from Microgravity Fires_paper.2005.doc",
+        "dest":  "PSI-102_Presentations_Detection of Smoke from Microgravity Fires_paper.2005.docx",
+        "bytes":  1498868,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-107_Science Documents_SPICE_SRD.doc",
+        "dest":  "PSI-107_Science Documents_SPICE_SRD.docx",
+        "bytes":  1079503,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-47_Reports_DAFT_1YearReport.doc",
+        "dest":  "PSI-47_Reports_DAFT_1YearReport.docx",
+        "bytes":  3496971,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-47_Reports_DAFT_FinalReport.doc",
+        "dest":  "PSI-47_Reports_DAFT_FinalReport.docx",
+        "bytes":  7395004,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-101_Presentations_Detection of Smoke from Microgravity Fires.ppt",
+        "dest":  "PSI-101_Presentations_Detection of Smoke from Microgravity Fires.pptx",
+        "bytes":  8168955,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-101_Presentations_SAME_Measurement of Smoke Particle Size under Low-Gravity Conditions.ppt",
+        "dest":  "PSI-101_Presentations_SAME_Measurement of Smoke Particle Size under Low-Gravity Conditions.pptx",
+        "bytes":  7556270,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-102_Presentations_Detection of Smoke from Microgravity Fires.2005.ppt",
+        "dest":  "PSI-102_Presentations_Detection of Smoke from Microgravity Fires.2005.pptx",
+        "bytes":  8168970,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-102_Presentations_MeasurementofSmokeParticleSizeUnderLowGravityConditions.ppt",
+        "dest":  "PSI-102_Presentations_MeasurementofSmokeParticleSizeUnderLowGravityConditions.pptx",
+        "bytes":  7556246,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-102_Presentations_SAME_EarlyResults.ppt",
+        "dest":  "PSI-102_Presentations_SAME_EarlyResults.pptx",
+        "bytes":  25999989,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-107_Presentations_SPICE Overview.ppt",
+        "dest":  "PSI-107_Presentations_SPICE Overview.pptx",
+        "bytes":  25195256,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-107_Presentations_SPICE-1 Ops Overview and Smoke Point Cue Card.ppt",
+        "dest":  "PSI-107_Presentations_SPICE-1 Ops Overview and Smoke Point Cue Card.pptx",
+        "bytes":  3984055,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-47_Presentations_DAFT_Increment13SciSymposium_2006.ppt",
+        "dest":  "PSI-47_Presentations_DAFT_Increment13SciSymposium_2006.pptx",
+        "bytes":  5796185,
+        "status":  "ok"
+    },
+    {
+        "source":  "PSI-47_Presentations_SmokeDetectionfromMicrogravityFires.ppt",
+        "dest":  "PSI-47_Presentations_SmokeDetectionfromMicrogravityFires.pptx",
+        "bytes":  8168953,
+        "status":  "ok"
+    }
+]

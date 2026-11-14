@@ -16,4 +16,15 @@ streamlit>=1.30
 # Notebooks
 ipykernel>=6.25
 
-# RAG / LLM (Ananya: add your packages below)
+# RAG / LLM (retrieval + grounded answers; see rag/README.md)
+pypdf>=6.0              # PDF text extraction
+pdfplumber>=0.11        # fallback PDF layout extraction
+python-docx>=1.1        # .docx science documents
+python-pptx>=0.6        # .pptx presentations
+openpyxl>=3.1           # .xlsx test matrices
+rank-bm25>=0.2.2        # lexical retrieval (exact technical terms)
+sentence-transformers>=3.0   # semantic retrieval (all-MiniLM-L6-v2)
+
+# The answer layer runs on a local Ollama model by default - no API key needed.
+# Optional, only if FIF_LLM=anthropic:
+# anthropic>=0.40
