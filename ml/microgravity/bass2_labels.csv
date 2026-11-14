@@ -1,100 +1,103 @@
 run_id,step,pi,material,color,thickness_mm,width_cm,o2_pct,flow_cm_s,outcome,confidence,needs_review,notes,auto_rule,flags,o2_final_pct,raw_material,raw_fan,raw_air
-B1,0,Bhattacharjee,pmma_film,,0.1,2.0,22.2,5.0,,low,1,,no end marker,,22.2,100 micron PMMA film   2 cm wide,62,5
-B2,0,Bhattacharjee,pmma_film,,0.2,2.0,22.2,5.0,,low,1,,no end marker,,1.6,200 micron PMMA film   2 cm wide,62,5
-B3,0,Bhattacharjee,pmma_film,,0.1,2.0,22.2,2.0,,low,1,,no end marker,,21.8,100 micron film   2 cm wide,47,2
-B4,0,Bhattacharjee,pmma_film,,0.3,2.0,22.2,5.0,,low,1,,no end marker,,22.2,300 micron PMMA film   2 cm wide ,61,5
-B5,0,Bhattacharjee,pmma_film,,0.2,2.0,22.2,5.0,,low,1,,no end marker,,21.9,200 micron  2 cm wide ,59,5
+B1,0,Bhattacharjee,pmma_film,,0.1,2.0,22.2,5.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,22.2,100 micron PMMA film   2 cm wide,62,5
+B2,0,Bhattacharjee,pmma_film,,0.2,2.0,22.2,5.0,unknown,low,0,"[claude] single step, no end state; final O2 1.6% looks like a sensor/entry error",no end marker,,1.6,200 micron PMMA film   2 cm wide,62,5
+B3,0,Bhattacharjee,pmma_film,,0.1,2.0,22.2,2.0,unknown,low,0,"[claude] single step, no end state",no end marker,,21.8,100 micron film   2 cm wide,47,2
+B4,0,Bhattacharjee,pmma_film,,0.3,2.0,22.2,5.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,22.2,300 micron PMMA film   2 cm wide ,61,5
+B5,0,Bhattacharjee,pmma_film,,0.2,2.0,22.2,5.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,21.9,200 micron  2 cm wide ,59,5
 B6,0,Bhattacharjee,pmma_film,,0.1,2.0,21.0,3.0,burn,medium,0,,intermediate step -> burn,,20.9,2 cm 0.1 mm PMMA film,0.9   1.3   2.75,3   5   approaching 10
 B6,1,Bhattacharjee,pmma_film,,0.1,2.0,21.0,5.0,burn,medium,0,,intermediate step -> burn,,20.9,2 cm 0.1 mm PMMA film,0.9   1.3   2.75,3   5   approaching 10
-B6,2,Bhattacharjee,pmma_film,,0.1,2.0,21.0,10.0,,low,1,,no end marker,,20.9,2 cm 0.1 mm PMMA film,0.9   1.3   2.75,3   5   approaching 10
-B7,0,Bhattacharjee,pmma_film,,0.4,2.0,22.2,2.0,,low,1,,no end marker,,22.1,400 micron film   2 cm wide,47,2
-B8,0,Bhattacharjee,pmma_film,,0.2,2.0,21.0,10.0,,low,1,,no end marker,,20.5,2 cm   0.2 mm PMMA film,1.4    incr to 10.0,10   max
-B9,0,Bhattacharjee,pmma_film,,0.1,2.0,21.0,2.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,20.9,2 cm   0.1 mm PMMA film,0.6   0.35,2   <1
-B9,1,Bhattacharjee,pmma_film,,0.1,2.0,21.0,0.5,,low,1,,no end marker,lt1_as_0.5,20.9,2 cm   0.1 mm PMMA film,0.6   0.35,2   <1
+B6,2,Bhattacharjee,pmma_film,,0.1,2.0,21.0,10.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.9,2 cm 0.1 mm PMMA film,0.9   1.3   2.75,3   5   approaching 10
+B7,0,Bhattacharjee,pmma_film,,0.4,2.0,22.2,2.0,unknown,low,0,"[claude] single step, no end state",no end marker,,22.1,400 micron film   2 cm wide,47,2
+B8,0,Bhattacharjee,pmma_film,,0.2,2.0,21.0,10.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.5,2 cm   0.2 mm PMMA film,1.4    incr to 10.0,10   max
+B9,0,Bhattacharjee,pmma_film,,0.1,2.0,21.0,2.0,burn,medium,0,[claude] moved on from 2 to <1 cm/s -> burn,intermediate step -> burn,lt1_as_0.5,20.9,2 cm   0.1 mm PMMA film,0.6   0.35,2   <1
+B9,1,Bhattacharjee,pmma_film,,0.1,2.0,21.0,0.5,unknown,low,0,"[claude] last step (<1 cm/s), no end state",no end marker,lt1_as_0.5,20.9,2 cm   0.1 mm PMMA film,0.6   0.35,2   <1
 B10,0,Bhattacharjee,pmma_film,,0.2,1.0,21.0,5.0,burn,medium,0,,intermediate step -> burn,,20.8,1 cm   0.2 mm PMMA film,1.7 (52)   1.25   0.9   0.6   0.4   0.35,5  4  3  2  1
 B10,1,Bhattacharjee,pmma_film,,0.2,1.0,21.0,4.0,burn,medium,0,,intermediate step -> burn,,20.8,1 cm   0.2 mm PMMA film,1.7 (52)   1.25   0.9   0.6   0.4   0.35,5  4  3  2  1
 B10,2,Bhattacharjee,pmma_film,,0.2,1.0,21.0,3.0,burn,medium,0,,intermediate step -> burn,,20.8,1 cm   0.2 mm PMMA film,1.7 (52)   1.25   0.9   0.6   0.4   0.35,5  4  3  2  1
 B10,3,Bhattacharjee,pmma_film,,0.2,1.0,21.0,2.0,burn,medium,0,,intermediate step -> burn,,20.8,1 cm   0.2 mm PMMA film,1.7 (52)   1.25   0.9   0.6   0.4   0.35,5  4  3  2  1
-B10,4,Bhattacharjee,pmma_film,,0.2,1.0,21.0,1.0,,low,1,,no end marker,,20.8,1 cm   0.2 mm PMMA film,1.7 (52)   1.25   0.9   0.6   0.4   0.35,5  4  3  2  1
-B11,0,Bhattacharjee,pmma_film,,0.2,2.0,21.0,5.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
-B11,1,Bhattacharjee,pmma_film,,0.2,2.0,21.0,3.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
-B11,2,Bhattacharjee,pmma_film,,0.2,2.0,21.0,1.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
-B11,3,Bhattacharjee,pmma_film,,0.2,2.0,21.0,0.5,,low,1,,no end marker,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
-B12,0,Bhattacharjee,pmma_film,,0.3,2.0,22.2,2.0,,low,1,,no end marker,,22.1,300 micron film   2 cm wide,46.5,2
+B10,4,Bhattacharjee,pmma_film,,0.2,1.0,21.0,1.0,burn,medium,0,[claude] fan list shows a further pot 0.35 step after pot 0.4 (1 cm/s); that step outcome not stated,no end marker,,20.8,1 cm   0.2 mm PMMA film,1.7 (52)   1.25   0.9   0.6   0.4   0.35,5  4  3  2  1
+B11,0,Bhattacharjee,pmma_film,,0.2,2.0,21.0,5.0,burn,medium,0,[claude] operators moved on to next flow -> burn,intermediate step -> burn,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
+B11,1,Bhattacharjee,pmma_film,,0.2,2.0,21.0,3.0,burn,medium,0,[claude] operators moved on to next flow -> burn,intermediate step -> burn,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
+B11,2,Bhattacharjee,pmma_film,,0.2,2.0,21.0,1.0,burn,medium,0,[claude] operators moved on to next flow -> burn,intermediate step -> burn,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
+B11,3,Bhattacharjee,pmma_film,,0.2,2.0,21.0,0.5,unknown,low,0,"[claude] last step (<1 cm/s), no end state",no end marker,lt1_as_0.5,20.7,2 cm   0.2 mm PMMA film,2.5 (59)   1.3   0.7   0.5   0.35,5   3   1   <1
+B12,0,Bhattacharjee,pmma_film,,0.3,2.0,22.2,2.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,22.1,300 micron film   2 cm wide,46.5,2
 B13,0,Bhattacharjee,pmma_film,,0.4,2.0,21.0,10.0,burn,medium,0,,intermediate step -> burn,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
 B13,1,Bhattacharjee,pmma_film,,0.4,2.0,21.0,5.0,burn,medium,0,,intermediate step -> burn,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
 B13,2,Bhattacharjee,pmma_film,,0.4,2.0,21.0,4.0,burn,medium,0,,intermediate step -> burn,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
 B13,3,Bhattacharjee,pmma_film,,0.4,2.0,21.0,3.0,burn,medium,0,,intermediate step -> burn,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
 B13,4,Bhattacharjee,pmma_film,,0.4,2.0,21.0,2.0,burn,medium,0,,intermediate step -> burn,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
-B13,5,Bhattacharjee,pmma_film,,0.4,2.0,21.0,1.0,,low,1,,no end marker,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
+B13,5,Bhattacharjee,pmma_film,,0.4,2.0,21.0,1.0,burn,medium,0,[claude] fan list shows a further pot 0.35 step after pot 0.4 (1 cm/s); that step outcome not stated,no end marker,,20.5,2 cm   0.4 mm thick film,3.5 (68)    1.7   1.25   0.9   0.6   0.4   0.35,10   5  4  3  2  1
 B14,0,Bhattacharjee,pmma_film,,0.2,1.0,15.0,5.0,burn,medium,0,,intermediate step -> burn,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
 B14,1,Bhattacharjee,pmma_film,,0.2,1.0,15.0,3.0,burn,medium,0,,intermediate step -> burn,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
 B14,2,Bhattacharjee,pmma_film,,0.2,1.0,15.0,2.0,extinguish,medium,0,,text:N ext,,,1 cm wide 200 micron thick PMMA,pot 0.9   0.5 and down,5  3  2   ext
-B15,0,Bhattacharjee,pmma_film,,0.1,2.0,21.0,10.0,,low,1,,no end marker,,20.8,2 cm   0.1 mm PMMA film,1.4 (50) incr to 10.0 pot,10   max
-B16,0,Bhattacharjee,pmma_film,,0.1,2.0,17.3,3.0,,low,1,,no end marker,,17.2,2 cm 100 micron thick PMMA,44 (pot 0.68),3  0.5 pot   0.4 pot
+B15,0,Bhattacharjee,pmma_film,,0.1,2.0,21.0,10.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.8,2 cm   0.1 mm PMMA film,1.4 (50) incr to 10.0 pot,10   max
+B16,0,Bhattacharjee,pmma_film,,0.1,2.0,17.3,3.0,burn,medium,0,[claude] moved on from 3 cm/s to pot 0.5 / pot 0.4; final step outcome not stated,no end marker,,17.2,2 cm 100 micron thick PMMA,44 (pot 0.68),3  0.5 pot   0.4 pot
+B16,1,Bhattacharjee,pmma_film,,0.1,2.0,17.3,1.5,burn,low,0,"[claude] added row: pot 0.5 step from raw_air, operators then went to pot 0.4 (pot 0.5)",,added_by_claude,17.2,2 cm 100 micron thick PMMA,44 (pot 0.68),3  0.5 pot   0.4 pot
 B17,0,Bhattacharjee,pmma_film,,0.2,1.0,17.5,5.0,burn,medium,0,,intermediate step -> burn,,17.4,1 cm wide 200 micron thick PMMA,pot 1.2 (48)    0.9   0.4 ,5   3    pot 0.4
-B17,1,Bhattacharjee,pmma_film,,0.2,1.0,17.5,0.4,,low,1,,no end marker,,17.4,1 cm wide 200 micron thick PMMA,pot 1.2 (48)    0.9   0.4 ,5   3    pot 0.4
+B17,1,Bhattacharjee,pmma_film,,0.2,1.0,17.5,3.0,burn,medium,0,"[claude] added row: 3 cm/s step listed in raw_air, missing from auto rows",,added_by_claude,17.4,1 cm wide 200 micron thick PMMA,pot 1.2 (48)    0.9   0.4 ,5   3    pot 0.4
+B17,2,Bhattacharjee,pmma_film,,0.2,1.0,17.5,1.0,unknown,low,0,"[claude] auto row read ""pot 0.4"" as 0.4 cm/s; flow est. ~1 cm/s from pot; last step, no end state",no end marker,,17.4,1 cm wide 200 micron thick PMMA,pot 1.2 (48)    0.9   0.4 ,5   3    pot 0.4
 B18,0,Bhattacharjee,pmma_film,,0.2,1.0,17.4,10.0,blowoff,high,0,,text:blowoff,,17.4,1 cm wide 200 micron thick PMMA,pot 1.02 (47)   incr to 7.0,10   blowoff
 B19,0,Bhattacharjee,pmma_film,,0.1,2.0,17.3,10.0,blowoff,high,0,,text:blowoff,,17.2,2 cm 100 micron thick PMMA,47 (pot 1.05)   incr to pot 6.0,10   blowoff
 B20,0,Bhattacharjee,pmma_film,,0.1,2.0,17.4,5.0,burn,medium,0,,intermediate step -> burn,,17.4,2 cm 100 micron thick PMMA,48   pot 0.9   0.5,5   3      pot 0.5
-B20,1,Bhattacharjee,pmma_film,,0.1,2.0,17.4,0.5,,low,1,,no end marker,,17.4,2 cm 100 micron thick PMMA,48   pot 0.9   0.5,5   3      pot 0.5
+B20,1,Bhattacharjee,pmma_film,,0.1,2.0,17.4,3.0,burn,medium,0,"[claude] added row: 3 cm/s step listed in raw_air, missing from auto rows",,added_by_claude,17.4,2 cm 100 micron thick PMMA,48   pot 0.9   0.5,5   3      pot 0.5
+B20,2,Bhattacharjee,pmma_film,,0.1,2.0,17.4,1.5,unknown,low,0,"[claude] auto row read ""pot 0.5"" as 0.5 cm/s; flow est. ~1.5 cm/s from pot; last step, no end state",no end marker,,17.4,2 cm 100 micron thick PMMA,48   pot 0.9   0.5,5   3      pot 0.5
 B21,0,Bhattacharjee,pmma_film,,0.2,1.0,20.8,5.0,burn,medium,0,,last listed flow before ext,,20.6,1 cm wide 200 micron thick PMMA,53   and down,5 down to ext
-B21,1,Bhattacharjee,pmma_film,,0.2,1.0,20.8,,extinguish,low,1,,text:ext_below_last; flow unknown,,20.6,1 cm wide 200 micron thick PMMA,53   and down,5 down to ext
+B21,1,Bhattacharjee,pmma_film,,0.2,1.0,20.8,,extinguish,low,0,"[claude] '5 down to ext'; flow at extinction not recorded (fan display only), left empty",text:ext_below_last; flow unknown,,20.6,1 cm wide 200 micron thick PMMA,53   and down,5 down to ext
 B22,0,Bhattacharjee,pmma_film,,0.2,1.0,20.7,5.0,burn,medium,0,,intermediate step -> burn,,20.5,1 cm wide 200 micron thick PMMA,53   42   41   40.5,5   2   0
 B22,1,Bhattacharjee,pmma_film,,0.2,1.0,20.7,2.0,burn,medium,0,,intermediate step -> burn,,20.5,1 cm wide 200 micron thick PMMA,53   42   41   40.5,5   2   0
-B22,2,Bhattacharjee,pmma_film,,0.2,1.0,20.7,0.0,,low,1,,no end marker,,20.5,1 cm wide 200 micron thick PMMA,53   42   41   40.5,5   2   0
-F1,0,Ferkul,nomex,,,,22.2,9.5,,low,1,,no end marker,,22.2,Nomex natural (nomex III),82,9.5
-F2,0,Ferkul,nomex,,,,21.0,15.0,,low,1,,no end marker,,21.0,Nomex natural (nomex III),92,15
-F3,0,Ferkul,nomex,,,,21.7,8.0,,low,1,,no end marker,,,Nomex natural (nomex III),61,8
-F4,0,Ferkul,candle,,,,17.4,3.0,,low,1,,no end marker,,17.4,Japan Wax candle,see notes,3 ign
+B22,2,Bhattacharjee,pmma_film,,0.2,1.0,20.7,0.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.5,1 cm wide 200 micron thick PMMA,53   42   41   40.5,5   2   0
+F1,0,Ferkul,nomex,,,,22.2,9.5,unknown,low,0,"[claude] single step, no end state",no end marker,,22.2,Nomex natural (nomex III),82,9.5
+F2,0,Ferkul,nomex,,,,21.0,15.0,unknown,low,0,"[claude] single step, no end state",no end marker,,21.0,Nomex natural (nomex III),92,15
+F3,0,Ferkul,nomex,,,,21.7,8.0,unknown,low,0,"[claude] single step, no end state",no end marker,,,Nomex natural (nomex III),61,8
+F4,0,Ferkul,candle,,,,17.4,3.0,unknown,low,0,"[claude] candle; '3 ign' = ignited at 3 cm/s, end state not stated",no end marker,,17.4,Japan Wax candle,see notes,3 ign
 M1,0,Miller,pmma_slab,,1.0,2.0,22.2,10.0,burn,medium,0,,intermediate step -> burn,,21.9,1 mm thick PMMA   1 sided   2 cm,58   54,10  8
-M1,1,Miller,pmma_slab,,1.0,2.0,22.2,8.0,,low,1,,no end marker,,21.9,1 mm thick PMMA   1 sided   2 cm,58   54,10  8
+M1,1,Miller,pmma_slab,,1.0,2.0,22.2,8.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,21.9,1 mm thick PMMA   1 sided   2 cm,58   54,10  8
 M2,0,Miller,pmma_slab,,3.0,2.0,22.2,20.0,burn,medium,0,,intermediate step -> burn,,21.2,3 mm thick PMMA 1 sided    2 cm wide,116 (pot 9.3)    89   80   84,20  15  13   14
 M2,1,Miller,pmma_slab,,3.0,2.0,22.2,15.0,burn,medium,0,,intermediate step -> burn,,21.2,3 mm thick PMMA 1 sided    2 cm wide,116 (pot 9.3)    89   80   84,20  15  13   14
 M2,2,Miller,pmma_slab,,3.0,2.0,22.2,13.0,burn,medium,0,,intermediate step -> burn,,21.2,3 mm thick PMMA 1 sided    2 cm wide,116 (pot 9.3)    89   80   84,20  15  13   14
-M2,3,Miller,pmma_slab,,3.0,2.0,22.2,14.0,,low,1,,no end marker,,21.2,3 mm thick PMMA 1 sided    2 cm wide,116 (pot 9.3)    89   80   84,20  15  13   14
+M2,3,Miller,pmma_slab,,3.0,2.0,22.2,14.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,21.2,3 mm thick PMMA 1 sided    2 cm wide,116 (pot 9.3)    89   80   84,20  15  13   14
 M3,0,Miller,pmma_slab,,5.0,2.0,20.8,10.0,burn,medium,0,,intermediate step -> burn,,19.7,2 cm wide   5 mm thick 1 sided PMMA,3.0  3.1  3.2  6.4  5.5  5.4,10   20  18
 M3,1,Miller,pmma_slab,,5.0,2.0,20.8,20.0,burn,medium,0,,intermediate step -> burn,,19.7,2 cm wide   5 mm thick 1 sided PMMA,3.0  3.1  3.2  6.4  5.5  5.4,10   20  18
-M3,2,Miller,pmma_slab,,5.0,2.0,20.8,18.0,,low,1,,no end marker,,19.7,2 cm wide   5 mm thick 1 sided PMMA,3.0  3.1  3.2  6.4  5.5  5.4,10   20  18
+M3,2,Miller,pmma_slab,,5.0,2.0,20.8,18.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,19.7,2 cm wide   5 mm thick 1 sided PMMA,3.0  3.1  3.2  6.4  5.5  5.4,10   20  18
 M4,0,Miller,pmma_slab,,5.0,2.0,21.8,5.0,burn,medium,0,,intermediate step -> burn,,19.8,5 mm thick PMMA   2 cm wide,52   47   43,5   4   3
 M4,1,Miller,pmma_slab,,5.0,2.0,21.8,4.0,burn,medium,0,,intermediate step -> burn,,19.8,5 mm thick PMMA   2 cm wide,52   47   43,5   4   3
-M4,2,Miller,pmma_slab,,5.0,2.0,21.8,3.0,,low,1,,no end marker,,19.8,5 mm thick PMMA   2 cm wide,52   47   43,5   4   3
+M4,2,Miller,pmma_slab,,5.0,2.0,21.8,3.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,19.8,5 mm thick PMMA   2 cm wide,52   47   43,5   4   3
 M5,0,Miller,pmma_slab_2sided,,3.0,2.0,22.2,20.0,burn,medium,0,,intermediate step -> burn,,19.0,3 mm thick PMMA   2 sided   2 cm thick,,20  13  10  8  5
 M5,1,Miller,pmma_slab_2sided,,3.0,2.0,22.2,13.0,burn,medium,0,,intermediate step -> burn,,19.0,3 mm thick PMMA   2 sided   2 cm thick,,20  13  10  8  5
 M5,2,Miller,pmma_slab_2sided,,3.0,2.0,22.2,10.0,burn,medium,0,,intermediate step -> burn,,19.0,3 mm thick PMMA   2 sided   2 cm thick,,20  13  10  8  5
 M5,3,Miller,pmma_slab_2sided,,3.0,2.0,22.2,8.0,burn,medium,0,,intermediate step -> burn,,19.0,3 mm thick PMMA   2 sided   2 cm thick,,20  13  10  8  5
-M5,4,Miller,pmma_slab_2sided,,3.0,2.0,22.2,5.0,,low,1,,no end marker,,19.0,3 mm thick PMMA   2 sided   2 cm thick,,20  13  10  8  5
+M5,4,Miller,pmma_slab_2sided,,3.0,2.0,22.2,5.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,19.0,3 mm thick PMMA   2 sided   2 cm thick,,20  13  10  8  5
 M6,0,Miller,pmma_slab,,1.0,2.0,21.8,10.0,burn,medium,0,,intermediate step -> burn,,20.7,1 mm thick PMMA   2 cm wide,68   52   47   43   42   41,10   5   3   0
 M6,1,Miller,pmma_slab,,1.0,2.0,21.8,5.0,burn,medium,0,,intermediate step -> burn,,20.7,1 mm thick PMMA   2 cm wide,68   52   47   43   42   41,10   5   3   0
 M6,2,Miller,pmma_slab,,1.0,2.0,21.8,3.0,burn,medium,0,,intermediate step -> burn,,20.7,1 mm thick PMMA   2 cm wide,68   52   47   43   42   41,10   5   3   0
-M6,3,Miller,pmma_slab,,1.0,2.0,21.8,0.0,,low,1,,no end marker,,20.7,1 mm thick PMMA   2 cm wide,68   52   47   43   42   41,10   5   3   0
+M6,3,Miller,pmma_slab,,1.0,2.0,21.8,0.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.7,1 mm thick PMMA   2 cm wide,68   52   47   43   42   41,10   5   3   0
 M7,0,Miller,pmma_slab,,1.0,1.0,18.9,10.0,burn,medium,0,,intermediate step -> burn,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
 M7,1,Miller,pmma_slab,,1.0,1.0,18.9,6.0,burn,medium,0,,intermediate step -> burn,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
 M7,2,Miller,pmma_slab,,1.0,1.0,18.9,5.0,burn,medium,0,,intermediate step -> burn,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
 M7,3,Miller,pmma_slab,,1.0,1.0,18.9,4.5,burn,medium,0,,intermediate step -> burn,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
 M7,4,Miller,pmma_slab,,1.0,1.0,18.9,4.0,burn,medium,0,,intermediate step -> burn,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
-M7,5,Miller,pmma_slab,,1.0,1.0,18.9,3.0,,low,1,,no end marker,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
-M8,0,Miller,pmma_slab,,2.0,1.0,19.1,10.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
-M8,1,Miller,pmma_slab,,2.0,1.0,19.1,5.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
-M8,2,Miller,pmma_slab,,2.0,1.0,19.1,7.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
-M8,3,Miller,pmma_slab,,2.0,1.0,19.1,5.0,,low,1,,no end marker,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
+M7,5,Miller,pmma_slab,,1.0,1.0,18.9,3.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.4,1 cm wide PMMA 1 mm thick,2.6   1.3   0.8  0.7  0.6  0.5; 60   49  45  44  43  42,10   6  5  4.5  4  3
+M8,0,Miller,pmma_slab,,2.0,1.0,19.1,10.0,burn,medium,0,"[claude] ""10, 5>7, 5, decr"": operators kept changing flow -> burn",intermediate step -> burn,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
+M8,1,Miller,pmma_slab,,2.0,1.0,19.1,5.0,burn,medium,0,"[claude] ""10, 5>7, 5, decr"": operators kept changing flow -> burn",intermediate step -> burn,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
+M8,2,Miller,pmma_slab,,2.0,1.0,19.1,7.0,burn,medium,0,"[claude] ""10, 5>7, 5, decr"": operators kept changing flow -> burn",intermediate step -> burn,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
+M8,3,Miller,pmma_slab,,2.0,1.0,19.1,5.0,burn,medium,0,[claude] followed by 'decr' (further decrease) -> burn; final step not stated,no end marker,ambiguous_text,18.2,1 cm wide PMMA 2 mm thick,3.3   1.6  1.0   decr,10   5>7  5 decr
 M9,0,Miller,pmma_slab,,3.0,1.0,18.0,10.0,burn,medium,0,,intermediate step -> burn,,17.6,1 cm wide PMMA 3 mm thick,3.3   4.8;66  79,10   14
-M9,1,Miller,pmma_slab,,3.0,1.0,18.0,14.0,,low,1,,no end marker,,17.6,1 cm wide PMMA 3 mm thick,3.3   4.8;66  79,10   14
+M9,1,Miller,pmma_slab,,3.0,1.0,18.0,14.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.6,1 cm wide PMMA 3 mm thick,3.3   4.8;66  79,10   14
 M10,0,Miller,pmma_slab,,4.0,1.0,20.1,10.0,burn,medium,0,,intermediate step -> burn,,18.6,4 mm thick   1 cm wide PMMA slab,75   105   94/91   72/69   63/61  (4.4   8.0   6.6/6.3   4.0/3.7   3/0/2.7),10  17  14  10  8
 M10,1,Miller,pmma_slab,,4.0,1.0,20.1,17.0,burn,medium,0,,intermediate step -> burn,,18.6,4 mm thick   1 cm wide PMMA slab,75   105   94/91   72/69   63/61  (4.4   8.0   6.6/6.3   4.0/3.7   3/0/2.7),10  17  14  10  8
 M10,2,Miller,pmma_slab,,4.0,1.0,20.1,14.0,burn,medium,0,,intermediate step -> burn,,18.6,4 mm thick   1 cm wide PMMA slab,75   105   94/91   72/69   63/61  (4.4   8.0   6.6/6.3   4.0/3.7   3/0/2.7),10  17  14  10  8
 M10,3,Miller,pmma_slab,,4.0,1.0,20.1,10.0,burn,medium,0,,intermediate step -> burn,,18.6,4 mm thick   1 cm wide PMMA slab,75   105   94/91   72/69   63/61  (4.4   8.0   6.6/6.3   4.0/3.7   3/0/2.7),10  17  14  10  8
-M10,4,Miller,pmma_slab,,4.0,1.0,20.1,8.0,,low,1,,no end marker,,18.6,4 mm thick   1 cm wide PMMA slab,75   105   94/91   72/69   63/61  (4.4   8.0   6.6/6.3   4.0/3.7   3/0/2.7),10  17  14  10  8
+M10,4,Miller,pmma_slab,,4.0,1.0,20.1,8.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.6,4 mm thick   1 cm wide PMMA slab,75   105   94/91   72/69   63/61  (4.4   8.0   6.6/6.3   4.0/3.7   3/0/2.7),10  17  14  10  8
 M11,0,Miller,pmma_slab,,5.0,1.0,20.0,10.0,burn,medium,0,,intermediate step -> burn,,18.5,1 cm wide PMMA 5 mm thick,3.9  6.5  4.6  3.3  2.9  2.8; 62.5  93  77  66  63  62,10   20   15  12
 M11,1,Miller,pmma_slab,,5.0,1.0,20.0,20.0,burn,medium,0,,intermediate step -> burn,,18.5,1 cm wide PMMA 5 mm thick,3.9  6.5  4.6  3.3  2.9  2.8; 62.5  93  77  66  63  62,10   20   15  12
 M11,2,Miller,pmma_slab,,5.0,1.0,20.0,15.0,burn,medium,0,,intermediate step -> burn,,18.5,1 cm wide PMMA 5 mm thick,3.9  6.5  4.6  3.3  2.9  2.8; 62.5  93  77  66  63  62,10   20   15  12
-M11,3,Miller,pmma_slab,,5.0,1.0,20.0,12.0,,low,1,,no end marker,,18.5,1 cm wide PMMA 5 mm thick,3.9  6.5  4.6  3.3  2.9  2.8; 62.5  93  77  66  63  62,10   20   15  12
-M12,0,Miller,pmma_slab,,2.0,2.0,21.7,0.5,,low,1,,no end marker,lt1_as_0.5,20.4,2 mm thick PMMA   2 cm wide,41   42   41,<1
+M11,3,Miller,pmma_slab,,5.0,1.0,20.0,12.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.5,1 cm wide PMMA 5 mm thick,3.9  6.5  4.6  3.3  2.9  2.8; 62.5  93  77  66  63  62,10   20   15  12
+M12,0,Miller,pmma_slab,,2.0,2.0,21.7,0.5,unknown,low,0,"[claude] single step <1 cm/s, no end state",no end marker,lt1_as_0.5,20.4,2 mm thick PMMA   2 cm wide,41   42   41,<1
 M13,0,Miller,pmma_slab,,4.0,2.0,20.8,6.0,burn,medium,0,,intermediate step -> burn,,19.0,4 mm thick PMMA   2 cm wide,52   47   43,6   5   4
 M13,1,Miller,pmma_slab,,4.0,2.0,20.8,5.0,burn,medium,0,,intermediate step -> burn,,19.0,4 mm thick PMMA   2 cm wide,52   47   43,6   5   4
-M13,2,Miller,pmma_slab,,4.0,2.0,20.8,4.0,,low,1,,no end marker,,19.0,4 mm thick PMMA   2 cm wide,52   47   43,6   5   4
-M14,0,Miller,pmma_slab,,2.0,2.0,22.2,10.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,21.6,2mm thick PMMA   1 sided   2 cm wide,pot 2.4   1.87  (54),10   ~8
-M14,1,Miller,pmma_slab,,2.0,2.0,22.2,8.0,,low,1,,no end marker,ambiguous_text,21.6,2mm thick PMMA   1 sided   2 cm wide,pot 2.4   1.87  (54),10   ~8
+M13,2,Miller,pmma_slab,,4.0,2.0,20.8,4.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,19.0,4 mm thick PMMA   2 cm wide,52   47   43,6   5   4
+M14,0,Miller,pmma_slab,,2.0,2.0,22.2,10.0,burn,medium,0,[claude] moved on from 10 to ~8 -> burn,intermediate step -> burn,ambiguous_text,21.6,2mm thick PMMA   1 sided   2 cm wide,pot 2.4   1.87  (54),10   ~8
+M14,1,Miller,pmma_slab,,2.0,2.0,22.2,8.0,unknown,low,0,"[claude] last step (~8), no end state",no end marker,ambiguous_text,21.6,2mm thick PMMA   1 sided   2 cm wide,pot 2.4   1.87  (54),10   ~8
 M15,0,Miller,pmma_slab,,4.0,2.0,21.0,10.0,burn,medium,0,,intermediate step -> burn,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
 M15,1,Miller,pmma_slab,,4.0,2.0,21.0,8.0,burn,medium,0,,intermediate step -> burn,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
 M15,2,Miller,pmma_slab,,4.0,2.0,21.0,7.0,burn,medium,0,,intermediate step -> burn,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
@@ -103,13 +106,13 @@ M15,4,Miller,pmma_slab,,4.0,2.0,21.0,10.0,burn,medium,0,,intermediate step -> bu
 M15,5,Miller,pmma_slab,,4.0,2.0,21.0,20.0,burn,medium,0,,intermediate step -> burn,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
 M15,6,Miller,pmma_slab,,4.0,2.0,21.0,18.0,burn,medium,0,,intermediate step -> burn,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
 M15,7,Miller,pmma_slab,,4.0,2.0,21.0,16.0,burn,medium,0,,intermediate step -> burn,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
-M15,8,Miller,pmma_slab,,4.0,2.0,21.0,15.0,,low,1,,no end marker,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
+M15,8,Miller,pmma_slab,,4.0,2.0,21.0,15.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.0,2 cm   4 mm 1 sided PMMA slab,ignited 10   adjusted down then up to 20   down in incrments to 15,10   8  7  8  10  20  18  16  15
 M16,0,Miller,pmma_slab,,1.0,2.0,19.2,10.0,burn,medium,0,,intermediate step -> burn,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
 M16,1,Miller,pmma_slab,,1.0,2.0,19.2,6.0,burn,medium,0,,intermediate step -> burn,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
 M16,2,Miller,pmma_slab,,1.0,2.0,19.2,3.0,burn,medium,0,,intermediate step -> burn,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
 M16,3,Miller,pmma_slab,,1.0,2.0,19.2,2.0,burn,medium,0,,intermediate step -> burn,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
 M16,4,Miller,pmma_slab,,1.0,2.0,19.2,1.0,burn,medium,0,,intermediate step -> burn,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
-M16,5,Miller,pmma_slab,,1.0,2.0,19.2,10.0,,low,1,,no end marker,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
+M16,5,Miller,pmma_slab,,1.0,2.0,19.2,10.0,unknown,low,0,[claude] flow raised back to 10 at end; end state not stated,no end marker,,18.7,1 mm thick PMMA   2 cm wide,73  57  59  48  45  43  75 (4.2  2.2  2.4  1.2  0.8  0.5  4.4),10  6  3  2  1  10
 M17,0,Miller,pmma_slab,,2.0,2.0,18.8,10.0,burn,medium,0,,intermediate step -> burn,,17.1,2 cm wide PMMA 2 mm thick,Fan pot 3.7   1.7   1.5   1.3   0.8   0.6   0.5   0.3ext,10   5   3   0ext
 M17,1,Miller,pmma_slab,,2.0,2.0,18.8,5.0,burn,medium,0,,intermediate step -> burn,,17.1,2 cm wide PMMA 2 mm thick,Fan pot 3.7   1.7   1.5   1.3   0.8   0.6   0.5   0.3ext,10   5   3   0ext
 M17,2,Miller,pmma_slab,,2.0,2.0,18.8,3.0,burn,medium,0,,intermediate step -> burn,,17.1,2 cm wide PMMA 2 mm thick,Fan pot 3.7   1.7   1.5   1.3   0.8   0.6   0.5   0.3ext,10   5   3   0ext
@@ -117,204 +120,289 @@ M17,3,Miller,pmma_slab,,2.0,2.0,18.8,0.0,extinguish,medium,0,,text:N ext,,17.1,2
 M18,0,Miller,pmma_slab,,3.0,2.0,17.9,10.0,burn,medium,0,,intermediate step -> burn,,16.8,2 cm wide PMMA 3 mm thick,Fan pot 3.5   5 (brief)   3  5   2.2,10   15 (brief)   10   8
 M18,1,Miller,pmma_slab,,3.0,2.0,17.9,15.0,burn,medium,0,,intermediate step -> burn,,16.8,2 cm wide PMMA 3 mm thick,Fan pot 3.5   5 (brief)   3  5   2.2,10   15 (brief)   10   8
 M18,2,Miller,pmma_slab,,3.0,2.0,17.9,10.0,burn,medium,0,,intermediate step -> burn,,16.8,2 cm wide PMMA 3 mm thick,Fan pot 3.5   5 (brief)   3  5   2.2,10   15 (brief)   10   8
-M18,3,Miller,pmma_slab,,3.0,2.0,17.9,8.0,,low,1,,no end marker,,16.8,2 cm wide PMMA 3 mm thick,Fan pot 3.5   5 (brief)   3  5   2.2,10   15 (brief)   10   8
+M18,3,Miller,pmma_slab,,3.0,2.0,17.9,8.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,16.8,2 cm wide PMMA 3 mm thick,Fan pot 3.5   5 (brief)   3  5   2.2,10   15 (brief)   10   8
 M19,0,Miller,pmma_slab,,4.0,2.0,19.0,10.0,burn,medium,0,,intermediate step -> burn,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
 M19,1,Miller,pmma_slab,,4.0,2.0,19.0,17.0,burn,medium,0,,intermediate step -> burn,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
 M19,2,Miller,pmma_slab,,4.0,2.0,19.0,14.0,burn,medium,0,,intermediate step -> burn,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
 M19,3,Miller,pmma_slab,,4.0,2.0,19.0,10.0,burn,medium,0,,intermediate step -> burn,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
 M19,4,Miller,pmma_slab,,4.0,2.0,19.0,7.0,burn,medium,0,,intermediate step -> burn,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
-M19,5,Miller,pmma_slab,,4.0,2.0,19.0,5.0,,low,1,,no end marker,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
+M19,5,Miller,pmma_slab,,4.0,2.0,19.0,5.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.4,4 mm thick   2 cm 2ide PMMA slab,75  105  94  75  77  79  59  61  57  55  53 (4.4  8.0  6.6  4.4  4.6  4.8  2.5  2.7  2.2  2.0  1.8),10  17  14  10  7  5
 M20,0,Miller,pmma_slab,,5.0,2.0,18.0,10.0,burn,medium,0,,intermediate step -> burn,,17.4,5 mm thick PMMA   2 cm wide,67   58,10  8
-M20,1,Miller,pmma_slab,,5.0,2.0,18.0,8.0,,low,1,,no end marker,,17.4,5 mm thick PMMA   2 cm wide,67   58,10  8
+M20,1,Miller,pmma_slab,,5.0,2.0,18.0,8.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.4,5 mm thick PMMA   2 cm wide,67   58,10  8
 O1,0,Olson,pmma_rod,clear,6.35,,22.2,20.0,burn,medium,0,,intermediate step -> burn,,21.7,"1/4"" clear rod",89  62  50  41,20  10  5  2  1
 O1,1,Olson,pmma_rod,clear,6.35,,22.2,10.0,burn,medium,0,,intermediate step -> burn,,21.7,"1/4"" clear rod",89  62  50  41,20  10  5  2  1
 O1,2,Olson,pmma_rod,clear,6.35,,22.2,5.0,burn,medium,0,,intermediate step -> burn,,21.7,"1/4"" clear rod",89  62  50  41,20  10  5  2  1
 O1,3,Olson,pmma_rod,clear,6.35,,22.2,2.0,burn,medium,0,,intermediate step -> burn,,21.7,"1/4"" clear rod",89  62  50  41,20  10  5  2  1
-O1,4,Olson,pmma_rod,clear,6.35,,22.2,1.0,,low,1,,no end marker,,21.7,"1/4"" clear rod",89  62  50  41,20  10  5  2  1
-O2,0,Olson,pmma_rod,clear,6.35,,22.2,0.0,,low,1,,no end marker,,21.9,"1/4"" clear rod",.54 pot   0.45 pot,0
+O1,4,Olson,pmma_rod,clear,6.35,,22.2,1.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,21.7,"1/4"" clear rod",89  62  50  41,20  10  5  2  1
+O2,0,Olson,pmma_rod,clear,6.35,,22.2,0.0,unknown,low,0,"[claude] air 0, pots .54 .45; no end state",no end marker,,21.9,"1/4"" clear rod",.54 pot   0.45 pot,0
 O3a,0,Olson,pmma_rod,clear,6.35,,18.0,5.0,burn,medium,0,,intermediate step -> burn,,18.0,"1/4"" clear rod",,5  3
-O3a,1,Olson,pmma_rod,clear,6.35,,18.0,3.0,,low,1,,no end marker,,18.0,"1/4"" clear rod",,5  3
+O3a,1,Olson,pmma_rod,clear,6.35,,18.0,3.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.0,"1/4"" clear rod",,5  3
 O3b,0,Olson,pmma_rod,clear,6.35,,18.0,5.0,burn,medium,0,,intermediate step -> burn,,17.7,"1/4"" clear rod",,5  3  2  1  low
 O3b,1,Olson,pmma_rod,clear,6.35,,18.0,3.0,burn,medium,0,,intermediate step -> burn,,17.7,"1/4"" clear rod",,5  3  2  1  low
 O3b,2,Olson,pmma_rod,clear,6.35,,18.0,2.0,burn,medium,0,,intermediate step -> burn,,17.7,"1/4"" clear rod",,5  3  2  1  low
 O3b,3,Olson,pmma_rod,clear,6.35,,18.0,1.0,burn,medium,0,,last listed flow before ext,,17.7,"1/4"" clear rod",,5  3  2  1  low
-O3b,4,Olson,pmma_rod,clear,6.35,,18.0,,extinguish,low,1,,text:ext_below_last; flow unknown,,17.7,"1/4"" clear rod",,5  3  2  1  low
+O3b,4,Olson,pmma_rod,clear,6.35,,18.0,,unknown,low,0,"[claude] raw says 'low' after 1 cm/s, no ext text (auto rule misread 'low' as ext); flow <1 not estimated",text:ext_below_last; flow unknown,,17.7,"1/4"" clear rod",,5  3  2  1  low
 O4,0,Olson,pmma_rod,clear,9.52,,14.8,5.0,burn,medium,0,,last listed flow before ext,,13.6,"3/8""clear rod",5   0.7   0.5   0.4   0.36 ext,5   down to ext
-O4,1,Olson,pmma_rod,clear,9.52,,14.8,,extinguish,low,1,,text:ext_below_last; flow unknown,,13.6,"3/8""clear rod",5   0.7   0.5   0.4   0.36 ext,5   down to ext
+O4,1,Olson,pmma_rod,clear,9.52,,14.8,2.33,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.7)",,added_by_claude,13.6,"3/8""clear rod",5   0.7   0.5   0.4   0.36 ext,5   down to ext
+O4,2,Olson,pmma_rod,clear,9.52,,14.8,1.5,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.5)",,added_by_claude,13.6,"3/8""clear rod",5   0.7   0.5   0.4   0.36 ext,5   down to ext
+O4,3,Olson,pmma_rod,clear,9.52,,14.8,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,13.6,"3/8""clear rod",5   0.7   0.5   0.4   0.36 ext,5   down to ext
+O4,4,Olson,pmma_rod,clear,9.52,,14.8,0.8,extinguish,low,0,"[claude] '0.36 ext': ext at pot 0.36, flow est. from pot",text:ext_below_last; flow unknown,,13.6,"3/8""clear rod",5   0.7   0.5   0.4   0.36 ext,5   down to ext
 O5a,0,Olson,pmma_rod,clear,12.7,,15.1,5.0,burn,medium,0,,intermediate step -> burn,,14.2,"1/2"" clear PMMA rod",1.3   2.7   1.3   0.7   0.45. 4.0,5  10  5   2   0 (49   62   49   44   42)
 O5a,1,Olson,pmma_rod,clear,12.7,,15.1,10.0,burn,medium,0,,intermediate step -> burn,,14.2,"1/2"" clear PMMA rod",1.3   2.7   1.3   0.7   0.45. 4.0,5  10  5   2   0 (49   62   49   44   42)
 O5a,2,Olson,pmma_rod,clear,12.7,,15.1,5.0,burn,medium,0,,intermediate step -> burn,,14.2,"1/2"" clear PMMA rod",1.3   2.7   1.3   0.7   0.45. 4.0,5  10  5   2   0 (49   62   49   44   42)
 O5a,3,Olson,pmma_rod,clear,12.7,,15.1,2.0,burn,medium,0,,intermediate step -> burn,,14.2,"1/2"" clear PMMA rod",1.3   2.7   1.3   0.7   0.45. 4.0,5  10  5   2   0 (49   62   49   44   42)
-O5a,4,Olson,pmma_rod,clear,12.7,,15.1,0.0,,low,1,,no end marker,,14.2,"1/2"" clear PMMA rod",1.3   2.7   1.3   0.7   0.45. 4.0,5  10  5   2   0 (49   62   49   44   42)
-O5b,0,Olson,pmma_rod,clear,12.7,,14.2,5.0,,low,1,,no end marker,,14.1,"1/2"" clear PMMA rod",1.3,49   5 cm/s
-O6,0,Olson,pmma_rod,clear,6.35,,16.7,,extinguish,low,1,,no flow parsed; end=ext_unknown_flow,no_numeric_flow,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
-O7,0,Olson,pmma_rod,clear,6.35,,16.0,,blowoff,low,1,,no flow parsed; end=blowoff,no_air_value,15.5,"1/4"" clear rod",5   .36  .32  ..305   blowoff fan max 10,
-O8a,0,Olson,pmma_rod,clear,6.35,,15.7,,extinguish,low,1,,no flow parsed; end=ext_unknown_flow,no_air_value,15.3,"1/4"" clear rod",5   .36  .32  .31   extinguished,
-O8b,0,Olson,pmma_rod,clear,6.35,,15.5,,blowoff,low,1,,no flow parsed; end=blowoff,no_air_value,15.2,"1/4"" clear rod",5  .36  .32  .31 blowoff fan pot 6.0,
-O9,0,Olson,pmma_rod,clear,6.35,,15.0,,blowoff,low,1,,no flow parsed; end=blowoff,no_air_value,14.8,"1/4"" clear rod",5   .36  .32 blowoff pt 4.0,
+O5a,4,Olson,pmma_rod,clear,12.7,,15.1,0.0,burn,low,0,"[claude] display 0 (fan 42, pot 0.45) then raised to pot 4.0 -> flame alive; true flow likely ~1 cm/s",no end marker,,14.2,"1/2"" clear PMMA rod",1.3   2.7   1.3   0.7   0.45. 4.0,5  10  5   2   0 (49   62   49   44   42)
+O5b,0,Olson,pmma_rod,clear,12.7,,14.2,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,14.1,"1/2"" clear PMMA rod",1.3,49   5 cm/s
+O6,0,Olson,pmma_rod,clear,6.35,,16.7,5.0,burn,medium,0,[claude] added row: Olson ignition at 5 cm/s,,added_by_claude,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
+O6,1,Olson,pmma_rod,clear,6.35,,16.7,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
+O6,2,Olson,pmma_rod,clear,6.35,,16.7,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
+O6,3,Olson,pmma_rod,clear,6.35,,16.7,0.55,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.31)",,added_by_claude,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
+O6,4,Olson,pmma_rod,clear,6.35,,16.7,0.53,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.305)",,added_by_claude,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
+O6,5,Olson,pmma_rod,clear,6.35,,16.7,0.46,extinguish,low,0,"[claude] '... .305 out .275': ext at pot ~0.275, flow est. from pot",no flow parsed; end=ext_unknown_flow,no_numeric_flow,16.0,"1/4"" clear rod",5   .36  .32  .31  .305   out .275,see fan
+O7,0,Olson,pmma_rod,clear,6.35,,16.0,5.0,burn,medium,0,[claude] added row: Olson ignition at 5 cm/s,,added_by_claude,15.5,"1/4"" clear rod",5   .36  .32  ..305   blowoff fan max 10,
+O7,1,Olson,pmma_rod,clear,6.35,,16.0,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,15.5,"1/4"" clear rod",5   .36  .32  ..305   blowoff fan max 10,
+O7,2,Olson,pmma_rod,clear,6.35,,16.0,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,15.5,"1/4"" clear rod",5   .36  .32  ..305   blowoff fan max 10,
+O7,3,Olson,pmma_rod,clear,6.35,,16.0,0.53,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.305)",,added_by_claude,15.5,"1/4"" clear rod",5   .36  .32  ..305   blowoff fan max 10,
+O7,4,Olson,pmma_rod,clear,6.35,,16.0,,blowoff,low,0,"[claude] 'blowoff fan max 10': max-fan flow inconsistent across runs (22-38.5 cm/s), not estimated",no flow parsed; end=blowoff,no_air_value,15.5,"1/4"" clear rod",5   .36  .32  ..305   blowoff fan max 10,
+O8a,0,Olson,pmma_rod,clear,6.35,,15.7,5.0,burn,medium,0,[claude] added row: Olson ignition at 5 cm/s,,added_by_claude,15.3,"1/4"" clear rod",5   .36  .32  .31   extinguished,
+O8a,1,Olson,pmma_rod,clear,6.35,,15.7,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,15.3,"1/4"" clear rod",5   .36  .32  .31   extinguished,
+O8a,2,Olson,pmma_rod,clear,6.35,,15.7,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,15.3,"1/4"" clear rod",5   .36  .32  .31   extinguished,
+O8a,3,Olson,pmma_rod,clear,6.35,,15.7,0.55,extinguish,low,0,[claude] '.31 extinguished': flow est. from pot,no flow parsed; end=ext_unknown_flow,no_air_value,15.3,"1/4"" clear rod",5   .36  .32  .31   extinguished,
+O8b,0,Olson,pmma_rod,clear,6.35,,15.5,5.0,burn,medium,0,[claude] added row: Olson ignition at 5 cm/s,,added_by_claude,15.2,"1/4"" clear rod",5  .36  .32  .31 blowoff fan pot 6.0,
+O8b,1,Olson,pmma_rod,clear,6.35,,15.5,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,15.2,"1/4"" clear rod",5  .36  .32  .31 blowoff fan pot 6.0,
+O8b,2,Olson,pmma_rod,clear,6.35,,15.5,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,15.2,"1/4"" clear rod",5  .36  .32  .31 blowoff fan pot 6.0,
+O8b,3,Olson,pmma_rod,clear,6.35,,15.5,0.55,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.31)",,added_by_claude,15.2,"1/4"" clear rod",5  .36  .32  .31 blowoff fan pot 6.0,
+O8b,4,Olson,pmma_rod,clear,6.35,,15.5,13.0,blowoff,low,0,"[claude] 'blowoff fan pot 6.0': pot 6 ~13 cm/s est. from Miller runs (pot 6.6 ~14 cm/s, M10/M19)",no flow parsed; end=blowoff,no_air_value,15.2,"1/4"" clear rod",5  .36  .32  .31 blowoff fan pot 6.0,
+O9,0,Olson,pmma_rod,clear,6.35,,15.0,5.0,burn,medium,0,[claude] added row: Olson ignition at 5 cm/s,,added_by_claude,14.8,"1/4"" clear rod",5   .36  .32 blowoff pt 4.0,
+O9,1,Olson,pmma_rod,clear,6.35,,15.0,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,14.8,"1/4"" clear rod",5   .36  .32 blowoff pt 4.0,
+O9,2,Olson,pmma_rod,clear,6.35,,15.0,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,14.8,"1/4"" clear rod",5   .36  .32 blowoff pt 4.0,
+O9,3,Olson,pmma_rod,clear,6.35,,15.0,11.0,blowoff,low,0,[claude] 'blowoff pt 4.0': pot 4.0 ~11 cm/s est. from O17/O18 (pot 4.0 <-> 11 cm/s),no flow parsed; end=blowoff,no_air_value,14.8,"1/4"" clear rod",5   .36  .32 blowoff pt 4.0,
 O10,0,Olson,pmma_rod,clear,6.35,,16.7,5.0,burn,medium,0,,intermediate step -> burn,,16.1,"1/4"" clear rod",49  44  41   122 (1.3   0.7   0.4   0.36   0.32   10),5  2   0   max
 O10,1,Olson,pmma_rod,clear,6.35,,16.7,2.0,burn,medium,0,,intermediate step -> burn,,16.1,"1/4"" clear rod",49  44  41   122 (1.3   0.7   0.4   0.36   0.32   10),5  2   0   max
-O10,2,Olson,pmma_rod,clear,6.35,,16.7,0.0,,low,1,,no end marker,,16.1,"1/4"" clear rod",49  44  41   122 (1.3   0.7   0.4   0.36   0.32   10),5  2   0   max
+O10,2,Olson,pmma_rod,clear,6.35,,16.7,0.0,burn,low,0,[claude] display 0 (pots .4-.32) then raised to max -> flame alive; true flow likely <1 cm/s,no end marker,,16.1,"1/4"" clear rod",49  44  41   122 (1.3   0.7   0.4   0.36   0.32   10),5  2   0   max
 O11,0,Olson,pmma_rod,black,6.35,,15.4,5.0,burn,medium,0,,last listed flow before blowoff,,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
-O11,1,Olson,pmma_rod,black,6.35,,15.4,,blowoff,low,1,,text:blowoff; flow unknown,,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
-O12,0,Olson,pmma_rod,clear,9.52,,13.6,,no_ignition,high,1,,text:no ign,no_numeric_flow,13.5,"3/8"" clear rod",pots 1.4   3   0.9   0.7,no ign at any flow
-O13a,0,Olson,pmma_rod,clear,12.7,,15.9,49.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
-O13a,1,Olson,pmma_rod,clear,12.7,,15.9,44.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
-O13a,2,Olson,pmma_rod,clear,12.7,,15.9,42.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
-O13a,3,Olson,pmma_rod,clear,12.7,,15.9,41.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
-O13a,4,Olson,pmma_rod,clear,12.7,,15.9,41.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
-O13a,5,Olson,pmma_rod,clear,12.7,,15.9,40.5,,low,1,,no end marker,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
-O13b,0,Olson,pmma_rod,clear,12.7,,14.6,7.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,14.4,"1/2"" clear PMMA rod",1.3   0.9,7   4? (49   ?)
-O13b,1,Olson,pmma_rod,clear,12.7,,14.6,4.0,,low,1,,no end marker,ambiguous_text,14.4,"1/2"" clear PMMA rod",1.3   0.9,7   4? (49   ?)
+O11,1,Olson,pmma_rod,black,6.35,,15.4,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
+O11,2,Olson,pmma_rod,black,6.35,,15.4,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
+O11,3,Olson,pmma_rod,black,6.35,,15.4,0.55,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.31)",,added_by_claude,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
+O11,4,Olson,pmma_rod,black,6.35,,15.4,0.53,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.305)",,added_by_claude,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
+O11,5,Olson,pmma_rod,black,6.35,,15.4,13.0,blowoff,low,0,[claude] 'blowoff 6.0': pot 6 ~13 cm/s est. from Miller runs (pot 6.6 ~14 cm/s),text:blowoff; flow unknown,,14.8,"1/4"" black rod",ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff
+O12,0,Olson,pmma_rod,clear,9.52,,13.6,5.0,no_ignition,low,0,"[claude] 'no ign at any flow'; this row = pot 1.4, ~5 cm/s (Olson pot 1.3 <-> 5 cm/s)",text:no ign,no_numeric_flow,13.5,"3/8"" clear rod",pots 1.4   3   0.9   0.7,no ign at any flow
+O12,1,Olson,pmma_rod,clear,9.52,,13.6,10.5,no_ignition,low,0,"[claude] added row: 'no ign at any flow'; Olson pot calibration (2.7<->10, 1.3<->5, 0.7<->2) (pot 3.0)",,added_by_claude,13.5,"3/8"" clear rod",pots 1.4   3   0.9   0.7,no ign at any flow
+O12,2,Olson,pmma_rod,clear,9.52,,13.6,3.0,no_ignition,low,0,"[claude] added row: 'no ign at any flow'; Olson pot calibration (2.7<->10, 1.3<->5, 0.7<->2) (pot 0.9)",,added_by_claude,13.5,"3/8"" clear rod",pots 1.4   3   0.9   0.7,no ign at any flow
+O12,3,Olson,pmma_rod,clear,9.52,,13.6,2.0,no_ignition,low,0,"[claude] added row: 'no ign at any flow'; Olson pot calibration (2.7<->10, 1.3<->5, 0.7<->2) (pot 0.7)",,added_by_claude,13.5,"3/8"" clear rod",pots 1.4   3   0.9   0.7,no ign at any flow
+O13a,0,Olson,pmma_rod,clear,12.7,,15.9,5.0,burn,medium,0,[claude] fan display 49 = 5 cm/s (parenthetical),intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
+O13a,1,Olson,pmma_rod,clear,12.7,,15.9,2.0,burn,medium,0,[claude] fan display 44 = 2 cm/s (parenthetical),intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
+O13a,2,Olson,pmma_rod,clear,12.7,,15.9,0.0,burn,low,0,"[claude] display ~0 cm/s (parenthetical 0), pot 0.45; operators kept stepping down -> alive",intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
+O13a,3,Olson,pmma_rod,clear,12.7,,15.9,0.0,burn,low,0,"[claude] display ~0 cm/s (parenthetical 0), pot 0.36; operators kept stepping down -> alive",intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
+O13a,4,Olson,pmma_rod,clear,12.7,,15.9,0.0,burn,low,0,"[claude] display ~0 cm/s (parenthetical 0), pot 0.32; operators kept stepping down -> alive",intermediate step -> burn,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
+O13a,5,Olson,pmma_rod,clear,12.7,,15.9,0.0,unknown,low,0,"[claude] display ~0 cm/s, pot 0.31; last step, no end state",no end marker,gt30_maybe_fan_units,14.6,"1/2"" clear PMMA rod",1.3   0.7   0.45   0.36   0.32   0.31,49  44  42  41  41  40.5 (5   2   0)
+O13b,0,Olson,pmma_rod,clear,12.7,,14.6,7.0,burn,low,0,[claude] '7 4?': moved on; 7 vs pot 1.3 (~5 elsewhere) uncertain,intermediate step -> burn,ambiguous_text,14.4,"1/2"" clear PMMA rod",1.3   0.9,7   4? (49   ?)
+O13b,1,Olson,pmma_rod,clear,12.7,,14.6,4.0,unknown,low,0,"[claude] '4?' uncertain value, no end state",no end marker,ambiguous_text,14.4,"1/2"" clear PMMA rod",1.3   0.9,7   4? (49   ?)
 O14,0,Olson,pmma_rod,black,6.35,,16.3,5.0,burn,medium,0,,last listed flow before ext,,15.3,"1/4"" black rod",52   and down,5 down to ext
-O14,1,Olson,pmma_rod,black,6.35,,16.3,,extinguish,low,1,,text:ext_below_last; flow unknown,,15.3,"1/4"" black rod",52   and down,5 down to ext
+O14,1,Olson,pmma_rod,black,6.35,,16.3,,extinguish,low,0,"[claude] '5 down to ext'; flow at extinction not recorded, left empty",text:ext_below_last; flow unknown,,15.3,"1/4"" black rod",52   and down,5 down to ext
 O15a,0,Olson,pmma_rod,clear,9.52,,17.1,5.0,burn,medium,0,,intermediate step -> burn,,16.7,"3/8"" clear rod",57.5   47   42   41 (2.3   1.0   0.5   0.35   0.32),5  0
-O15a,1,Olson,pmma_rod,clear,9.52,,17.1,0.0,,low,1,,no end marker,,16.7,"3/8"" clear rod",57.5   47   42   41 (2.3   1.0   0.5   0.35   0.32),5  0
+O15a,1,Olson,pmma_rod,clear,9.52,,17.1,0.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,16.7,"3/8"" clear rod",57.5   47   42   41 (2.3   1.0   0.5   0.35   0.32),5  0
 O15b,0,Olson,pmma_rod,clear,9.52,,16.7,5.0,burn,medium,0,,intermediate step -> burn,,15.6,"3/8"" clear rod",57.5   42   41   40 (2.3   0.5   0.35   0.34   0.33   0.32   0.31   0.30   0.29   0.28   0.27),5   0
-O15b,1,Olson,pmma_rod,clear,9.52,,16.7,0.0,,low,1,,no end marker,,15.6,"3/8"" clear rod",57.5   42   41   40 (2.3   0.5   0.35   0.34   0.33   0.32   0.31   0.30   0.29   0.28   0.27),5   0
-O16,0,Olson,pmma_rod,clear,9.52,,14.5,5.0,,low,1,,no end marker,,14.5,"3/8""clear rod",60 (2.6),5
+O15b,1,Olson,pmma_rod,clear,9.52,,16.7,0.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,15.6,"3/8"" clear rod",57.5   42   41   40 (2.3   0.5   0.35   0.34   0.33   0.32   0.31   0.30   0.29   0.28   0.27),5   0
+O16,0,Olson,pmma_rod,clear,9.52,,14.5,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,14.5,"3/8""clear rod",60 (2.6),5
 O17,0,Olson,pmma_rod,clear,6.35,,15.1,3.0,burn,medium,0,,intermediate step -> burn,,14.3,"1/4"" clear rod",49   46.5   44   42  41  72   decr (1.3   1.0   0.7   0.5   0.4   4.0   decr ),3   0   11
-O17,1,Olson,pmma_rod,clear,6.35,,15.1,0.0,burn,medium,1,,intermediate step -> burn,,14.3,"1/4"" clear rod",49   46.5   44   42  41  72   decr (1.3   1.0   0.7   0.5   0.4   4.0   decr ),3   0   11
-O17,2,Olson,pmma_rod,clear,6.35,,15.1,11.0,,low,1,,no end marker,,14.3,"1/4"" clear rod",49   46.5   44   42  41  72   decr (1.3   1.0   0.7   0.5   0.4   4.0   decr ),3   0   11
+O17,1,Olson,pmma_rod,clear,6.35,,15.1,0.0,burn,low,0,"[claude] display 0 (fan 41, pot 0.4) then raised to 11 -> alive; true flow likely ~1 cm/s",intermediate step -> burn,,14.3,"1/4"" clear rod",49   46.5   44   42  41  72   decr (1.3   1.0   0.7   0.5   0.4   4.0   decr ),3   0   11
+O17,2,Olson,pmma_rod,clear,6.35,,15.1,11.0,burn,low,0,[claude] followed by 'decr' -> burn; final step not stated,no end marker,,14.3,"1/4"" clear rod",49   46.5   44   42  41  72   decr (1.3   1.0   0.7   0.5   0.4   4.0   decr ),3   0   11
 O18,0,Olson,pmma_rod,clear,6.35,,15.2,5.0,burn,medium,0,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
 O18,1,Olson,pmma_rod,clear,6.35,,15.2,2.0,burn,medium,0,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
-O18,2,Olson,pmma_rod,clear,6.35,,15.2,0.0,burn,medium,1,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
+O18,2,Olson,pmma_rod,clear,6.35,,15.2,0.0,burn,low,0,"[claude] display 0 (fan 47, pot 1.0) then raised to 11 -> alive; true flow likely >0",intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
 O18,3,Olson,pmma_rod,clear,6.35,,15.2,11.0,burn,medium,0,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
 O18,4,Olson,pmma_rod,clear,6.35,,15.2,2.0,burn,medium,0,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
 O18,5,Olson,pmma_rod,clear,6.35,,15.2,11.0,burn,medium,0,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
 O18,6,Olson,pmma_rod,clear,6.35,,15.2,2.0,burn,medium,0,,intermediate step -> burn,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
-O18,7,Olson,pmma_rod,clear,6.35,,15.2,0.0,,low,1,,no end marker,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
+O18,7,Olson,pmma_rod,clear,6.35,,15.2,0.0,unknown,low,0,"[claude] last step at display 0, no end state",no end marker,,14.5,"1/4"" clear rod",57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0
 O19,0,Olson,pmma_rod,clear,6.35,,15.3,5.0,burn,medium,0,,last listed flow before ext,,14.6,"1/4"" clear rod",52   and down,5 down to ext
-O19,1,Olson,pmma_rod,clear,6.35,,15.3,,extinguish,low,1,,text:ext_below_last; flow unknown,,14.6,"1/4"" clear rod",52   and down,5 down to ext
-O20,0,Olson,pmma_rod,clear,6.35,,16.5,5.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,15.9,"1/4"" clear rod",49 (1.3 pot)   pots 7   8  9   10,5   8    incr to max 38.5
-O20,1,Olson,pmma_rod,clear,6.35,,16.5,8.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,15.9,"1/4"" clear rod",49 (1.3 pot)   pots 7   8  9   10,5   8    incr to max 38.5
-O20,2,Olson,pmma_rod,clear,6.35,,16.5,38.5,,low,1,,no end marker,gt30_maybe_fan_units,15.9,"1/4"" clear rod",49 (1.3 pot)   pots 7   8  9   10,5   8    incr to max 38.5
-O21,0,Olson,pmma_rod,clear,9.52,,15.9,28.0,,low,1,,no end marker,,15.4,"3/8"" clear rod",46 (pot 0.8)    pot 7   10,incr to 28
+O19,1,Olson,pmma_rod,clear,6.35,,15.3,,extinguish,low,0,"[claude] '5 down to ext'; flow at extinction not recorded, left empty",text:ext_below_last; flow unknown,,14.6,"1/4"" clear rod",52   and down,5 down to ext
+O20,0,Olson,pmma_rod,clear,6.35,,16.5,5.0,burn,medium,0,[claude] moved on from 5 to 8,intermediate step -> burn,gt30_maybe_fan_units,15.9,"1/4"" clear rod",49 (1.3 pot)   pots 7   8  9   10,5   8    incr to max 38.5
+O20,1,Olson,pmma_rod,clear,6.35,,16.5,8.0,burn,medium,0,[claude] moved on from 8 to max,intermediate step -> burn,gt30_maybe_fan_units,15.9,"1/4"" clear rod",49 (1.3 pot)   pots 7   8  9   10,5   8    incr to max 38.5
+O20,2,Olson,pmma_rod,clear,6.35,,16.5,38.5,unknown,low,0,[claude] 'incr to max 38.5' (cm/s plausible); no blowoff/ext text,no end marker,gt30_maybe_fan_units,15.9,"1/4"" clear rod",49 (1.3 pot)   pots 7   8  9   10,5   8    incr to max 38.5
+O21,0,Olson,pmma_rod,clear,9.52,,15.9,28.0,unknown,low,0,"[claude] 'incr to 28', no end state",no end marker,,15.4,"3/8"" clear rod",46 (pot 0.8)    pot 7   10,incr to 28
 O22,0,Olson,pmma_rod,clear,12.7,,15.4,4.0,burn,medium,0,,intermediate step -> burn,,14.9,"1/2"" clear rod ",49 (pot 1.1)   blowoff pot 5   out at fan 87,4 incr to 26.5
 O22,1,Olson,pmma_rod,clear,12.7,,15.4,26.5,blowoff,high,0,,text:blowoff,,14.9,"1/2"" clear rod ",49 (pot 1.1)   blowoff pot 5   out at fan 87,4 incr to 26.5
 P1,0,Fernandez-Pello,pmma_rod,black,6.35,,17.7,5.0,burn,medium,0,,intermediate step -> burn,,17.5,"1/4"" black rod",,5  2   slow decr to ext
 P1,1,Fernandez-Pello,pmma_rod,black,6.35,,17.7,2.0,burn,medium,0,,last listed flow before ext,,17.5,"1/4"" black rod",,5  2   slow decr to ext
-P1,2,Fernandez-Pello,pmma_rod,black,6.35,,17.7,,extinguish,low,1,,text:ext_below_last; flow unknown,,17.5,"1/4"" black rod",,5  2   slow decr to ext
+P1,2,Fernandez-Pello,pmma_rod,black,6.35,,17.7,,extinguish,low,0,"[claude] 'slow decr to ext' below 2 cm/s; exact flow not recorded, left empty",text:ext_below_last; flow unknown,,17.5,"1/4"" black rod",,5  2   slow decr to ext
 P2,0,Fernandez-Pello,pmma_rod,black,6.35,,17.4,5.0,burn,medium,0,,intermediate step -> burn,,17.2,"1/4"" black rod",,5   2.5   2 (pot .9   .5   .35.  .33)
 P2,1,Fernandez-Pello,pmma_rod,black,6.35,,17.4,2.5,burn,medium,0,,intermediate step -> burn,,17.2,"1/4"" black rod",,5   2.5   2 (pot .9   .5   .35.  .33)
-P2,2,Fernandez-Pello,pmma_rod,black,6.35,,17.4,2.0,,low,1,,no end marker,,17.2,"1/4"" black rod",,5   2.5   2 (pot .9   .5   .35.  .33)
+P2,2,Fernandez-Pello,pmma_rod,black,6.35,,17.4,2.0,burn,low,0,[claude] pot list shows a further step (.33) after 2 cm/s; final outcome not stated,no end marker,,17.2,"1/4"" black rod",,5   2.5   2 (pot .9   .5   .35.  .33)
 P3a,0,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,5.0,burn,medium,0,,intermediate step -> burn,,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
-P3a,1,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,2.5,,low,1,,no end marker,,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
+P3a,1,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,2.5,burn,medium,0,[claude] pot list continues below 2.5 cm/s -> burn,no end marker,,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
+P3a,2,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,0.75,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.35)",,added_by_claude,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
+P3a,3,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,0.65,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.33)",,added_by_claude,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
+P3a,4,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
+P3a,5,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,0.58,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.315)",,added_by_claude,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
+P3a,6,Fernandez-Pello,pmma_rod,clear,6.35,,17.7,0.55,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.31)",,added_by_claude,17.4,"1/4"" clear rod",,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3)
 P3b,0,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,5.0,burn,medium,0,,last listed flow before ext,,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
-P3b,1,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,,extinguish,low,1,,text:ext_below_last; flow unknown,,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
+P3b,1,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,2.83,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.85)",,added_by_claude,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
+P3b,2,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
+P3b,3,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,0.55,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.31)",,added_by_claude,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
+P3b,4,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,0.53,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.305)",,added_by_claude,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
+P3b,5,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,0.5,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.3)",,added_by_claude,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
+P3b,6,Fernandez-Pello,pmma_rod,clear,6.35,,17.4,0.49,unknown,low,0,[claude] 'very low' pots to 0.295; no ext text (auto rule misread). Row = last pot 0.295,text:ext_below_last; flow unknown,,16.8,1/4 clear rod,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295)
 P4,0,Fernandez-Pello,pmma_rod,black,9.52,,18.5,5.0,burn,medium,0,,last listed flow before ext,,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
-P4,1,Fernandez-Pello,pmma_rod,black,9.52,,18.5,,extinguish,low,1,,text:ext_below_last; flow unknown,,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
+P4,1,Fernandez-Pello,pmma_rod,black,9.52,,18.5,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
+P4,2,Fernandez-Pello,pmma_rod,black,9.52,,18.5,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
+P4,3,Fernandez-Pello,pmma_rod,black,9.52,,18.5,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
+P4,4,Fernandez-Pello,pmma_rod,black,9.52,,18.5,0.54,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.308)",,added_by_claude,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
+P4,5,Fernandez-Pello,pmma_rod,black,9.52,,18.5,0.5,extinguish,low,0,"[claude] '... .3 off': ext at pot 0.3, flow est. from pot",text:ext_below_last; flow unknown,,17.1,"3/8"" black rod",48   41,5   pots 0.4   0.36   0.32   0.308   .3   off
 P5,0,Fernandez-Pello,pmma_rod,black,12.7,,19.3,5.0,burn,medium,0,,last listed flow before ext,,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
-P5,1,Fernandez-Pello,pmma_rod,black,12.7,,19.3,,extinguish,low,1,,text:ext_below_last; flow unknown,,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,1,Fernandez-Pello,pmma_rod,black,12.7,,19.3,3.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.9)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,2,Fernandez-Pello,pmma_rod,black,12.7,,19.3,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,3,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,4,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,5,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.54,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.308)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,6,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.5,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.3)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,7,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.48,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.29)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,8,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.47,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.28)",,added_by_claude,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
+P5,9,Fernandez-Pello,pmma_rod,black,12.7,,19.3,0.0,extinguish,low,0,[claude] '... 0.28 0 ext': fan set to 0 then ext,text:ext_below_last; flow unknown,,17.6,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext
 P6,0,Fernandez-Pello,pmma_rod,black,6.35,,18.9,5.0,burn,medium,0,,last listed flow before ext,,18.5,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   off
-P6,1,Fernandez-Pello,pmma_rod,black,6.35,,18.9,,extinguish,low,1,,text:ext_below_last; flow unknown,,18.5,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   off
-P8,0,Fernandez-Pello,pmma_rod,black,9.52,,16.4,5.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,16.3,"3/8"" black rod",48   62   75,5   would not stay lit   10   15 ibid
-P8,1,Fernandez-Pello,pmma_rod,black,9.52,,16.4,10.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,16.3,"3/8"" black rod",48   62   75,5   would not stay lit   10   15 ibid
-P8,2,Fernandez-Pello,pmma_rod,black,9.52,,16.4,15.0,,low,1,,no end marker,ambiguous_text,16.3,"3/8"" black rod",48   62   75,5   would not stay lit   10   15 ibid
+P6,1,Fernandez-Pello,pmma_rod,black,6.35,,18.9,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,18.5,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   off
+P6,2,Fernandez-Pello,pmma_rod,black,6.35,,18.9,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,18.5,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   off
+P6,3,Fernandez-Pello,pmma_rod,black,6.35,,18.9,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,18.5,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   off
+P6,4,Fernandez-Pello,pmma_rod,black,6.35,,18.9,0.55,extinguish,low,0,[claude] '... 0.31 off': ext at pot 0.31,text:ext_below_last; flow unknown,,18.5,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   off
+P8,0,Fernandez-Pello,pmma_rod,black,9.52,,16.4,5.0,extinguish,medium,0,[claude] '5 would not stay lit',intermediate step -> burn,ambiguous_text,16.3,"3/8"" black rod",48   62   75,5   would not stay lit   10   15 ibid
+P8,1,Fernandez-Pello,pmma_rod,black,9.52,,16.4,10.0,extinguish,low,0,[claude] '10 15 ibid' read as: would not stay lit at 10 either,intermediate step -> burn,ambiguous_text,16.3,"3/8"" black rod",48   62   75,5   would not stay lit   10   15 ibid
+P8,2,Fernandez-Pello,pmma_rod,black,9.52,,16.4,15.0,extinguish,medium,0,[claude] '15 ibid': would not stay lit,no end marker,ambiguous_text,16.3,"3/8"" black rod",48   62   75,5   would not stay lit   10   15 ibid
 P9,0,Fernandez-Pello,pmma_rod,black,12.7,,17.6,5.0,burn,medium,0,,last listed flow before ext,,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
-P9,1,Fernandez-Pello,pmma_rod,black,12.7,,17.6,,extinguish,low,1,,text:ext_below_last; flow unknown,,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
+P9,1,Fernandez-Pello,pmma_rod,black,12.7,,17.6,3.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.9)",,added_by_claude,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
+P9,2,Fernandez-Pello,pmma_rod,black,12.7,,17.6,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
+P9,3,Fernandez-Pello,pmma_rod,black,12.7,,17.6,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
+P9,4,Fernandez-Pello,pmma_rod,black,12.7,,17.6,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
+P9,5,Fernandez-Pello,pmma_rod,black,12.7,,17.6,0.5,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.3)",,added_by_claude,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
+P9,6,Fernandez-Pello,pmma_rod,black,12.7,,17.6,0.47,extinguish,low,0,[claude] '... 0.28 ext': ext at pot 0.28,text:ext_below_last; flow unknown,,17.1,"0.5"" black rod",Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext
 P10,0,Fernandez-Pello,pmma_rod,black,6.35,,17.0,5.0,burn,medium,0,,last listed flow before ext,,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
-P10,1,Fernandez-Pello,pmma_rod,black,6.35,,17.0,,extinguish,low,1,,text:ext_below_last; flow unknown,,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
+P10,1,Fernandez-Pello,pmma_rod,black,6.35,,17.0,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
+P10,2,Fernandez-Pello,pmma_rod,black,6.35,,17.0,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
+P10,3,Fernandez-Pello,pmma_rod,black,6.35,,17.0,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
+P10,4,Fernandez-Pello,pmma_rod,black,6.35,,17.0,0.55,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.31)",,added_by_claude,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
+P10,5,Fernandez-Pello,pmma_rod,black,6.35,,17.0,0.5,extinguish,low,0,[claude] '... 0.30 extinguished': ext at pot 0.30,text:ext_below_last; flow unknown,,16.4,"1/4"" black rod",48   41,5   pots 0.4   0.36   0.32   0.31   0.30 extinguished
 P12,0,Fernandez-Pello,pmma_rod,black,9.52,,17.5,5.0,burn,medium,0,,intermediate step -> burn,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
 P12,1,Fernandez-Pello,pmma_rod,black,9.52,,17.5,3.0,burn,medium,0,,intermediate step -> burn,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
 P12,2,Fernandez-Pello,pmma_rod,black,9.52,,17.5,2.0,burn,medium,0,,intermediate step -> burn,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
 P12,3,Fernandez-Pello,pmma_rod,black,9.52,,17.5,1.0,burn,medium,0,,intermediate step -> burn,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
 P12,4,Fernandez-Pello,pmma_rod,black,9.52,,17.5,0.5,burn,medium,0,,last listed flow before ext,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
-P12,5,Fernandez-Pello,pmma_rod,black,9.52,,17.5,,extinguish,low,1,,text:ext_below_last; flow unknown,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
+P12,5,Fernandez-Pello,pmma_rod,black,9.52,,17.5,,unknown,low,0,"[claude] raw says 'lower', no ext text (auto rule misread)",text:ext_below_last; flow unknown,,16.8,"3/8"" black rod",60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower
 P13a,0,Fernandez-Pello,pmma_rod,black,12.7,,20.7,5.0,burn,medium,0,,last listed flow before ext,,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
-P13a,1,Fernandez-Pello,pmma_rod,black,12.7,,20.7,,extinguish,low,1,,text:ext_below_last; flow unknown,,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,1,Fernandez-Pello,pmma_rod,black,12.7,,20.7,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,2,Fernandez-Pello,pmma_rod,black,12.7,,20.7,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,3,Fernandez-Pello,pmma_rod,black,12.7,,20.7,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,4,Fernandez-Pello,pmma_rod,black,12.7,,20.7,0.5,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.3)",,added_by_claude,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,5,Fernandez-Pello,pmma_rod,black,12.7,,20.7,0.47,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.28)",,added_by_claude,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,6,Fernandez-Pello,pmma_rod,black,12.7,,20.7,0.43,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.26)",,added_by_claude,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
+P13a,7,Fernandez-Pello,pmma_rod,black,12.7,,20.7,0.0,extinguish,low,0,[claude] '... 0.26 0 ext': fan set to 0 then ext,text:ext_below_last; flow unknown,,19.1,"0.5"" black rod",Fan pot 1.1 (5cm/s)   0.4   0.36   0.32   0.3   0.28   0.26   0 ext,5 down to ext
 P13b,0,Fernandez-Pello,pmma_rod,black,12.7,,20.6,5.0,burn,medium,0,,last listed flow before ext,,20.2,"0.5"" black rod",Fan pot 1.3 (5cm/s)   0.4   0.36   0.32 ext,5 down to ext
-P13b,1,Fernandez-Pello,pmma_rod,black,12.7,,20.6,,extinguish,low,1,,text:ext_below_last; flow unknown,,20.2,"0.5"" black rod",Fan pot 1.3 (5cm/s)   0.4   0.36   0.32 ext,5 down to ext
+P13b,1,Fernandez-Pello,pmma_rod,black,12.7,,20.6,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,20.2,"0.5"" black rod",Fan pot 1.3 (5cm/s)   0.4   0.36   0.32 ext,5 down to ext
+P13b,2,Fernandez-Pello,pmma_rod,black,12.7,,20.6,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,20.2,"0.5"" black rod",Fan pot 1.3 (5cm/s)   0.4   0.36   0.32 ext,5 down to ext
+P13b,3,Fernandez-Pello,pmma_rod,black,12.7,,20.6,0.6,extinguish,low,0,[claude] '... 0.32 ext': ext at pot 0.32,text:ext_below_last; flow unknown,,20.2,"0.5"" black rod",Fan pot 1.3 (5cm/s)   0.4   0.36   0.32 ext,5 down to ext
 P14,0,Fernandez-Pello,pmma_rod,black,6.35,,18.4,5.0,burn,medium,0,,last listed flow before ext,,18.0,1/4 blac rod,46   41,5   low (.85   .4   .32)
-P14,1,Fernandez-Pello,pmma_rod,black,6.35,,18.4,,extinguish,low,1,,text:ext_below_last; flow unknown,,18.0,1/4 blac rod,46   41,5   low (.85   .4   .32)
-P15,0,Fernandez-Pello,pmma_rod,black,6.35,,18.0,5.0,,low,1,,no end marker,,17.5,1/4 black rod,46   41,5   (0.36)
+P14,1,Fernandez-Pello,pmma_rod,black,6.35,,18.4,2.83,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.85)",,added_by_claude,18.0,1/4 blac rod,46   41,5   low (.85   .4   .32)
+P14,2,Fernandez-Pello,pmma_rod,black,6.35,,18.4,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,18.0,1/4 blac rod,46   41,5   low (.85   .4   .32)
+P14,3,Fernandez-Pello,pmma_rod,black,6.35,,18.4,0.6,unknown,low,0,"[claude] 'low (.85 .4 .32)', no ext text; row = last pot 0.32",text:ext_below_last; flow unknown,,18.0,1/4 blac rod,46   41,5   low (.85   .4   .32)
+P15,0,Fernandez-Pello,pmma_rod,black,6.35,,18.0,5.0,burn,medium,0,[claude] moved on from 5 to pot 0.36; final outcome not stated,no end marker,,17.5,1/4 black rod,46   41,5   (0.36)
 P16,0,Fernandez-Pello,pmma_rod,black,6.35,,18.2,5.0,burn,medium,0,,intermediate step -> burn,,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
 P16,1,Fernandez-Pello,pmma_rod,black,6.35,,18.2,8.0,burn,medium,0,,intermediate step -> burn,,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
 P16,2,Fernandez-Pello,pmma_rod,black,6.35,,18.2,2.0,burn,medium,0,,last listed flow before ext,,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
-P16,3,Fernandez-Pello,pmma_rod,black,6.35,,18.2,,extinguish,low,1,,text:ext_below_last; flow unknown,,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
+P16,3,Fernandez-Pello,pmma_rod,black,6.35,,18.2,1.0,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.4)",,added_by_claude,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
+P16,4,Fernandez-Pello,pmma_rod,black,6.35,,18.2,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
+P16,5,Fernandez-Pello,pmma_rod,black,6.35,,18.2,0.6,unknown,low,0,"[claude] 'low' (pots .4 .36 .32), no ext text; row = last pot 0.32",text:ext_below_last; flow unknown,,17.4,"1/4"" black rod",49  62  44  41.5  41 (pots 1.3   2.8   0.7   0.4   0.36   0.32),5  8  2  low
 P17,0,Fernandez-Pello,pmma_rod,black,6.35,,16.8,5.0,burn,medium,0,,intermediate step -> burn,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
 P17,1,Fernandez-Pello,pmma_rod,black,6.35,,16.8,3.0,burn,medium,0,,intermediate step -> burn,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
 P17,2,Fernandez-Pello,pmma_rod,black,6.35,,16.8,2.0,burn,medium,0,,intermediate step -> burn,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
 P17,3,Fernandez-Pello,pmma_rod,black,6.35,,16.8,22.0,burn,medium,0,,intermediate step -> burn,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
 P17,4,Fernandez-Pello,pmma_rod,black,6.35,,16.8,2.0,burn,medium,0,,last listed flow before ext,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
-P17,5,Fernandez-Pello,pmma_rod,black,6.35,,16.8,,extinguish,low,1,,text:ext_below_last; flow unknown,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
-P18,0,Fernandez-Pello,pmma_rod,black,6.35,,20.0,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P18,1,Fernandez-Pello,pmma_rod,black,6.35,,20.0,0.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P18,2,Fernandez-Pello,pmma_rod,black,6.35,,20.0,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P18,3,Fernandez-Pello,pmma_rod,black,6.35,,20.0,0.0,,low,1,,no end marker,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P17,5,Fernandez-Pello,pmma_rod,black,6.35,,16.8,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
+P17,6,Fernandez-Pello,pmma_rod,black,6.35,,16.8,0.7,unknown,low,0,"[claude] 'low' (pots .36 .34), no ext text; row = last pot 0.34",text:ext_below_last; flow unknown,,16.5,"1/4""  black rod",60  52  48  233  48  41 (2.6   1.6   1.2   10   1.2   0.36   0.34),5   3   2   22   2   low
+P18,0,Fernandez-Pello,pmma_rod,black,6.35,,20.0,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P18,1,Fernandez-Pello,pmma_rod,black,6.35,,20.0,0.0,burn,low,0,[claude] '2 0 2 0 etc': flow cycled back to 2 with no re-ignition noted -> alive; pot 1 suggests '0' is not truly zero,intermediate step -> burn,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P18,2,Fernandez-Pello,pmma_rod,black,6.35,,20.0,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P18,3,Fernandez-Pello,pmma_rod,black,6.35,,20.0,0.0,unknown,low,0,[claude] 'etc': end of cycling not recorded,no end marker,ambiguous_text,19.0,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
 P19,0,Fernandez-Pello,pmma_rod,black,6.35,,17.5,5.0,burn,medium,0,,intermediate step -> burn,,16.7,"1/4"" black rod",49  62  44  41.5  122   41 (pots 1.3   2.8   0.7   0.4   0.36   10.   0.32),5  8  2  max   0
 P19,1,Fernandez-Pello,pmma_rod,black,6.35,,17.5,8.0,burn,medium,0,,intermediate step -> burn,,16.7,"1/4"" black rod",49  62  44  41.5  122   41 (pots 1.3   2.8   0.7   0.4   0.36   10.   0.32),5  8  2  max   0
 P19,2,Fernandez-Pello,pmma_rod,black,6.35,,17.5,2.0,burn,medium,0,,intermediate step -> burn,,16.7,"1/4"" black rod",49  62  44  41.5  122   41 (pots 1.3   2.8   0.7   0.4   0.36   10.   0.32),5  8  2  max   0
-P19,3,Fernandez-Pello,pmma_rod,black,6.35,,17.5,0.0,,low,1,,no end marker,,16.7,"1/4"" black rod",49  62  44  41.5  122   41 (pots 1.3   2.8   0.7   0.4   0.36   10.   0.32),5  8  2  max   0
-P20,0,Fernandez-Pello,pmma_rod,black,6.35,,19.0,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P20,1,Fernandez-Pello,pmma_rod,black,6.35,,19.0,0.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P20,2,Fernandez-Pello,pmma_rod,black,6.35,,19.0,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P20,3,Fernandez-Pello,pmma_rod,black,6.35,,19.0,0.0,,low,1,,no end marker,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P21a,0,Fernandez-Pello,pmma_rod,black,6.35,,16.3,5.0,,low,1,,no end marker,,16.3,1/4 black rod,46,5
-P21b,0,Fernandez-Pello,pmma_rod,black,6.35,,16.3,5.0,,low,1,,no end marker,,16.3,"1/4"" black rod",46,5
+P19,3,Fernandez-Pello,pmma_rod,black,6.35,,17.5,0.0,unknown,low,0,"[claude] last step (0 after max), no end state",no end marker,,16.7,"1/4"" black rod",49  62  44  41.5  122   41 (pots 1.3   2.8   0.7   0.4   0.36   10.   0.32),5  8  2  max   0
+P20,0,Fernandez-Pello,pmma_rod,black,6.35,,19.0,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P20,1,Fernandez-Pello,pmma_rod,black,6.35,,19.0,0.0,burn,low,0,[claude] '2 0 2 0 etc': flow cycled back to 2 with no re-ignition noted -> alive; pot 1 suggests '0' is not truly zero,intermediate step -> burn,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P20,2,Fernandez-Pello,pmma_rod,black,6.35,,19.0,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P20,3,Fernandez-Pello,pmma_rod,black,6.35,,19.0,0.0,unknown,low,0,[claude] 'etc': end of cycling not recorded,no end marker,ambiguous_text,18.2,"1/4"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P21a,0,Fernandez-Pello,pmma_rod,black,6.35,,16.3,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,16.3,1/4 black rod,46,5
+P21b,0,Fernandez-Pello,pmma_rod,black,6.35,,16.3,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,16.3,"1/4"" black rod",46,5
 P22a,0,Fernandez-Pello,pmma_rod,black,9.52,,20.8,5.0,burn,medium,0,,last listed flow before ext,,0.6,"3/8"" black rod",5   0.36   0.32 ext after some time,5   down to ext
-P22a,1,Fernandez-Pello,pmma_rod,black,9.52,,20.8,,extinguish,low,1,,text:ext_below_last; flow unknown,,0.6,"3/8"" black rod",5   0.36   0.32 ext after some time,5   down to ext
+P22a,1,Fernandez-Pello,pmma_rod,black,9.52,,20.8,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,0.6,"3/8"" black rod",5   0.36   0.32 ext after some time,5   down to ext
+P22a,2,Fernandez-Pello,pmma_rod,black,9.52,,20.8,0.6,extinguish,low,0,[claude] '0.32 ext after some time'; final O2 0.6% looks like a sensor/entry error,text:ext_below_last; flow unknown,,0.6,"3/8"" black rod",5   0.36   0.32 ext after some time,5   down to ext
 P22b,0,Fernandez-Pello,pmma_rod,black,9.52,,20.0,5.0,burn,medium,0,,last listed flow before ext,,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
-P22b,1,Fernandez-Pello,pmma_rod,black,9.52,,20.0,,extinguish,low,1,,text:ext_below_last; flow unknown,,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
-P23,0,Fernandez-Pello,pmma_rod,black,9.52,,18.2,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P23,1,Fernandez-Pello,pmma_rod,black,9.52,,18.2,0.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P23,2,Fernandez-Pello,pmma_rod,black,9.52,,18.2,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P23,3,Fernandez-Pello,pmma_rod,black,9.52,,18.2,0.0,,low,1,,no end marker,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P24,0,Fernandez-Pello,pmma_rod,black,9.52,,19.0,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P24,1,Fernandez-Pello,pmma_rod,black,9.52,,19.0,0.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P24,2,Fernandez-Pello,pmma_rod,black,9.52,,19.0,2.0,burn,medium,1,,intermediate step -> burn,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
-P24,3,Fernandez-Pello,pmma_rod,black,9.52,,19.0,0.0,,low,1,,no end marker,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P22b,1,Fernandez-Pello,pmma_rod,black,9.52,,20.0,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P22b,2,Fernandez-Pello,pmma_rod,black,9.52,,20.0,0.7,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.34)",,added_by_claude,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P22b,3,Fernandez-Pello,pmma_rod,black,9.52,,20.0,0.65,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.33)",,added_by_claude,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P22b,4,Fernandez-Pello,pmma_rod,black,9.52,,20.0,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P22b,5,Fernandez-Pello,pmma_rod,black,9.52,,20.0,0.55,extinguish,low,0,[claude] '... 0.31 ext': ext at pot 0.31; final O2 39.1% looks like a sensor/entry error,text:ext_below_last; flow unknown,,39.1,"3/8"" black rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P23,0,Fernandez-Pello,pmma_rod,black,9.52,,18.2,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P23,1,Fernandez-Pello,pmma_rod,black,9.52,,18.2,0.0,burn,low,0,[claude] '2 0 2 0 etc': flow cycled back to 2 with no re-ignition noted -> alive; pot 1 suggests '0' is not truly zero,intermediate step -> burn,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P23,2,Fernandez-Pello,pmma_rod,black,9.52,,18.2,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P23,3,Fernandez-Pello,pmma_rod,black,9.52,,18.2,0.0,unknown,low,0,[claude] 'etc': end of cycling not recorded,no end marker,ambiguous_text,17.0,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P24,0,Fernandez-Pello,pmma_rod,black,9.52,,19.0,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P24,1,Fernandez-Pello,pmma_rod,black,9.52,,19.0,0.0,burn,low,0,[claude] '2 0 2 0 etc': flow cycled back to 2 with no re-ignition noted -> alive; pot 1 suggests '0' is not truly zero,intermediate step -> burn,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P24,2,Fernandez-Pello,pmma_rod,black,9.52,,19.0,2.0,burn,medium,0,[claude] '2 0 2 0 etc' cycling: moved on -> burn,intermediate step -> burn,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
+P24,3,Fernandez-Pello,pmma_rod,black,9.52,,19.0,0.0,unknown,low,0,[claude] 'etc': end of cycling not recorded,no end marker,ambiguous_text,17.5,"3/8"" black rod",55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc
 P25,0,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,5.0,burn,medium,0,,last listed flow before ext,,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
-P25,1,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,,extinguish,low,1,,text:ext_below_last; flow unknown,,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
-T1,0,T'ien,sibal,,,2.0,18.5,10.0,,low,1,,no end marker,,18.5,2 cm SIBAL,80,10
+P25,1,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,0.8,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.36)",,added_by_claude,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P25,2,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,0.7,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.34)",,added_by_claude,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P25,3,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,0.65,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.33)",,added_by_claude,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P25,4,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,0.6,burn,low,0,"[claude] added row: intermediate pot step, flow est. from pot calibration (pot 0.32)",,added_by_claude,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+P25,5,Fernandez-Pello,pmma_rod,clear,9.52,,20.9,0.55,extinguish,low,0,[claude] '... 0.31 ext': ext at pot 0.31,text:ext_below_last; flow unknown,,20.2,"3/8"" clear rod",5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext
+T1,0,T'ien,sibal,,,2.0,18.5,10.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.5,2 cm SIBAL,80,10
 T2,0,T'ien,sibal,,,2.0,18.5,9.0,burn,medium,0,,intermediate step -> burn,,18.5,2 cm SIBAL,80   59   55,9   5   4
 T2,1,T'ien,sibal,,,2.0,18.5,5.0,burn,medium,0,,intermediate step -> burn,,18.5,2 cm SIBAL,80   59   55,9   5   4
-T2,2,T'ien,sibal,,,2.0,18.5,4.0,,low,1,,no end marker,,18.5,2 cm SIBAL,80   59   55,9   5   4
-T3,0,T'ien,spherical_section,,,,17.2,10.0,,low,1,,no end marker,,16.8,4 cm spherical section,63,10
+T2,2,T'ien,sibal,,,2.0,18.5,4.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.5,2 cm SIBAL,80   59   55,9   5   4
+T3,0,T'ien,spherical_section,,,,17.2,10.0,unknown,low,0,"[claude] single step, no end state",no end marker,,16.8,4 cm spherical section,63,10
 T4,0,T'ien,sibal,,,2.0,18.7,9.0,burn,medium,0,,intermediate step -> burn,,18.7,2 cm SIBAL,80   46,9  1
-T4,1,T'ien,sibal,,,2.0,18.7,1.0,,low,1,,no end marker,,18.7,2 cm SIBAL,80   46,9  1
+T4,1,T'ien,sibal,,,2.0,18.7,1.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.7,2 cm SIBAL,80   46,9  1
 T5,0,T'ien,sibal,,,2.0,18.8,10.0,burn,medium,0,,intermediate step -> burn,,18.9,2 cm SIBAL,2.72   0.50   0.42,10   2   1
 T5,1,T'ien,sibal,,,2.0,18.8,2.0,burn,medium,0,,intermediate step -> burn,,18.9,2 cm SIBAL,2.72   0.50   0.42,10   2   1
-T5,2,T'ien,sibal,,,2.0,18.8,1.0,,low,1,,no end marker,,18.9,2 cm SIBAL,2.72   0.50   0.42,10   2   1
-T6,0,T'ien,sibal,,,2.0,18.8,5.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
-T6,1,T'ien,sibal,,,2.0,18.8,2.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
-T6,2,T'ien,sibal,,,2.0,18.8,1.0,burn,medium,1,,intermediate step -> burn,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
-T6,3,T'ien,sibal,,,2.0,18.8,0.5,,low,1,,no end marker,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
+T5,2,T'ien,sibal,,,2.0,18.8,1.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.9,2 cm SIBAL,2.72   0.50   0.42,10   2   1
+T6,0,T'ien,sibal,,,2.0,18.8,5.0,burn,medium,0,[claude] operators moved on to next flow -> burn,intermediate step -> burn,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
+T6,1,T'ien,sibal,,,2.0,18.8,2.0,burn,medium,0,[claude] operators moved on to next flow -> burn,intermediate step -> burn,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
+T6,2,T'ien,sibal,,,2.0,18.8,1.0,burn,medium,0,[claude] operators moved on to next flow -> burn,intermediate step -> burn,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
+T6,3,T'ien,sibal,,,2.0,18.8,0.5,unknown,low,0,"[claude] last step (<1 cm/s), no end state",no end marker,lt1_as_0.5,18.8,2 cm SIBAL,,5  2  1   <1
 T7,0,T'ien,spherical_section,,,,17.3,10.0,burn,medium,0,,intermediate step -> burn,,17.1,4 cm spherical section,3.4   67,10   5  3  1   decr
 T7,1,T'ien,spherical_section,,,,17.3,5.0,burn,medium,0,,intermediate step -> burn,,17.1,4 cm spherical section,3.4   67,10   5  3  1   decr
 T7,2,T'ien,spherical_section,,,,17.3,3.0,burn,medium,0,,intermediate step -> burn,,17.1,4 cm spherical section,3.4   67,10   5  3  1   decr
-T7,3,T'ien,spherical_section,,,,17.3,1.0,,low,1,,no end marker,,17.1,4 cm spherical section,3.4   67,10   5  3  1   decr
-T9,0,T'ien,sibal,,,2.0,16.4,10.0,,low,1,,no end marker,,16.4,2 cm SIBAL,pot 2.5,10
-T10,0,T'ien,sibal,,,2.0,16.4,5.0,,low,1,,no end marker,,16.5,2 cm SIBAL,pot 1.1,5
-T11,0,T'ien,sibal,,,2.0,17.1,5.0,,low,1,,no end marker,,17.0,2 cm SIBAL,48,5
-T12,0,T'ien,sibal,,,2.0,16.8,5.0,,low,1,,no end marker,,16.9,2 cm SIBAL,pot 1.1,5
+T7,3,T'ien,spherical_section,,,,17.3,1.0,burn,medium,0,[claude] followed by 'decr' -> burn; final step not stated,no end marker,,17.1,4 cm spherical section,3.4   67,10   5  3  1   decr
+T9,0,T'ien,sibal,,,2.0,16.4,10.0,unknown,low,0,"[claude] single step, no end state",no end marker,,16.4,2 cm SIBAL,pot 2.5,10
+T10,0,T'ien,sibal,,,2.0,16.4,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,16.5,2 cm SIBAL,pot 1.1,5
+T11,0,T'ien,sibal,,,2.0,17.1,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,17.0,2 cm SIBAL,48,5
+T12,0,T'ien,sibal,,,2.0,16.8,5.0,unknown,low,0,"[claude] single step, no end state",no end marker,,16.9,2 cm SIBAL,pot 1.1,5
 T13,0,T'ien,sibal,,,2.0,17.5,5.0,burn,medium,0,,intermediate step -> burn,,17.6,2 cm SIBAL,,5  1
-T13,1,T'ien,sibal,,,2.0,17.5,1.0,,low,1,,no end marker,,17.6,2 cm SIBAL,,5  1
+T13,1,T'ien,sibal,,,2.0,17.5,1.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.6,2 cm SIBAL,,5  1
 T14,0,T'ien,sibal,,,2.0,16.9,5.0,burn,medium,0,,intermediate step -> burn,,16.9,2 cm SIBAL,,5  3
-T14,1,T'ien,sibal,,,2.0,16.9,3.0,,low,1,,no end marker,,16.9,2 cm SIBAL,,5  3
+T14,1,T'ien,sibal,,,2.0,16.9,3.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,16.9,2 cm SIBAL,,5  3
 T15,0,T'ien,sibal,,,2.0,18.7,9.0,burn,medium,0,,intermediate step -> burn,,18.7,2 cm SIBAL,80122,9   29
-T15,1,T'ien,sibal,,,2.0,18.7,29.0,,low,1,,no end marker,,18.7,2 cm SIBAL,80122,9   29
+T15,1,T'ien,sibal,,,2.0,18.7,29.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,18.7,2 cm SIBAL,80122,9   29
 T16,0,T'ien,sibal,,,2.0,17.6,5.0,burn,medium,0,,intermediate step -> burn,,17.5,2 cm SIBAL,,5  3
-T16,1,T'ien,sibal,,,2.0,17.6,3.0,,low,1,,no end marker,,17.5,2 cm SIBAL,,5  3
-T17,0,T'ien,sibal,,,2.0,16.9,6.0,burn,medium,1,,intermediate step -> burn,gt30_maybe_fan_units,16.9,2 cm SIBAL,,6   53
-T17,1,T'ien,sibal,,,2.0,16.9,53.0,,low,1,,no end marker,gt30_maybe_fan_units,16.9,2 cm SIBAL,,6   53
+T16,1,T'ien,sibal,,,2.0,17.6,3.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.5,2 cm SIBAL,,5  3
+T17,0,T'ien,sibal,,,2.0,16.9,6.0,burn,medium,0,[claude] moved on from 6,intermediate step -> burn,gt30_maybe_fan_units,16.9,2 cm SIBAL,,6   53
+T17,1,T'ien,sibal,,,2.0,16.9,5.0,unknown,low,0,"[claude] ""53"" is fan display (53 <-> 5 cm/s in T25-T27/B21), not cm/s; no end state",no end marker,gt30_maybe_fan_units,16.9,2 cm SIBAL,,6   53
 T18,0,T'ien,sibal,,,2.0,17.4,5.0,burn,medium,0,,intermediate step -> burn,,17.4,2 cm SIBAL,,5  2
-T18,1,T'ien,sibal,,,2.0,17.4,2.0,,low,1,,no end marker,,17.4,2 cm SIBAL,,5  2
-T19,0,T'ien,sibal,,,1.0,17.2,11.0,,low,1,,no end marker,,17.2,1 cm SIBAL,68.5   pot 3.6,11
+T18,1,T'ien,sibal,,,2.0,17.4,2.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.4,2 cm SIBAL,,5  2
+T19,0,T'ien,sibal,,,1.0,17.2,11.0,unknown,low,0,"[claude] single step, no end state",no end marker,,17.2,1 cm SIBAL,68.5   pot 3.6,11
 T20,0,T'ien,sibal,,,1.0,17.2,11.0,burn,medium,0,,intermediate step -> burn,,17.2,1 cm SIBAL,3.6   0.9,11   3
-T20,1,T'ien,sibal,,,1.0,17.2,3.0,,low,1,,no end marker,,17.2,1 cm SIBAL,3.6   0.9,11   3
-T21,0,T'ien,sibal,,,1.0,17.2,11.0,,low,1,,no end marker,,17.2,1 cm SIBAL,1.6 pot   52,11   max(47)
+T20,1,T'ien,sibal,,,1.0,17.2,3.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.2,1 cm SIBAL,3.6   0.9,11   3
+T21,0,T'ien,sibal,,,1.0,17.2,11.0,burn,medium,0,[claude] moved on from 11 to max(47); final step not stated,no end marker,,17.2,1 cm SIBAL,1.6 pot   52,11   max(47)
 T22,0,T'ien,sibal,,,1.0,17.1,10.0,burn,medium,0,,intermediate step -> burn,,17.0,1 cm SIBAL,3.4   1.7,10   5
-T22,1,T'ien,sibal,,,1.0,17.1,5.0,,low,1,,no end marker,,17.0,1 cm SIBAL,3.4   1.7,10   5
-T23,0,T'ien,sibal,,,2.0,17.2,10.0,,low,1,,no end marker,,17.3,2 cm Sibal   moved igniter,3.3   66,10
-T24,0,T'ien,sibal,,,1.0,18.2,10.0,,low,1,,no end marker,,18.2,1 cm SIBAL   top side ign,3.3 66,10
+T22,1,T'ien,sibal,,,1.0,17.1,5.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,17.0,1 cm SIBAL,3.4   1.7,10   5
+T23,0,T'ien,sibal,,,2.0,17.2,10.0,unknown,low,0,"[claude] single step, no end state",no end marker,,17.3,2 cm Sibal   moved igniter,3.3   66,10
+T24,0,T'ien,sibal,,,1.0,18.2,10.0,unknown,low,0,"[claude] single step, no end state",no end marker,,18.2,1 cm SIBAL   top side ign,3.3 66,10
 T25,0,T'ien,sibal,,,2.0,20.8,5.0,burn,medium,0,,intermediate step -> burn,,20.7,2 cm SIBAL,53   45,5   2.5
-T25,1,T'ien,sibal,,,2.0,20.8,2.5,,low,1,,no end marker,,20.7,2 cm SIBAL,53   45,5   2.5
+T25,1,T'ien,sibal,,,2.0,20.8,2.5,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.7,2 cm SIBAL,53   45,5   2.5
 T26,0,T'ien,sibal,,,2.0,20.8,5.0,burn,medium,0,,intermediate step -> burn,,20.7,2 cm SIBAL,53   45,5   2.5
-T26,1,T'ien,sibal,,,2.0,20.8,2.5,,low,1,,no end marker,,20.7,2 cm SIBAL,53   45,5   2.5
+T26,1,T'ien,sibal,,,2.0,20.8,2.5,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.7,2 cm SIBAL,53   45,5   2.5
 T27,0,T'ien,sibal,,,1.0,20.7,5.0,burn,medium,0,,intermediate step -> burn,,20.6,1 cm SIBAL,53   45,5   2
-T27,1,T'ien,sibal,,,1.0,20.7,2.0,,low,1,,no end marker,,20.6,1 cm SIBAL,53   45,5   2
-T28a,0,T'ien,sibal,,,1.0,20.7,5.0,,low,1,,no end marker,,0.9,1 cm SIBAL,53,5
-T28b,0,T'ien,sibal,,,1.0,20.7,5.0,,low,1,,no end marker,,40.4,1 cm SIBAL,53,5
+T27,1,T'ien,sibal,,,1.0,20.7,2.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.6,1 cm SIBAL,53   45,5   2
+T28a,0,T'ien,sibal,,,1.0,20.7,5.0,unknown,low,0,"[claude] single step, no end state; final O2 0.9% looks like a sensor/entry error",no end marker,,0.9,1 cm SIBAL,53,5
+T28b,0,T'ien,sibal,,,1.0,20.7,5.0,unknown,low,0,"[claude] single step, no end state; final O2 40.4% looks like a sensor/entry error",no end marker,,40.4,1 cm SIBAL,53,5
 T29,0,T'ien,sibal,,,1.0,20.7,5.0,burn,medium,0,,intermediate step -> burn,,20.5,1 cm SIBAL,53   43,5   2(?)
-T29,1,T'ien,sibal,,,1.0,20.7,2.0,,low,1,,no end marker,,20.5,1 cm SIBAL,53   43,5   2(?)
+T29,1,T'ien,sibal,,,1.0,20.7,2.0,unknown,low,0,[claude] last step; raw text gives no end state,no end marker,,20.5,1 cm SIBAL,53   43,5   2(?)
