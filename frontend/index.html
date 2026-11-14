@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlameScope</title>
+<meta name="description" content="Fire-safety answers for spacecraft and Moon bases, from NASA's own microgravity combustion experiments.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <button class="brand" data-goto="home" aria-label="FlameScope home"><span class="flame" aria-hidden="true"></span><span class="brand-name">FlameScope</span></button>
+  <nav class="nav" aria-label="Sections">
+    <button data-goto="home">Ask</button>
+    <button data-goto="map">Flame map</button>
+    <button data-goto="method">Method</button>
+  </nav>
+  <button class="how" data-drawer aria-expanded="false" aria-controls="drawer"><span aria-hidden="true">⚙</span><span class="how-label">How it works</span></button>
+</header>
+
+<main id="app" aria-live="polite"></main>
+
+<footer class="foot" id="foot">Quotes are NASA's own words from its Physical Sciences Informatics archive. AI-written text is labelled.</footer>
+
+<div class="scrim" data-close hidden></div>
+<aside class="drawer" id="drawer" aria-label="How it works: technical details" hidden>
+  <div class="drawer-head">
+    <span class="eyebrow">How it works · technical details</span>
+    <button class="x" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+
+<script src="data/demo.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
