@@ -8,10 +8,6 @@ scipy>=1.10
 
 # Plots
 matplotlib>=3.7
-plotly>=5.18
-
-# Dashboard
-streamlit>=1.30
 
 # Notebooks
 ipykernel>=6.25
