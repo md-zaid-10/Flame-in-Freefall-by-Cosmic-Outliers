@@ -1,0 +1,31 @@
+check_id,run_id,step,material,thickness_mm,o2_pct,o2_final_pct,flow_cm_s,raw_fan,raw_air,hand_outcome,hand_notes,row,outcome,confidence
+1,O6,5,pmma_rod,6.35,16.7,16.0,0.46,5   .36  .32  .31  .305   out .275,see fan,extinguish,"[claude-blind] steps 5,.36,.32,.31,.305 then 'out .275' = step 5",159,extinguish,low
+2,M3,2,pmma_slab,5.0,20.8,19.7,18.0,3.0  3.1  3.2  6.4  5.5  5.4,10   20  18,unknown,[claude-blind] last listed flow (18); no end state in text,59,unknown,low
+3,O18,7,pmma_rod,6.35,15.2,14.5,0.0,57  51  47  72  51  72  51  47 (2.3   1.5   1.0   4.0   1.5   4.0   1.5   1.0),5  2  0  11  2  11  2  0,unknown,[claude-blind] last step (0) of a cycling run; no end state,216,unknown,low
+4,P3a,0,pmma_rod,6.35,17.7,17.4,5.0,,5   2.5 (1.15   .5   .35   .33. .32   .315   .31   .3),burn,[claude-blind] moved on from 5 to 2.5,231,burn,medium
+5,P9,6,pmma_rod,12.7,17.6,17.1,0.47,Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.3   0.28 ext,5 down to ext,extinguish,[claude-blind] step 6 = pot 0.28 marked 'ext',275,extinguish,low
+6,O8a,3,pmma_rod,6.35,15.7,15.3,0.55,5   .36  .32  .31   extinguished,,extinguish,[claude-blind] step 3 = pot .31 marked 'extinguished',168,extinguish,low
+7,M20,0,pmma_slab,5.0,18.0,17.4,10.0,67   58,10  8,burn,[claude-blind] moved on from 10 to 8,128,burn,medium
+8,P22a,2,pmma_rod,9.52,20.8,0.6,0.6,5   0.36   0.32 ext after some time,5   down to ext,extinguish,[claude-blind] step 2 = pot 0.32 'ext after some time'; final O2 0.6 looks like a sensor error,334,extinguish,low
+9,M9,0,pmma_slab,3.0,18.0,17.6,10.0,3.3   4.8;66  79,10   14,burn,[claude-blind] moved on from 10 to 14,82,burn,medium
+10,B18,0,pmma_film,0.2,17.4,17.4,10.0,pot 1.02 (47)   incr to 7.0,10   blowoff,blowoff,[claude-blind] '10 blowoff' after fan increased from pot 1.02 to 7.0; an earlier low-flow step may be missing from raw_air,37,blowoff,high
+11,B14,2,pmma_film,0.2,15.0,,2.0,pot 0.9   0.5 and down,5  3  2   ext,burn,[claude-blind] '5 3 2 ext' with fan '0.5 and down': flow kept decreasing below 2 before ext. Ambiguous: could be ext at 2,30,extinguish,medium
+12,T27,1,sibal,,20.7,20.6,2.0,53   45,5   2,unknown,[claude-blind] last listed flow (2); no end state,402,unknown,low
+13,P8,1,pmma_rod,9.52,16.4,16.3,10.0,48   62   75,5   would not stay lit   10   15 ibid,extinguish,[claude-blind] '10 15 ibid' read as 'would not stay lit' for both 10 and 15. Ambiguous: ibid may cover only 15,267,extinguish,low
+14,T16,0,sibal,,17.6,17.5,5.0,,5  3,burn,[claude-blind] moved on from 5 to 3,383,burn,medium
+15,P6,4,pmma_rod,6.35,18.9,18.5,0.55,48   41,5   pots 0.4   0.36   0.32   0.31   off,extinguish,[claude-blind] step 4 = pot 0.31 then 'off',265,extinguish,low
+16,B8,0,pmma_film,0.2,21.0,20.5,10.0,1.4    incr to 10.0,10   max,unknown,[claude-blind] 'incr to 10.0' / '10 max': no end state,9,unknown,low
+17,B19,0,pmma_film,0.1,17.3,17.2,10.0,47 (pot 1.05)   incr to pot 6.0,10   blowoff,blowoff,[claude-blind] '10 blowoff',38,blowoff,high
+18,O11,5,pmma_rod,6.35,15.4,14.8,13.0,ign 5   0.36   0.32   0.31   0.305   blowoff 6.0,5   down then blowoff,blowoff,"[claude-blind] steps 5,.36,.32,.31,.305 then 'blowoff 6.0' = step 5",186,blowoff,low
+19,T29,0,sibal,,20.7,20.5,5.0,53   43,5   2(?),burn,[claude-blind] moved on from 5 to 2(?),405,burn,medium
+20,O7,4,pmma_rod,6.35,16.0,15.5,,5   .36  .32  ..305   blowoff fan max 10,,blowoff,"[claude-blind] steps 5,.36,.32,.305 then 'blowoff fan max 10' = step 4",164,blowoff,low
+21,M18,2,pmma_slab,3.0,17.9,16.8,10.0,Fan pot 3.5   5 (brief)   3  5   2.2,10   15 (brief)   10   8,burn,[claude-blind] moved on from 10 to 8,120,burn,medium
+22,P8,2,pmma_rod,9.52,16.4,16.3,15.0,48   62   75,5   would not stay lit   10   15 ibid,extinguish,[claude-blind] '15 ibid' = would not stay lit,268,extinguish,medium
+23,B22,2,pmma_film,0.2,20.7,20.5,0.0,53   42   41   40.5,5   2   0,unknown,[claude-blind] last step (0); no end state,46,unknown,low
+24,P12,1,pmma_rod,9.52,17.5,16.8,3.0,60  52  48  44.5  42  41.5  41 (2.6  1.6  1.2  .75  .5  .4  .36  0.34),5   3  2  1   0.5   lower,burn,[claude-blind] moved on from 3 to 2,283,burn,medium
+25,P20,1,pmma_rod,6.35,19.0,18.2,0.0,55  47  etc (pot 1  2  1  2   etc),2  0  2  0  etc,burn,"[claude-blind] '2 0 2 0 etc': operators returned to 2 with no re-ignition noted, so alive per the moved-on rule. Low confidence",327,burn,low
+26,B21,1,pmma_film,0.2,20.8,20.6,,53   and down,5 down to ext,extinguish,[claude-blind] '5 down to ext',43,extinguish,low
+27,P22b,5,pmma_rod,9.52,20.0,39.1,0.55,5   p.36   0.34   0.33   0.32   0.31 ext,5 down to ext,extinguish,[claude-blind] step 5 = pot 0.31 marked 'ext'; final O2 39.1 looks like a sensor error,340,extinguish,low
+28,P5,5,pmma_rod,12.7,19.3,17.6,0.54,Fan pot 1.5 (5cm/s)   0.9   0.4   0.36   0.32   0.308   0.3   0.29   0.28   0 ext,5 down to ext,burn,[claude-blind] step 5 = pot 0.308; operators moved on to 0.3,256,burn,low
+29,P3b,4,pmma_rod,6.35,17.4,16.8,0.53,,5   very low (0.85   0.32   0.31   0.305   0.30   0.295),burn,[claude-blind] step 4 = pot 0.305; moved on to 0.30 (no 'ext' text in this run),242,burn,low
+30,P1,2,pmma_rod,6.35,17.7,17.5,,,5  2   slow decr to ext,extinguish,[claude-blind] '5 2 slow decr to ext',227,extinguish,low
