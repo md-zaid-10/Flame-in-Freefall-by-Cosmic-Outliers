@@ -54,3 +54,7 @@ data/raw/documents/
 
 # Cached sentence embeddings (regenerated on first retrieval, ~1 min)
 data/rag/embeddings.npy
+
+# Local design and context notes (not part of the repo)
+DESIGN.md
+PROJECT_CONTEXT.md
