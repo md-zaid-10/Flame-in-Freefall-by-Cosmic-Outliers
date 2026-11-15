@@ -5,7 +5,7 @@ NASA's text. The checker only confirms that each number and citation tag appears
 retrieved sources. It does not check that a sentence reads them correctly.
 
 On the site, these summaries carry the label "AI summary · not NASA's words" plus a note telling readers to
-trust NASA's passages. **They have not been rewritten.** For each item, a team member should read the source
+trust NASA's passages. **Status 2026-11-15: all three were dropped from the site (see each Decision line). They were never rewritten.** For each item, a team member should read the source
 pages and record a decision below.
 
 Possible decisions:
@@ -36,7 +36,7 @@ Never hand-edit `demo.js`, and never rewrite the AI text by hand.
 - [ ] Find where "1.5" comes from in the retrieved chunks.
 - [ ] Check whether FLEX (PSI-69) publishes measured initial droplet diameters. The FLEX table rows show
   values such as 1.61–1.86 mm.
-- [ ] Decision: keep / drop / regenerate. Reviewer: ____
+- [x] Decision: **drop** (2026-11-15). Removed from `EXAMPLES` and the public cache before submission; the open questions above were not investigated. Reviewer: Zaid
 
 ## 2. CO2 vs helium for putting out fires
 
@@ -59,7 +59,7 @@ Never hand-edit `demo.js`, and never rewrite the AI text by hand.
   they come from a simulation?
 - [ ] Does any PSI source, for example FLEX (PSI-69), which tested CO2 and He dilution, directly compare
   how well they suppress fire?
-- [ ] Decision: keep / drop / regenerate. Reviewer: ____
+- [x] Decision: **drop** (2026-11-15). Removed from `EXAMPLES` and the public cache before submission; the open questions above were not investigated. Reviewer: Zaid
 
 ## 3. Ultem and Nomex attribution
 
@@ -81,7 +81,7 @@ Never hand-edit `demo.js`, and never rewrite the AI text by hand.
 **To check:**
 - [ ] Confirm whether the answer format places the tag before or after the sentence it supports.
 - [ ] Decide whether a misplaced tag is acceptable when the correct source ([BASS]) is also present.
-- [ ] Decision: keep / drop / regenerate. Reviewer: ____
+- [x] Decision: **drop** (2026-11-15). Removed from `EXAMPLES` and the public cache before submission; the open questions above were not investigated. Reviewer: Zaid
 
 ## Separate issue: research ranking ties (`rag/search.py`, owner: Ananya)
 

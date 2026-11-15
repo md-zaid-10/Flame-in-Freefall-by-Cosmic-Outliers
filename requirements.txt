@@ -14,7 +14,6 @@ ipykernel>=6.25
 
 # RAG / LLM (retrieval + grounded answers; see rag/README.md)
 pypdf>=6.0              # PDF text extraction
-pdfplumber>=0.11        # fallback PDF layout extraction
 python-docx>=1.1        # .docx science documents
 python-pptx>=0.6        # .pptx presentations
 openpyxl>=3.1           # .xlsx test matrices

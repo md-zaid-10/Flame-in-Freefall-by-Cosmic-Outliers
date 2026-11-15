@@ -57,18 +57,3 @@ HABITAT = {
 }
 
 REFERENCES = [PSI_BASS2, MARCUM_2016, OLSON_FERKUL_2015, HABITAT["source"]]
-
-
-def gravity_bounds(material: str = "pmma_rod") -> dict:
-    """Limiting-O2 values at the two gravity levels we have data for (O2 % by volume)."""
-    if "rod" not in str(material).lower():
-        return {"status": "no cited bounds for this material"}
-    r = PMMA_ROD
-    return {
-        "status": "ok",
-        "microgravity": r["microgravity_min_o2"]["value"],
-        "normal_gravity_low": r["normal_gravity_bracket"]["low"],
-        "normal_gravity_high": r["normal_gravity_bracket"]["high"],
-        "partial_gravity": None,  # no data in PSI; do not interpolate
-        "note": "Moon/Mars (partial g) not measured; not assumed to lie between the bounds.",
-    }

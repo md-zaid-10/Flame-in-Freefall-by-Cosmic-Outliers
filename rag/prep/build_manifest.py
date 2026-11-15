@@ -1,4 +1,4 @@
-import json, urllib.request, re, sys, collections
+import json, urllib.request, sys, collections
 B="https://psi.nasa.gov/geode-py/ws"
 H={'User-Agent':'research-client'}
 # 24 combustion-relevant (PSI-181 solder, PSI-108 surface-tension excluded as off-topic)

@@ -8,7 +8,6 @@ from the backend or the repo's data files; nothing is typed in by hand.
 import datetime
 import json
 import os
-import re
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -39,10 +38,10 @@ PRESETS = [
 # ("answer": a checked AI answer and no Moon/Mars gap; "no_data": a Moon/Mars
 # gap) or it is left out.
 EXAMPLES = [
+    # Dropped after review (docs/scientific-validation-checklist.md): FLEX droplet
+    # sizes, CO2 vs helium, Ultem/Nomex. Their AI summaries misread or misattributed
+    # NASA's text.
     ("Why are smoke particles bigger in space?", "answer"),
-    ("What size droplets were burned in FLEX?", "answer"),
-    ("Is CO2 or helium better at putting out fires in space?", "answer"),
-    ("Which spacecraft materials did not burn on the ISS?", "answer"),
     ("How do flames spread differently in microgravity?", "answer"),
     ("What did the Saffire mission burn?", "answer"),
     ("How do you put out a fire in space?", "answer"),
@@ -335,8 +334,8 @@ def main():
 
     examples = []
     for q, expect in EXAMPLES:
-        ans, why = kept.get(q), "kept"
-        for attempt in range(3):          # answers vary run to run; retry a little
+        ans = kept.get(q)
+        for _ in range(3):          # answers vary run to run; retry a little
             if ans is None:
                 print("asking:", q, flush=True)
                 ans = shape(rag.ask(q))
@@ -345,7 +344,7 @@ def main():
                 not moon and bool(ans["answer"]) and ans["grounding"]["verdict"] == "pass")
             if ok:
                 break
-            why, ans = f"attempt {attempt + 1} did not behave as expected", None
+            ans = None
         if ans is None:
             print(f"  SKIPPED (did not behave as expected 3 times): {q}")
             continue
