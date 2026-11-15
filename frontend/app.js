@@ -117,8 +117,9 @@
   function aiSummary(ans, asHeadline = false) {
     const g = ans.grounding || {};
     if (ans.answer) {
-      return `<div class="ai${asHeadline ? " lead" : ""}"><span class="ai-label">AI summary · every number checked against NASA's text</span>
-        <p>${withCites(ans.answer)}</p>${g.verdict === "flag"
+      return `<div class="ai${asHeadline ? " lead" : ""}"><span class="ai-label">AI summary · not NASA's words</span>
+        <p>${withCites(ans.answer)}</p>
+        <p class="ai-note">Written by a local AI model from the NASA passages below. Every number it uses appears in NASA's text, but whether it reads them correctly is not checked. Where they differ, trust NASA's passages.</p>${g.verdict === "flag"
           ? '<p class="warn">One value matched NASA\'s documents but its unit did not. Check the sources.</p>' : ""}</div>`;
     }
     if (g.verdict === "block")
@@ -162,6 +163,47 @@
     </div>`;
   }
 
+  // Space vs Earth flame-limit brackets for the same acrylic rods, on one
+  // axis. Bar ends are the bracketing runs / published values; nothing is
+  // estimated. 14.1% is drawn as the midpoint of the space bracket.
+  function limitBrackets() {
+    const L = D.ml.limit, eb = D.ml.earth_bracket;
+    const lo = Math.floor(Math.min(L.low, eb.low)), hi = Math.ceil(Math.max(L.high, eb.high)) + 1;
+    const pos = (v) => `${((v - lo) / (hi - lo)) * 100}%`;
+    const ticks = Array.from({ length: hi - lo + 1 }, (_, i) => lo + i);
+    const row = (label, note, a, b, aTxt, bTxt, cls, mid) => `<div class="br-row ${cls}">
+      <div class="br-label"><b>${label}</b><span>${note}</span></div>
+      <div class="br-track">
+        ${ticks.map((t) => `<i class="br-grid" style="left:${pos(t)}"></i>`).join("")}
+        <div class="br-bar" style="left:${pos(a)};width:calc(${pos(b)} - ${pos(a)})"></div>
+        ${mid != null ? `<div class="br-mid" style="left:${pos(mid)}" title="Midpoint ${mid}%"></div>` : ""}
+        <span class="br-end start" style="left:${pos(a)}"><b>${a}%</b>${aTxt}</span>
+        <span class="br-end end" style="left:${pos(b)}"><b>${b}%</b>${bTxt}</span>
+      </div></div>`;
+    return `<figure class="brackets" role="img" aria-label="Flame limit of the same acrylic rods: in space between ${L.low}% (did not ignite) and ${L.high}% (burned); on Earth between ${eb.low}% (blew off) and ${eb.high}% (kept burning).">
+      ${row("In space · 0 g", "Measured, BASS-II", L.low, L.high, "did not ignite", "burned", "space", L.o2)}
+      ${row("On Earth · 1 g", "Published, Marcum et al. 2016", eb.low, eb.high, "blew off", "kept burning", "earth")}
+      <div class="br-row br-axis-row"><span></span><div class="br-axis">${ticks.map((t) => `<span style="left:${pos(t)}">${t}%</span>`).join("")}</div></div>
+      <figcaption>Each bar spans the two tests that bracket the limit. ${L.o2}% is the midpoint of the space bracket, not a separate measurement.</figcaption>
+    </figure>`;
+  }
+
+  // Gravity axis for the no-data screen: flame limits exist only at 0 g and
+  // 1 g. Moon and Mars are shown as "no data", labelled with the same
+  // approximate gravity the backend's gap message uses (~1/6 g, ~1/3 g).
+  function gravityAxis() {
+    const L = D.ml.limit, eb = D.ml.earth_bracket;
+    const pt = (left, cls, title, value, sub) => `<div class="gv-pt ${cls}" style="left:${left}%">
+      <i></i><b>${title}</b><span class="gv-val">${value}</span><span class="gv-sub">${sub}</span></div>`;
+    return `<div class="gravity" role="img" aria-label="Flame limits are measured only at 0 g (${L.low} to ${L.high}% oxygen) and 1 g (${eb.low} to ${eb.high}%). There is no NASA data at Moon (about 1/6 g) or Mars (about 1/3 g) gravity.">
+      <div class="gv-line"><div class="gv-unknown"></div></div>
+      ${pt(0, "measured", "Space · 0 g", `${L.low}–${L.high}%`, "measured")}
+      ${pt(100 / 6, "nodata", "Moon · ~1/6 g", "No data", "never tested")}
+      ${pt(100 / 3, "nodata", "Mars · ~1/3 g", "No data", "never tested")}
+      ${pt(100, "measured earth", "Earth · 1 g", `${eb.low}–${eb.high}%`, "published")}
+    </div>`;
+  }
+
   // ---------- result bodies ----------
   function quoteResult(p) {
     const h = p.headline, ans = p.ask;
@@ -169,7 +211,8 @@
       status: "nasa",
       body: `<span class="eyebrow nasa">NASA's words</span>
         <blockquote class="headline-quote">“${esc(h.text)}”</blockquote>
-        <p class="attr">${esc(h.acronym)} · ${esc(INV[h.investigation]?.title || "")}</p>
+        <p class="attr"><span class="attr-name">${esc(h.acronym)}</span> ${esc(INV[h.investigation]?.title || "")}${
+          doiUrl(h.doi) ? ` <a class="attr-link" href="${doiUrl(h.doi)}" target="_blank" rel="noopener">NASA record ↗</a>` : ""}</p>
         ${aiSummary(ans)}${caveats(ans)}`,
       cards: pickEvidence(ans).map(evidenceCard),
     };
@@ -181,9 +224,9 @@
       status: "measured",
       body: `<div class="big"><span class="val">${L.o2}<small>%</small></span><span class="unit">oxygen</span></div>
         <p class="sub">The flame limit for an ${esc(m.material)} on the space station: it would not ignite at <b>${L.low}%</b> and kept burning at <b>${L.high}%</b>.</p>
+        ${limitBrackets()}
         <div class="tiles">
           <div class="tile"><span>Earth air</span><b>${h.earth_air_o2}%</b></div>
-          <div class="tile"><span>Same rod on Earth</span><b>${eb.low}–${eb.high}%</b></div>
           <div class="tile alert"><span>Planned Moon base</span><b>≥ ${h.moon_base_o2_min}%</b></div>
         </div>
         <button class="next" data-goto="map">Explore the flame map →</button>`,
@@ -207,13 +250,15 @@
       status: "none",
       body: `<h2 class="refuse">NASA's archive has no fire data at <em>${esc(where)}</em>.</h2>
         <p class="sub">Every space fire experiment in it ran in microgravity, on the ISS, Cygnus and the Shuttle. So FlameScope won't guess a Moon value.</p>
-        <p class="eyebrow">What is measured, for the same acrylic rods</p>
+        <p class="eyebrow">Flame limit of the same acrylic rods, by gravity</p>
+        ${gravityAxis()}
         <div class="tiles">
           <div class="tile"><span>Flame limit in space (0 g)</span><b>${L.low}–${L.high}%</b></div>
           <div class="tile"><span>Flame limit on Earth (1 g)</span><b>${eb.low}–${eb.high}%</b></div>
           <div class="tile alert"><span>Planned Moon base</span><b>≥ ${moon}%</b></div>
         </div>
         <p class="sub">A ${moon}% base sits <b>${+(moon - eb.high).toFixed(1)} points</b> above even the Earth limit. Fire can behave differently between 0 g and 1 g, so the Moon value is unknown, but neither measured limit comes close to ${moon}%.</p>
+        <p class="eyebrow">Oxygen: tested vs planned</p>
         ${oxygenScale()}`,
       cards: pickEvidence(ans, 2).map(evidenceCard),
       cardsLabel: "What NASA does have (microgravity only)",
@@ -233,21 +278,8 @@
   }
 
   // ---------- workspace ----------
-  function emptyState() {
-    const c = D.corpus;
-    return `<div class="empty">
-      <p class="empty-title">Pick a scenario or ask your own question.</p>
-      <p class="sub">FlameScope answers from NASA's space fire experiments, and says plainly when NASA has no data.</p>
-      <div class="tiles">
-        <div class="tile"><span>NASA fire investigations</span><b>${c.investigations}</b></div>
-        <div class="tile"><span>Passages read</span><b>${fmt(c.passages)}</b></div>
-        <div class="tile"><span>Space-station test runs measured</span><b>${D.method.rod_runs}</b></div>
-      </div>
-    </div>`;
-  }
-
   function resultView() {
-    if (!current) return emptyState();
+    if (!current) return "";
     if (current.loading) return `<div class="loading-card"><div class="loading">Checking NASA's fire experiment records…</div>
       <p class="sub">Reading the passages, then checking every number against NASA's text.</p></div>`;
     if (current.error) return `<div class="result-card"><p class="sub">${esc(current.error)}</p></div>`;
@@ -264,36 +296,200 @@
       ${sources(r.cards, r.cardsLabel)}`;
   }
 
-  function workspace() {
+  // The one question field (#q). `hero` is the large home version; otherwise
+  // a slim bar above the answer. Same id, name and data-ask hook either way.
+  function askForm(hero) {
     const q = current?.question ?? PRESETS[0].question;
+    return `<form class="ask ${hero ? "ask-hero" : "ask-bar"}" data-ask>
+      <label for="q">${hero ? "Ask a fire-safety question" : "Your question"}</label>
+      <div class="ask-field">
+        <textarea id="q" name="q" rows="${hero ? 2 : 1}" placeholder="Ask about fire in spacecraft, stations or Moon bases">${esc(q)}</textarea>
+        <button type="submit">Explore <span aria-hidden="true">→</span></button>
+      </div>
+      ${hero ? '<p class="ask-hint">Enter to explore · Shift + Enter for a new line</p>' : ""}
+    </form>`;
+  }
+
+  const scenarioCards = (active) => PRESETS.map((p, i) => `
+    <button class="scenario${p.id === active ? " on" : ""}" data-preset="${p.id}">
+      <span class="sc-tag">${i + 1} · ${esc(SCENARIO[p.id]?.tag || "")}</span>
+      <span class="sc-title">${esc(SCENARIO[p.id]?.title || p.question)}</span>
+      <span class="sc-q">${esc(p.question)}</span>
+    </button>`).join("");
+
+  const exampleButtons = () => (D.examples || []).map((e) =>
+    `<button class="ex-q${current?.question === e.question ? " on" : ""}" data-example="${esc(e.question)}">${esc(e.question)}</button>`).join("");
+
+  // Home: hero + statistics + example questions. Every figure is read from
+  // window.DEMO; the orb canvas is decorative only (aria-hidden, no data).
+  function homeView() {
+    const f = D.files, c = D.corpus;
+    const stat = (value, label, count) => `<div class="stat">
+      <b class="stat-num"${count ? ` data-count="${value}"` : ""}>${count && !counted ? "0" : fmt(value)}</b>
+      <span class="stat-label">${esc(label)}</span></div>`;
+    return `<section class="ws home">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">NASA PSI archive · microgravity combustion</p>
+          <h1 class="hero-title">Fire behaves differently in space. <span>Ask NASA's own experiments.</span></h1>
+          <p class="hero-lede">FlameScope answers fire-safety questions for spacecraft, space stations and Moon bases in NASA's own words, checks every number against NASA's text, and says plainly when NASA has no data.</p>
+          ${askForm(true)}
+          <div class="hero-scenarios">
+            <p class="eyebrow">Or start with a scenario</p>
+            <div class="scenarios scenarios-row">${scenarioCards()}</div>
+          </div>
+        </div>
+        <div class="orb-wrap" aria-hidden="true"><canvas id="orb"></canvas></div>
+      </header>
+
+      <section class="stats-band" aria-label="What FlameScope is built on">
+        ${stat(f.total, `NASA PSI files across ${f.investigations} combustion investigations`, true)}
+        ${stat(c.passages, "Passages from NASA's published documents")}
+        ${stat(c.investigations, "Investigations FlameScope searches")}
+        ${stat(D.method.rod_runs, "Space-station test runs in the flame model")}
+      </section>
+
+      ${D.examples?.length ? `<section class="examples-band">
+        <div class="band-head">
+          <p class="eyebrow">More questions to try</p>
+          <p class="sub">Each opens in one click, answered from NASA's documents or marked as no data.</p>
+        </div>
+        <div class="ex-grid">${exampleButtons()}</div>
+      </section>` : ""}
+    </section>`;
+  }
+
+  // After a question: slim question bar, scenarios on the left, answer on the right.
+  function workspace() {
     const active = current?.preset?.id;
     return `<section class="ws">
-      <header class="mission${current ? " compact" : ""}">
-        <h1>Fire-safety answers from <span class="num" data-count="${D.files.total}">${counted ? fmt(D.files.total) : "0"}</span> NASA files.</h1>
-        <p>Ask how fire behaves in spacecraft and Moon bases. FlameScope answers with NASA's own experiments, and tells you when NASA has no data.</p>
-      </header>
+      <div class="ask-strip">${askForm(false)}</div>
       <div class="ws-grid">
         <aside class="input-panel">
-          <form class="ask" data-ask>
-            <label for="q">Your question</label>
-            <textarea id="q" name="q" rows="3">${esc(q)}</textarea>
-            <button type="submit">Explore</button>
-          </form>
-          <p class="eyebrow">Try a scenario</p>
-          <div class="scenarios">${PRESETS.map((p, i) => `
-            <button class="scenario${p.id === active ? " on" : ""}" data-preset="${p.id}">
-              <span class="sc-tag">${i + 1} · ${esc(SCENARIO[p.id]?.tag || "")}</span>
-              <span class="sc-title">${esc(SCENARIO[p.id]?.title || p.question)}</span>
-              <span class="sc-q">${esc(p.question)}</span>
-            </button>`).join("")}</div>
+          <p class="eyebrow">Scenarios</p>
+          <div class="scenarios">${scenarioCards(active)}</div>
           ${D.examples?.length ? `<details class="more-q"${current?.ans && !current.preset ? " open" : ""}>
             <summary>More questions to try (${D.examples.length})</summary>
-            <div>${D.examples.map((e) => `<button class="ex-q${current?.question === e.question ? " on" : ""}" data-example="${esc(e.question)}">${esc(e.question)}</button>`).join("")}</div>
+            <div>${exampleButtons()}</div>
           </details>` : ""}
         </aside>
         <div class="results" id="results">${resultView()}</div>
       </div>
     </section>`;
+  }
+
+  // ---------- decorative flame orb (home hero) ----------
+  // A slowly turning sphere of particles evoking a spherical flame in
+  // microgravity. Purely visual: random geometry, no data, aria-hidden.
+  // Pauses off-screen and in background tabs; one static frame under
+  // prefers-reduced-motion.
+  let orbStop = null;
+  function initOrb() {
+    const cv = document.getElementById("orb");
+    if (!cv || !cv.getContext) return;
+    const ctx = cv.getContext("2d");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const small = matchMedia("(max-width: 640px)").matches;
+    const SHELL = small ? 520 : 1000, CORE = small ? 150 : 300, MOTES = small ? 24 : 56;
+    // Seeded generator (mulberry32): the same orb on every visit.
+    let seed = 0x5eed1e;
+    const rand = () => {
+      seed = (seed + 0x6d2b79f5) | 0;
+      let r = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
+      return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+    };
+    const pts = [];
+    const golden = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < SHELL; i++) {                 // even shell (Fibonacci sphere)
+      const y = 1 - (i / (SHELL - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i;
+      pts.push({ x: Math.cos(th) * r, y, z: Math.sin(th) * r, k: 1 + (rand() - .5) * .07, s: rand() });
+    }
+    for (let i = 0; i < CORE; i++) {                  // warm core, denser toward the centre
+      const th = rand() * Math.PI * 2, ph = Math.acos(2 * rand() - 1);
+      const rr = .12 + .5 * Math.pow(rand(), 1.6);
+      pts.push({ x: rr * Math.sin(ph) * Math.cos(th), y: rr * Math.cos(ph), z: rr * Math.sin(ph) * Math.sin(th), core: true, k: 1, s: rand() });
+    }
+    const motes = Array.from({ length: MOTES }, () => ({
+      a: rand() * Math.PI * 2, r: 1.18 + rand() * .5, y: (rand() - .5) * 1.5,
+      sp: (.08 + rand() * .12) * (rand() < .5 ? -1 : 1), s: rand(),
+    }));
+
+    let W = 0, H = 0, raf = 0, onScreen = true, last = performance.now(), t = 0;
+    const size = () => {
+      const b = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = b.width; H = b.height;
+      cv.width = Math.max(1, Math.round(W * dpr)); cv.height = Math.max(1, Math.round(H * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    const draw = () => {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.clearRect(0, 0, W, H);
+      const cx = W / 2, cy = H / 2, R = Math.min(W, H) * .37 * (1 + .012 * Math.sin(t * .55));
+      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.9);
+      halo.addColorStop(0, "rgba(255,214,170,.55)");
+      halo.addColorStop(.16, "rgba(255,150,90,.32)");
+      halo.addColorStop(.42, "rgba(255,120,70,.10)");
+      halo.addColorStop(.62, "rgba(95,227,214,.10)");
+      halo.addColorStop(1, "rgba(1,38,36,0)");
+      ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
+      const rim = ctx.createRadialGradient(cx, cy, R * .82, cx, cy, R * 1.12);   // soft luminous shell
+      rim.addColorStop(0, "rgba(95,227,214,0)");
+      rim.addColorStop(.55, "rgba(140,240,230,.10)");
+      rim.addColorStop(1, "rgba(95,227,214,0)");
+      ctx.fillStyle = rim; ctx.fillRect(0, 0, W, H);
+
+      const ay = t * .11, ax = .38 + .07 * Math.sin(t * .17);
+      const cA = Math.cos(ay), sA = Math.sin(ay), cB = Math.cos(ax), sB = Math.sin(ax);
+      ctx.globalCompositeOperation = "lighter";
+      for (const p of pts) {
+        const f = p.core ? 1 + .07 * Math.sin(t * 1.6 + p.s * 12) : p.k;
+        const x = p.x * f, y = p.y * f, z = p.z * f;
+        const x1 = x * cA + z * sA, z1 = -x * sA + z * cA;
+        const y1 = y * cB - z1 * sB, z2 = y * sB + z1 * cB;   // z2: -1 front .. 1 back
+        const persp = 1 / (1 + z2 * .32);
+        const px = cx + x1 * R * persp, py = cy + y1 * R * persp;
+        const front = (1 - z2) / 2;
+        if (p.core) {
+          const a = .35 + .6 * front * (1 - .6 * Math.hypot(p.x, p.y, p.z));
+          ctx.fillStyle = `rgba(255,${160 + Math.round(70 * p.s)},${100 + Math.round(70 * p.s)},${Math.min(1, a).toFixed(3)})`;
+          const s = (1.4 + 1.8 * p.s) * persp;
+          ctx.fillRect(px - s / 2, py - s / 2, s, s);
+        } else {
+          const limb = 1 - Math.abs(z2);                        // glow at the sphere's edge
+          const a = .16 + .72 * front * front + .32 * limb * limb;
+          const lav = limb > .82 && p.s > .7;
+          ctx.fillStyle = lav ? `rgba(250,209,255,${a.toFixed(3)})`
+            : p.s > .55 ? `rgba(203,255,252,${a.toFixed(3)})` : `rgba(95,227,214,${a.toFixed(3)})`;
+          const s = (1.1 + 1.5 * front) * persp;
+          ctx.fillRect(px - s / 2, py - s / 2, s, s);
+        }
+      }
+      for (const m of motes) {                                  // slow drifting motes
+        const a = m.a + t * m.sp, x = Math.cos(a) * m.r, z = Math.sin(a) * m.r;
+        const y = m.y + .06 * Math.sin(t * .4 + m.s * 6);
+        const y1 = y * cB - z * sB, z2 = y * sB + z * cB, persp = 1 / (1 + z2 * .25);
+        ctx.fillStyle = `rgba(203,255,252,${(.25 + .4 * (1 - z2) / 2).toFixed(3)})`;
+        const s = 1.8 * persp;
+        ctx.fillRect(cx + x * R * persp - s / 2, cy + y1 * R * persp - s / 2, s, s);
+      }
+      ctx.globalCompositeOperation = "source-over";
+    };
+    const loop = (now) => {
+      t += Math.min(.05, (now - last) / 1000); last = now;
+      draw();
+      raf = requestAnimationFrame(loop);
+    };
+    const start = () => { if (!raf && !reduce && onScreen && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(loop); } };
+    const stop = () => { cancelAnimationFrame(raf); raf = 0; };
+    const ro = new ResizeObserver(() => { size(); draw(); });
+    ro.observe(cv);
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; onScreen ? start() : stop(); });
+    io.observe(cv);
+    const vis = () => (document.hidden ? stop() : start());
+    document.addEventListener("visibilitychange", vis);
+    size(); draw(); start();
+    orbStop = () => { stop(); ro.disconnect(); io.disconnect(); document.removeEventListener("visibilitychange", vis); };
   }
 
   // ---------- technical drawer ----------
@@ -303,19 +499,23 @@
       `<div class="gap ${esc(g.severity)}"><b>${esc(g.kind.replace(/_/g, " "))}</b> · ${esc(g.severity)}<br>${esc(g.message)}</div>`).join("")}</div></div>`;
   }
 
-  function groundingPanel(ans) {
+  // aiShown: false when the screen does not display the AI summary (measured
+  // data, Moon/Mars no-data). Then no verdict is shown, so a pass can't be read
+  // as endorsing text the user never sees.
+  function groundingPanel(ans, aiShown = true) {
     const g = ans.grounding || {}, c = ans.completeness || {}, cov = ans.coverage || {};
-    const meaning = { pass: "every checked number and citation found in the sources", flag: "a value matched but its unit did not",
+    const meaning = { pass: "every number and citation in the AI summary was found in the sources; whether it reads them correctly is not checked", flag: "a value matched but its unit did not",
       block: "draft withheld: invented numbers or citations", skipped: "no language model reachable; sources only" };
-    return `<div class="panel"><h2>Verification and search</h2>
-      <div class="row">
+    return `<div class="panel"><h2>${aiShown ? "Verification and search" : "Search"}</h2>
+      ${aiShown ? "" : `<p class="small muted" style="margin:0 0 8px">No AI summary is used on this screen. Everything shown comes from NASA's test data and documents.</p>`}
+      ${aiShown ? `<div class="row">
         <span>Verdict: <span class="verdict ${esc(g.verdict)}">${esc(g.verdict)}</span> <span class="muted">(${esc(meaning[g.verdict] || "")})</span></span>
         <span>Numbers verbatim: <b>${g.numbers_verbatim ?? 0}/${g.numbers_checked ?? 0}</b></span>
         ${g.model ? `<span>Model: ${esc(g.backend)}:${esc(g.model)}</span>` : ""}
         ${g.rejected_numbers?.length ? `<span style="color:var(--red)">Rejected: ${esc(g.rejected_numbers.map((r) => r.value ?? r).join(", "))}</span>` : ""}
         ${g.invalid_citations?.length ? `<span style="color:var(--red)">Invalid citations: ${esc(g.invalid_citations.join(", "))}</span>` : ""}
-      </div>
-      <div class="row" style="margin-top:8px">
+      </div>` : ""}
+      <div class="row"${aiShown ? ' style="margin-top:8px"' : ""}>
         <span>Searched <b>${fmt(c.chunks_searched ?? 0)}</b> passages across <b>${c.investigations_searched ?? "?"}</b> investigations</span>
         <span>Matched: ${esc((c.matched || []).join(", ") || "none")}</span>
         ${c.considered_below_threshold?.length ? `<span class="muted">Below threshold: ${esc(c.considered_below_threshold.join(", "))}</span>` : ""}
@@ -323,7 +523,7 @@
       </div>
       ${cov.parts?.length > 1 ? `<div class="row small" style="margin-top:8px">${cov.parts.map((p) =>
         `<span>${esc(p.sub_question)}: <b>${esc(p.state)}</b></span>`).join("")}</div>` : ""}
-      <p class="small muted" style="margin:10px 0 0">Not checked: whether a cited passage supports the sentence it is attached to. Small unitless integers are not checked.</p></div>`;
+      ${aiShown ? `<p class="small muted" style="margin:10px 0 0">Not checked: whether a cited passage supports the sentence it is attached to. Small unitless integers are not checked.</p>` : ""}</div>`;
   }
 
   function ledgerPanel(ans, title = "Evidence ledger") {
@@ -396,7 +596,7 @@
       const { question, ans, preset: p } = current;
       return `<h1>${esc(question)}</h1>
         ${p?.kind === "measured" ? mlPanel() : ""}
-        ${gapsPanel(ans)}${groundingPanel(ans)}
+        ${gapsPanel(ans)}${groundingPanel(ans, !!ans.answer && (p ? p.kind === "quote" : !partialGravity(ans)))}
         ${ledgerPanel(ans, p?.kind === "measured" ? "Related NASA passages" : "Evidence ledger")}
         ${conditionsPanel(ans)}`;
     }
@@ -428,9 +628,10 @@
 
     const studyCard = (s) => {
       const r = rank.get(s.id), url = doiUrl(s.doi);
-      return `<article class="study${r && r <= 5 ? " hot" : ""}">
-        <div class="src-head"><span class="src-name">${esc(name(s))}</span>
+      return `<article class="study cat-${catOf[s.id].id}${r && r <= 5 ? " hot" : ""}">
+        <div class="study-top"><span class="study-rank${r ? "" : " dim"}" aria-hidden="true">${r ? String(r).padStart(2, "0") : "—"}</span>
           ${r ? `<span class="rank-pill">#${r} for ${esc(H.label.toLowerCase())}</span>` : '<span class="rank-pill dim">no close match</span>'}</div>
+        <div class="src-head"><span class="src-name">${esc(name(s))}</span></div>
         <p class="src-title">${esc(s.title)}</p>
         ${s.objective ? `<p class="lbl">Goal</p><blockquote class="src-quote">“${esc(s.objective)}”</blockquote>` : ""}
         ${s.impact ? `<p class="lbl">Why it matters</p><blockquote class="src-quote">“${esc(s.impact)}”</blockquote>` : ""}
@@ -441,7 +642,7 @@
 
     const sections = R.categories.map((c) => `
       <section class="cat-sec">
-        <div class="cat-head"><h3 class="cat-title ${c.id}">${esc(c.title)}</h3><p>${esc(c.blurb)}</p></div>
+        <div class="cat-head"><h3 class="cat-title ${c.id}">${esc(c.title)}</h3><span class="cat-count">${c.ids.length} investigation${c.ids.length === 1 ? "" : "s"}</span><p>${esc(c.blurb)}</p></div>
         <div class="study-grid">${[...c.ids].sort(byRank).map((id) => studyCard(R.studies[id])).join("")}</div>
       </section>`).join("");
 
@@ -454,16 +655,28 @@
       </article>`).join("");
 
     return `<div class="page research">
-      <span class="eyebrow fire">Research map · ${Object.keys(R.studies).length} NASA investigations</span>
-      <h1>Which NASA studies matter for which habitat?</h1>
-      <p class="sub">Pick a crew habitat. Studies are ranked by how closely NASA's own documents match its fire-safety needs, and grouped by the job they do.</p>
-      <div class="hab-chips" role="tablist" aria-label="Habitat">${R.habitats.map((h) =>
-        `<button role="tab" aria-selected="${h.id === habitat}" data-habitat="${h.id}">${esc(h.label)}</button>`).join("")}</div>
+      <header class="page-head">
+        <span class="eyebrow fire">Research library · ${Object.keys(R.studies).length} NASA investigations</span>
+        <h1>Which NASA studies matter for which habitat?</h1>
+        <p class="sub">Pick a crew habitat. Studies are ranked by how closely NASA's own documents match its fire-safety needs, and grouped by the job they do.</p>
+      </header>
+      <div class="filter-bar">
+        <span class="filter-label">Habitat</span>
+        <div class="hab-chips" role="tablist" aria-label="Habitat">${R.habitats.map((h) =>
+          `<button role="tab" aria-selected="${h.id === habitat}" data-habitat="${h.id}">${esc(h.label)}</button>`).join("")}</div>
+      </div>
       ${H.note ? `<p class="caveat">⚠ ${esc(H.note)}</p>` : ""}
-      <div class="top5"><p class="eyebrow">Most relevant for ${esc(H.label.toLowerCase())}</p><ol>${top}</ol></div>
+      <div class="index-row">
+        <div class="top5"><p class="eyebrow">Most relevant for ${esc(H.label.toLowerCase())}</p><ol>${top}</ol></div>
+        <aside class="rank-note">
+          <p class="eyebrow">How this ranking works</p>
+          <p>FlameScope searches NASA's own documents for this habitat's fire-safety needs and ranks each investigation by its best-matching passages, not by how much it published. The order shown is exactly what the search returns.</p>
+          <div class="cat-keys">${R.categories.map((c) => `<span class="cat ${c.id}">${esc(c.title)}</span>`).join("")}</div>
+        </aside>
+      </div>
       ${sections}
       <section class="cat-sec">
-        <div class="cat-head"><h3 class="cat-title earth">Fire safety on Earth</h3><p>Where NASA's space fire research reaches back home.</p></div>
+        <div class="cat-head"><h3 class="cat-title earth">Fire safety on Earth</h3><span class="cat-count">${R.earth.length} applications</span><p>Where NASA's space fire research reaches back home.</p></div>
         <div class="study-grid">${earth}</div>
       </section>
     </div>`;
@@ -524,21 +737,33 @@
   }
 
   function mapScreen() {
+    const src = D.ml.source, srcUrl = doiUrl(src.doi);
     return `<section class="page map">
-      <span class="eyebrow fire">Measured in ${D.method.rod_runs} NASA space-station runs · ${esc(D.ml.material)}</span>
-      <h2 class="title">Where does fire keep burning in space?</h2>
+      <header class="page-head">
+        <span class="eyebrow fire">Measured in ${D.method.rod_runs} NASA space-station runs · ${esc(D.ml.material)}</span>
+        <h2 class="title">Where does fire keep burning in space?</h2>
+        <p class="sub">Each point is one airflow step from a BASS-II test on the space station. Set an oxygen level and an airflow to read how often similar runs kept burning.</p>
+      </header>
       <div class="map-grid">
         <figure class="chart">
-          <div class="legend"><span><i class="lb"></i>Kept burning</span><span><i class="lx">×</i>Went out</span><span><i class="lq">★</i>Your setting</span></div>
-          ${mapChart()}
+          <div class="chart-head">
+            <p class="eyebrow">Oxygen vs airflow · ${M.points.length} airflow steps</p>
+            <div class="legend"><span><i class="lb"></i>Kept burning</span><span><i class="lx">×</i>Went out</span><span><i class="lq">★</i>Your setting</span></div>
+          </div>
+          <div class="chart-scroll" tabindex="0" role="region" aria-label="Flame map, scrolls sideways on small screens">${mapChart()}</div>
+          <p class="swipe-hint" aria-hidden="true">Swipe to see the whole chart →</p>
           <div class="tip" id="tip" hidden></div>
+          <figcaption class="chart-cap">Source: NASA PSI ${esc(src.acronym)} (${esc(src.investigation)})${srcUrl ? ` · <a href="${srcUrl}" target="_blank" rel="noopener">NASA record ↗</a>` : ""}. Points are spread slightly so overlapping runs stay visible.</figcaption>
         </figure>
         <aside class="ctl">
+          <p class="eyebrow">Read the map</p>
           <label>Oxygen <output id="o2out"></output>
             <input type="range" id="o2" min="${M.o2_values[0]}" max="${M.o2_values.at(-1)}" step="0.1" value="${mapState.o2}"></label>
+          <span class="ctl-hint">Tested in space: ${M.tested_o2[0]}–${M.tested_o2[1]}%</span>
           <div class="quick"><button data-o2="${D.ml.habitat.earth_air_o2}">Earth air</button><button data-o2="${D.ml.habitat.moon_base_o2_min}">Moon base</button></div>
           <label>Airflow <output id="flout"></output>
             <input type="range" id="fl" min="0" max="${M.flows.length - 1}" step="1" value="${mapState.flowIdx}"></label>
+          <span class="ctl-hint">Slider range: ${M.flows[0]}–${M.flows.at(-1)} cm/s</span>
           <div class="result" id="result"></div>
         </aside>
       </div>
@@ -573,7 +798,10 @@
       if (f < win[0] || f > win[1]) tags.push(`<span class="pill">Near the airflow edge</span>`);
       out.innerHTML = `<p class="k">${above ? `Burn rate at the highest oxygen tested (${top}%)` : "Burn rate in similar space-station runs"}</p>
         <div class="big-p" style="color:${r[0] >= 0.5 ? "var(--fire)" : "var(--blue)"}">${pct(r[0])}</div>
-        <p class="k">95% range ${pct(r[1])}–${pct(r[2])}</p><div class="pills">${tags.join("")}</div>
+        <p class="k">95% range ${pct(r[1])}–${pct(r[2])}</p>
+        <div class="ci" aria-hidden="true"><div class="ci-track"><div class="ci-band" style="left:${r[1] * 100}%;width:${(r[2] - r[1]) * 100}%"></div><div class="ci-pt" style="left:${r[0] * 100}%"></div></div>
+          <div class="ci-scale"><span>0%</span><span>50%</span><span>100%</span></div></div>
+        <div class="pills">${tags.join("")}</div>
         ${above ? `<p class="small muted">More oxygen is assumed never to make burning less likely, so this is a floor, not a prediction.</p>` : ""}`;
     };
     o2.addEventListener("input", update);
@@ -582,7 +810,7 @@
     svg.addEventListener("mousemove", (e) => {
       const t = e.target.closest("[data-tip]");
       if (!t) { tip.hidden = true; return; }
-      const fig = svg.parentElement.getBoundingClientRect();
+      const fig = svg.closest("figure").getBoundingClientRect();
       tip.textContent = t.dataset.tip; tip.hidden = false;
       tip.style.left = `${e.clientX - fig.left + 12}px`; tip.style.top = `${e.clientY - fig.top - 30}px`;
     });
@@ -594,45 +822,59 @@
   function methodScreen() {
     const m = D.method, c = D.corpus, f = D.files, ml = D.ml, rc = m.recheck;
     const lvl = (l) => THIN.has(l) ? `<span class="lvl ${esc(l)}">${esc(String(l).replace("_", " "))}</span>` : "";
+    const toc = [["m-pipeline", "How it works"], ["m-model", "The flammability model"], ["m-limits", "Limitations"],
+      ["m-sources", "NASA investigations"], ["m-refs", "Other references"], ["m-ai", "AI use disclosure"]];
     return `<div class="page method">
-      <span class="eyebrow fire">Method &amp; sources</span>
-      <h1>How FlameScope works</h1>
-      <div class="steps">
-        <div class="panel"><b>1 · Find NASA's words</b><p>We search ${fmt(c.passages)} passages from ${c.investigations} combustion investigations in NASA's Physical Sciences Informatics archive (${fmt(f.total)} files in total, counted ${esc(f.counted_on)}). Every quote links to its NASA record.</p></div>
-        <div class="panel"><b>2 · Summarise, then check</b><p>A local AI model${model ? ` (${esc(model)}, run with Ollama)` : ""} writes a short summary from those passages only. A checker withholds the summary if it contains a measured value that is not written in a source, or cites an investigation that was not found.</p></div>
-        <div class="panel"><b>3 · Measure the flame limit</b><p>From the ${m.rod_runs} acrylic-rod runs in BASS-II, a space-station experiment, we measured where the rods stop burning: between ${ml.limit.low}% and ${ml.limit.high}% oxygen.</p></div>
-      </div>
+      <header class="page-head">
+        <span class="eyebrow fire">Method &amp; sources</span>
+        <h1>How FlameScope works</h1>
+        <p class="sub">How answers are found and checked, how the flame limit was measured, what the data cannot support, and every source used.</p>
+      </header>
 
-      <div class="panel"><h2>The flammability model</h2><ol class="list">
+      <ol class="pipeline m-sec" id="m-pipeline">
+        <li><span class="step-n">01</span><b>Find NASA's words</b><p>We search ${fmt(c.passages)} passages from ${c.investigations} combustion investigations in NASA's Physical Sciences Informatics archive (${fmt(f.total)} files in total, counted ${esc(f.counted_on)}). Every quote links to its NASA record.</p></li>
+        <li><span class="step-n">02</span><b>Summarise, then check</b><p>A local AI model${model ? ` (${esc(model)}, run with Ollama)` : ""} writes a short summary from those passages only. A checker withholds the summary if it contains a measured value that is not written in a source, or cites an investigation that was not found.</p></li>
+        <li><span class="step-n">03</span><b>Measure the flame limit</b><p>From the ${m.rod_runs} acrylic-rod runs in BASS-II, a space-station experiment, we measured where the rods stop burning: between ${ml.limit.low}% and ${ml.limit.high}% oxygen.</p></li>
+      </ol>
+
+      <div class="method-body">
+        <nav class="toc" aria-label="On this page">
+          <p class="eyebrow">On this page</p>
+          ${toc.map(([id, t]) => `<button data-jump="${id}">${t}</button>`).join("")}
+        </nav>
+        <div class="reading">
+          <section class="m-sec" id="m-model"><h2>The flammability model</h2><ol class="model-steps">
         <li><b>Data.</b> NASA PSI BASS-II (PSI-25): ${m.bass2_runs} space-station runs of solid fuels burning in a low-speed flow duct at ${ml.o2_tested[0]}–${ml.o2_tested[1]}% oxygen. The table has no outcome column; outcomes exist only as operator notes such as <code>5 3 2 ext</code>.</li>
         <li><b>Labels.</b> A parser splits each run into one row per airflow step (${m.label_steps} steps). Outcomes (burn, extinguish, blowoff, no ignition) come from the notes, with AI help for ambiguous rows, which are marked in the data. Unclear rows are labelled unknown, not guessed. ${ml.runs} labelled steps from ${m.rod_runs} acrylic-rod runs are used.</li>
         <li><b>Consistency check.</b> A second, blind AI labelling pass agreed on <b>${(rc.agree * 100).toFixed(1)}%</b> of ${rc.n} sampled steps. This measures labelling consistency, not human validation.</li>
         <li><b>Model.</b> An empirical envelope: the observed burn rate in each oxygen × airflow cell, counted once per run, with 95% Jeffreys intervals. Logistic regression was tried and rejected: operators lowered airflow until every flame went out, so extinctions carry almost no oxygen information and the fit was unphysical.</li>
         <li><b>Bounds.</b> The space limit is bracketed by two runs (${esc(ml.limit.evidence)}). The Earth comparison, ${ml.earth_bracket.low}–${ml.earth_bracket.high}%, uses the same rods (Marcum, Olson &amp; Ferkul 2016).</li>
-      </ol></div>
+      </ol></section>
 
-      <div class="panel"><h2>Limitations</h2><ul class="list">
+          <section class="m-sec" id="m-limits"><h2>Limitations</h2><ul class="limits">
         <li>Only acrylic (PMMA) rods have enough runs for a limit.</li>
         <li>No pressure column in BASS-II; space-station cabin pressure is assumed.</li>
         <li>NASA's archive has no partial-gravity (Moon or Mars) combustion data. Microgravity results are not extrapolated to them.</li>
         <li>Everything above ${ml.o2_tested[1]}% oxygen is extrapolation; a ${ml.habitat.moon_base_o2_min}% Moon base sits ${D.moon_gap_points} points beyond the BASS-II range.</li>
         <li>The checker proves numbers and citations exist in the sources, not that the AI's reasoning is right. AI summaries are labelled and can be wrong.</li>
         <li>Coverage is uneven: some investigations publish thousands of passages, others almost none. Those are marked “thin”.</li>
-      </ul></div>
+      </ul></section>
 
-      <div class="panel"><h2>NASA investigations searched</h2>
+          <section class="m-sec" id="m-sources"><h2>NASA investigations searched</h2><div class="table-wrap">
         <table><thead><tr><th>PSI ID</th><th>Investigation</th><th>DOI</th></tr></thead><tbody>
         ${m.investigations.map((r) => `<tr><td>${esc(r.id)}</td><td><b>${esc(r.acronym)}</b> ${esc(r.title)} ${lvl(r.evidence_level)}</td><td>${r.doi ? `<a href="${doiUrl(r.doi)}" target="_blank" rel="noopener">${esc(r.doi)}</a>` : ""}</td></tr>`).join("")}
-        </tbody></table></div>
+        </tbody></table></div></section>
 
-      <div class="panel"><h2>Other references</h2><ol class="refs">${ml.references.map((r) => `<li>${esc(r)}</li>`).join("")}</ol></div>
+          <section class="m-sec" id="m-refs"><h2>Other references</h2><ol class="refs">${ml.references.map((r) => `<li>${esc(r)}</li>`).join("")}</ol></section>
 
-      <div class="panel"><h2>AI use disclosure</h2><ul class="list">
+          <section class="m-sec ai-disclosure" id="m-ai"><h2>AI use disclosure</h2><ul class="list">
         <li>Code for the parser, model, search, checker and this site was written with AI coding assistance (Claude) and reviewed by the team.</li>
         <li>Outcome labels for ambiguous space-station notes were extracted with AI help and are marked as such in the data.</li>
         <li>Answer summaries are generated by a local AI model, labelled “AI summary”, and checked against NASA's text before they are shown.</li>
         <li>The project idea and scientific framing are the team's own. No AI-generated images are used.</li>
-      </ul></div>
+      </ul></section>
+        </div>
+      </div>
     </div>`;
   }
 
@@ -641,23 +883,27 @@
     const page = current?.page || "home";
     document.body.dataset.page = page;
     document.querySelectorAll(".nav [data-goto]").forEach((a) => a.toggleAttribute("aria-current", a.dataset.goto === page));
+    orbStop?.(); orbStop = null;
     if (page === "map") { app.innerHTML = mapScreen(); initMap(); }
     else if (page === "research") app.innerHTML = researchScreen();
     else if (page === "method") app.innerHTML = methodScreen();
-    else {
-      app.innerHTML = workspace();
+    else if (!current) {
+      app.innerHTML = homeView();
+      initOrb();
       if (!counted) countUp();
     }
+    else app.innerHTML = workspace();
+    document.body.classList.toggle("is-home", page === "home" && !current);
     if (!drawer.hidden) drawerBody.innerHTML = drawerContent();
   }
 
-  // Only the results panel changes while a live answer loads, so the input
-  // panel keeps focus and the page does not jump.
+  // Once an answer layout is on screen, only the results panel changes while
+  // a live answer loads, so the page does not jump. From the home hero the
+  // first question switches to the answer layout with a full render.
   function renderResults() {
     const el = document.getElementById("results");
     if (!el || current?.page) return render();
     el.innerHTML = resultView();
-    app.querySelector(".mission")?.classList.toggle("compact", !!current);
     if (!drawer.hidden) drawerBody.innerHTML = drawerContent();
   }
 
@@ -669,11 +915,13 @@
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = fmt(target); return; }
     const t0 = performance.now(), dur = 1400;
     const step = (t) => {
-      const k = Math.min(1, (t - t0) / dur);
+      const k = Math.max(0, Math.min(1, (t - t0) / dur));   // frame time can precede t0
       el.textContent = fmt(Math.round(target * (1 - Math.pow(1 - k, 3))));
       if (k < 1) requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
+    // Animation frames are throttled in background tabs; always land on the real value.
+    setTimeout(() => { if (el.isConnected) el.textContent = fmt(target); }, dur + 150);
   }
 
   function go(hash) {
@@ -726,8 +974,9 @@
 
   // ---------- events ----------
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-preset],[data-goto],[data-drawer],[data-close],[data-habitat],[data-example]");
+    const t = e.target.closest("[data-preset],[data-goto],[data-drawer],[data-close],[data-habitat],[data-example],[data-jump]");
     if (!t) return;
+    if (t.dataset.jump) { document.getElementById(t.dataset.jump)?.scrollIntoView({ block: "start" }); return; }
     if (t.dataset.example) {
       const box = document.getElementById("q");
       if (box) box.value = t.dataset.example;
@@ -747,11 +996,11 @@
     ask(f.elements.q.value);
   });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && e.target.matches("textarea[name=q]") && !e.shiftKey) {
+    if (e.key === "Enter" && e.target instanceof Element && e.target.matches("textarea[name=q]") && !e.shiftKey) {
       e.preventDefault(); e.target.form.requestSubmit(); return;
     }
     if (e.key === "Escape" && !drawer.hidden) { openDrawer(false); return; }
-    if (e.target.matches("input, textarea") || e.metaKey || e.ctrlKey || e.altKey) return;
+    if ((e.target instanceof Element && e.target.matches("input, textarea")) || e.metaKey || e.ctrlKey || e.altKey) return;
     const n = Number(e.key);
     if (n >= 1 && n <= PRESETS.length) setHash(PRESETS[n - 1].id);
     else if (e.key === "Escape" || e.key === "h") setHash("home");
