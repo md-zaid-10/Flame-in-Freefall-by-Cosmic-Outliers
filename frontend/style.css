@@ -94,12 +94,7 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; min-height: 100vh;
   display: flex; flex-direction: column;
-  background:
-    radial-gradient(1100px 620px at 82% -8%, rgba(0, 130, 124, .28), transparent 62%),
-    radial-gradient(900px 520px at -12% 18%, rgba(0, 92, 87, .22), transparent 60%),
-    radial-gradient(700px 400px at 70% 110%, rgba(250, 209, 255, .05), transparent 60%),
-    var(--surface-abyss);
-  background-attachment: fixed;
+  background: var(--surface-abyss);   /* the lit atmosphere lives in .atmos */
   color: var(--text-body);
   font: 400 var(--fs-body)/1.5 var(--font-body);
   font-feature-settings: "cv11", "ss01";
@@ -107,6 +102,62 @@ body {
   overflow-x: hidden;
 }
 body.drawer-open { overflow: hidden; }
+
+/* ---------- atmosphere (decorative, aria-hidden) ----------
+   One fixed container behind everything (z-index -1, under the in-flow page).
+   ::before  the canvas glow: the original three gradients plus a faint cyan
+             wash, drifting over 38 s. Positions are mapped from the old
+             viewport-fixed background onto this 140%-sized layer, so the
+             resting frame matches the previous static background.
+   ::after   and <i>: two sparse layers of tiny aqua points drifting on
+             slow diagonals and fading in and out. Pure decoration: no
+             labels, never over cards (cards are opaque), off on the flame map.
+   Only transform, translate and opacity animate (compositor-only). */
+.atmos { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.atmos::before, .atmos::after, .atmos > i { content: ""; position: absolute; display: block; pointer-events: none; }
+.atmos::before {
+  inset: -20%;
+  background:
+    radial-gradient(1100px 620px at 72.9% 8.6%, rgba(0, 130, 124, .28), transparent 62%),
+    radial-gradient(900px 520px at 5.7% 27.1%, rgba(0, 92, 87, .22), transparent 60%),
+    radial-gradient(700px 400px at 64.3% 92.9%, rgba(250, 209, 255, .05), transparent 60%),
+    radial-gradient(820px 520px at 36% 58%, rgba(95, 227, 214, .045), transparent 65%);
+  animation: atmos-drift 38s ease-in-out infinite alternate;
+}
+.atmos::after, .atmos > i { top: 0; left: 0; background-repeat: repeat; will-change: transform, opacity; }
+.atmos::after {
+  width: calc(100% + 600px); height: calc(100% + 520px); background-size: 600px 520px;
+  background-image:
+    radial-gradient(circle at 9% 14%, rgba(203, 255, 252, .42) 0 .8px, transparent 1.5px),
+    radial-gradient(circle at 37% 63%, rgba(203, 255, 252, .3) 0 .7px, transparent 1.3px),
+    radial-gradient(circle at 58% 22%, rgba(95, 227, 214, .38) 0 .9px, transparent 1.6px),
+    radial-gradient(circle at 81% 71%, rgba(203, 255, 252, .26) 0 .7px, transparent 1.3px),
+    radial-gradient(circle at 24% 88%, rgba(95, 227, 214, .3) 0 .8px, transparent 1.4px),
+    radial-gradient(circle at 92% 39%, rgba(203, 255, 252, .34) 0 .8px, transparent 1.5px);
+  opacity: .7;
+  animation: atmos-dots-a 140s linear infinite, atmos-sway-a 29s ease-in-out infinite alternate, atmos-fade-a 23s ease-in-out infinite;
+}
+.atmos > i {
+  width: calc(100% + 760px); height: calc(100% + 680px); background-size: 760px 680px; translate: -760px 0;
+  background-image:
+    radial-gradient(circle at 18% 41%, rgba(203, 255, 252, .3) 0 .7px, transparent 1.3px),
+    radial-gradient(circle at 66% 9%, rgba(95, 227, 214, .34) 0 .9px, transparent 1.6px),
+    radial-gradient(circle at 47% 79%, rgba(203, 255, 252, .24) 0 .7px, transparent 1.3px),
+    radial-gradient(circle at 88% 57%, rgba(95, 227, 214, .28) 0 .8px, transparent 1.4px);
+  opacity: .55;
+  animation: atmos-dots-b 200s linear infinite, atmos-fade-b 31s ease-in-out infinite;
+}
+@keyframes atmos-drift { to { transform: translate3d(-3%, 2.2%, 0) scale(1.05); } }
+@keyframes atmos-dots-a { to { transform: translate3d(-600px, -520px, 0); } }
+@keyframes atmos-sway-a { 50% { translate: 14px -8px; } to { translate: -10px 6px; } }
+@keyframes atmos-dots-b { to { transform: translate3d(760px, -680px, 0); } }
+@keyframes atmos-fade-a { 0%, 100% { opacity: .7; } 50% { opacity: .38; } }
+@keyframes atmos-fade-b { 0%, 100% { opacity: .55; } 45% { opacity: .2; } 70% { opacity: .6; } }
+/* the flame map plots real data points: no decorative points beside it */
+body[data-page="map"] .atmos::after, body[data-page="map"] .atmos > i { display: none; }
+/* hidden tab: hold every decorative animation where it is */
+body.tab-hidden .atmos::before, body.tab-hidden .atmos::after, body.tab-hidden .atmos > i,
+body.tab-hidden .hero::after, .hero.is-idle::after { animation-play-state: paused; }
 h1, h2, h3, h4 { color: var(--text-heading); font-family: var(--font-display); font-weight: 500; }
 b, strong { color: var(--text-mist); font-weight: 500; }
 button { font: inherit; color: inherit; cursor: pointer; }
@@ -251,12 +302,37 @@ body.is-home main { max-width: 1440px; padding-top: 0; }
   grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: var(--s-8);
   min-height: min(880px, calc(100svh - var(--bar))); padding: var(--s-12) 0 var(--s-6);
 }
+/* Hero instrument backdrop (decorative): a barely visible grid, unlabeled
+   and faded at the edges, and one soft light band crossing every 48 s.
+   The hero clips them so nothing extends the page width. */
+.hero { overflow: clip; overflow-clip-margin: 8px; }
+.hero::before, .hero::after { content: ""; position: absolute; inset: 0 -2%; pointer-events: none; z-index: 0; }
+.hero::before {
+  background-image:
+    linear-gradient(rgba(95, 227, 214, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(95, 227, 214, .05) 1px, transparent 1px);
+  background-size: 56px 56px; background-position: center;
+  -webkit-mask-image: radial-gradient(ellipse 55% 65% at 70% 48%, #000 0%, rgba(0, 0, 0, .35) 45%, transparent 78%);
+          mask-image: radial-gradient(ellipse 55% 65% at 70% 48%, #000 0%, rgba(0, 0, 0, .35) 45%, transparent 78%);
+}
+.hero::after {
+  inset: 0 auto 0 0; width: 34%;
+  background: linear-gradient(90deg, transparent, rgba(95, 227, 214, .045) 45%, rgba(203, 255, 252, .05) 50%, rgba(95, 227, 214, .045) 55%, transparent);
+  opacity: 0; transform: translateX(-110%);
+  animation: hero-scan 48s cubic-bezier(.45, 0, .55, 1) 4s infinite;
+}
+@keyframes hero-scan {
+  0% { opacity: 0; transform: translateX(-110%); }
+  4% { opacity: 1; }
+  30% { opacity: 1; }
+  34%, 100% { opacity: 0; transform: translateX(310%); }
+}
 .hero-copy { position: relative; z-index: 1; display: grid; gap: var(--s-6); max-width: 700px; }
 .hero-title { margin: 0; font-size: clamp(40px, 4.9vw, 72px); line-height: .98; letter-spacing: -0.045em; }
 .hero-title span { display: block; color: var(--text-body); }
 .hero-lede { margin: 0; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; color: var(--text-body); max-width: 56ch; }
 .orb-wrap {
-  position: relative; width: 100%; max-width: 660px; aspect-ratio: 1; justify-self: center;
+  position: relative; z-index: 0; width: 100%; max-width: 660px; aspect-ratio: 1; justify-self: center;
   -webkit-mask-image: radial-gradient(closest-side, #000 74%, transparent 100%);
           mask-image: radial-gradient(closest-side, #000 74%, transparent 100%);
 }
@@ -583,7 +659,7 @@ ol.refs { margin: 0; padding-left: var(--s-5); display: grid; gap: var(--s-2); f
   .ws-grid, .map-grid { grid-template-columns: 1fr; }
   .input-panel { position: static; }
   /* hero: one column; the orb drifts behind the headline */
-  .hero { grid-template-columns: 1fr; min-height: 0; padding: var(--s-10) 0 var(--s-4); overflow-x: clip; overflow-clip-margin: 8px; }
+  .hero { grid-template-columns: 1fr; min-height: 0; padding: var(--s-10) 0 var(--s-4); overflow-x: clip; overflow-y: visible; overflow-clip-margin: 8px; }
   .orb-wrap { position: absolute; top: -24px; right: -34%; width: 96%; max-width: 560px; opacity: .5; z-index: 0; pointer-events: none; }
 }
 @media (max-width: 640px) {
@@ -592,6 +668,9 @@ ol.refs { margin: 0; padding-left: var(--s-5); display: grid; gap: var(--s-2); f
   .ask-hero .ask-field button { width: 100%; }
   .ask-hint { display: none; }
   .orb-wrap { top: -8px; right: -52%; width: 128%; opacity: .42; }
+  .atmos > i, .hero::before, .hero::after { display: none; }
+  .atmos::after { animation: atmos-dots-a 180s linear infinite, atmos-fade-a 23s ease-in-out infinite; opacity: .55; }
+  .atmos::before { animation-duration: 48s; }
   .stat { padding-right: var(--s-3); }
   .stat + .stat { padding-left: var(--s-3); }
   .stat:nth-child(3) { padding-left: 0; }

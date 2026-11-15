@@ -380,17 +380,25 @@
 
   // ---------- decorative flame orb (home hero) ----------
   // A slowly turning sphere of particles evoking a spherical flame in
-  // microgravity. Purely visual: random geometry, no data, aria-hidden.
-  // Pauses off-screen and in background tabs; one static frame under
-  // prefers-reduced-motion.
+  // microgravity. Purely visual: seeded geometry, no data, aria-hidden.
+  // Motion is deterministic (fixed per-particle phases, no per-frame
+  // randomness): one slow shared breath in the warm core (~8 s), a soft light
+  // circling the aqua shell (~40 s), a sub-1% radial wobble, and on desktop a
+  // small pointer parallax. Pauses off-screen and in background tabs (the
+  // hero's CSS grid/scan pause with it); one static frame under
+  // prefers-reduced-motion, re-checked if that setting changes.
   let orbStop = null;
   function initOrb() {
     const cv = document.getElementById("orb");
     if (!cv || !cv.getContext) return;
     const ctx = cv.getContext("2d");
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const wrap = cv.closest(".orb-wrap"), hero = cv.closest(".hero");
+    const motionMQ = matchMedia("(prefers-reduced-motion: reduce)");
+    let reduce = motionMQ.matches;
     const small = matchMedia("(max-width: 640px)").matches;
+    const fine = matchMedia("(hover: hover) and (pointer: fine)").matches && !small;
     const SHELL = small ? 520 : 1000, CORE = small ? 150 : 300, MOTES = small ? 24 : 56;
+    const TAU = Math.PI * 2;
     // Seeded generator (mulberry32): the same orb on every visit.
     let seed = 0x5eed1e;
     const rand = () => {
@@ -410,12 +418,14 @@
       const rr = .12 + .5 * Math.pow(rand(), 1.6);
       pts.push({ x: rr * Math.sin(ph) * Math.cos(th), y: rr * Math.cos(ph), z: rr * Math.sin(ph) * Math.sin(th), core: true, k: 1, s: rand() });
     }
+    for (const p of pts) { p.ph = p.s * TAU; p.d = Math.hypot(p.x, p.y, p.z); }   // fixed phases, no per-frame random
     const motes = Array.from({ length: MOTES }, () => ({
       a: rand() * Math.PI * 2, r: 1.18 + rand() * .5, y: (rand() - .5) * 1.5,
       sp: (.08 + rand() * .12) * (rand() < .5 ? -1 : 1), s: rand(),
     }));
 
     let W = 0, H = 0, raf = 0, onScreen = true, last = performance.now(), t = 0;
+    const ptr = { tx: 0, ty: 0, x: 0, y: 0 };          // pointer parallax: target and eased value, -1..1
     const size = () => {
       const b = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
       W = b.width; H = b.height;
@@ -425,25 +435,29 @@
     const draw = () => {
       ctx.globalCompositeOperation = "source-over";
       ctx.clearRect(0, 0, W, H);
+      const breath = Math.sin(t * TAU / 8);                   // core: one slow shared breath
+      const coreGain = 1 + .12 * breath;
+      const shellGain = 1 + .06 * Math.sin(t * TAU / 14 + 1.3);
       const cx = W / 2, cy = H / 2, R = Math.min(W, H) * .37 * (1 + .012 * Math.sin(t * .55));
       const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 1.9);
-      halo.addColorStop(0, "rgba(255,214,170,.55)");
-      halo.addColorStop(.16, "rgba(255,150,90,.32)");
+      halo.addColorStop(0, `rgba(255,214,170,${(.55 * coreGain).toFixed(3)})`);
+      halo.addColorStop(.16, `rgba(255,150,90,${(.32 * coreGain).toFixed(3)})`);
       halo.addColorStop(.42, "rgba(255,120,70,.10)");
       halo.addColorStop(.62, "rgba(95,227,214,.10)");
       halo.addColorStop(1, "rgba(1,38,36,0)");
       ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
       const rim = ctx.createRadialGradient(cx, cy, R * .82, cx, cy, R * 1.12);   // soft luminous shell
       rim.addColorStop(0, "rgba(95,227,214,0)");
-      rim.addColorStop(.55, "rgba(140,240,230,.10)");
+      rim.addColorStop(.55, `rgba(140,240,230,${(.10 * shellGain).toFixed(3)})`);
       rim.addColorStop(1, "rgba(95,227,214,0)");
       ctx.fillStyle = rim; ctx.fillRect(0, 0, W, H);
 
-      const ay = t * .11, ax = .38 + .07 * Math.sin(t * .17);
+      const ay = t * .11 + ptr.x * .08, ax = .38 + .07 * Math.sin(t * .17) + ptr.y * .05;
       const cA = Math.cos(ay), sA = Math.sin(ay), cB = Math.cos(ax), sB = Math.sin(ax);
+      const lp = t * TAU / 40, lx = Math.cos(lp) * .92, ly = -.38, lz = Math.sin(lp) * .92;   // light circling the shell (view space)
       ctx.globalCompositeOperation = "lighter";
       for (const p of pts) {
-        const f = p.core ? 1 + .07 * Math.sin(t * 1.6 + p.s * 12) : p.k;
+        const f = p.core ? 1 + .025 * Math.sin(t * .7 + p.ph * 2) : p.k * (1 + .006 * Math.sin(t * .5 + p.ph));
         const x = p.x * f, y = p.y * f, z = p.z * f;
         const x1 = x * cA + z * sA, z1 = -x * sA + z * cA;
         const y1 = y * cB - z1 * sB, z2 = y * sB + z1 * cB;   // z2: -1 front .. 1 back
@@ -451,13 +465,14 @@
         const px = cx + x1 * R * persp, py = cy + y1 * R * persp;
         const front = (1 - z2) / 2;
         if (p.core) {
-          const a = .35 + .6 * front * (1 - .6 * Math.hypot(p.x, p.y, p.z));
+          const a = (.35 + .6 * front * (1 - .6 * p.d)) * coreGain;
           ctx.fillStyle = `rgba(255,${160 + Math.round(70 * p.s)},${100 + Math.round(70 * p.s)},${Math.min(1, a).toFixed(3)})`;
           const s = (1.4 + 1.8 * p.s) * persp;
           ctx.fillRect(px - s / 2, py - s / 2, s, s);
         } else {
           const limb = 1 - Math.abs(z2);                        // glow at the sphere's edge
-          const a = .16 + .72 * front * front + .32 * limb * limb;
+          const lit = Math.max(0, (x1 * lx + y1 * ly - z2 * lz) / f);
+          const a = (.16 + .72 * front * front + .32 * limb * limb + .14 * lit * lit) * shellGain;
           const lav = limb > .82 && p.s > .7;
           ctx.fillStyle = lav ? `rgba(250,209,255,${a.toFixed(3)})`
             : p.s > .55 ? `rgba(203,255,252,${a.toFixed(3)})` : `rgba(95,227,214,${a.toFixed(3)})`;
@@ -475,8 +490,16 @@
       }
       ctx.globalCompositeOperation = "source-over";
     };
+    let shift = "";
     const loop = (now) => {
-      t += Math.min(.05, (now - last) / 1000); last = now;
+      const dt = Math.min(.05, (now - last) / 1000); last = now;
+      t += dt;
+      if (fine) {                                               // ease toward the pointer, back to rest on leave
+        const k = Math.min(1, dt * 2.6);
+        ptr.x += (ptr.tx - ptr.x) * k; ptr.y += (ptr.ty - ptr.y) * k;
+        const next = `translate3d(${(ptr.x * 10).toFixed(2)}px, ${(ptr.y * 8).toFixed(2)}px, 0)`;
+        if (next !== shift && wrap) { wrap.style.transform = next; shift = next; }
+      }
       draw();
       raf = requestAnimationFrame(loop);
     };
@@ -484,13 +507,45 @@
     const stop = () => { cancelAnimationFrame(raf); raf = 0; };
     const ro = new ResizeObserver(() => { size(); draw(); });
     ro.observe(cv);
-    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; onScreen ? start() : stop(); });
+    // The loop runs only while the globe itself is visible; the hero's CSS
+    // grid/scan pause once the whole hero has left the viewport.
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.target === cv) { onScreen = e.isIntersecting; onScreen ? start() : stop(); }
+        else hero.classList.toggle("is-idle", !e.isIntersecting);
+      }
+    });
     io.observe(cv);
+    if (hero) io.observe(hero);
     const vis = () => (document.hidden ? stop() : start());
     document.addEventListener("visibilitychange", vis);
+    // Pointer parallax: desktop with a fine pointer only, never under reduced motion.
+    const move = (e) => {
+      const b = hero.getBoundingClientRect();
+      ptr.tx = Math.max(-1, Math.min(1, (e.clientX - b.left) / b.width * 2 - 1));
+      ptr.ty = Math.max(-1, Math.min(1, (e.clientY - b.top) / b.height * 2 - 1));
+    };
+    const leave = () => { ptr.tx = 0; ptr.ty = 0; };
+    if (fine && hero) { hero.addEventListener("pointermove", move, { passive: true }); hero.addEventListener("pointerleave", leave); }
+    const motionChange = () => {
+      reduce = motionMQ.matches;
+      if (reduce) { stop(); t = 0; ptr.x = ptr.y = ptr.tx = ptr.ty = 0; if (wrap) wrap.style.transform = ""; shift = ""; draw(); }
+      else start();
+    };
+    motionMQ.addEventListener?.("change", motionChange);
     size(); draw(); start();
-    orbStop = () => { stop(); ro.disconnect(); io.disconnect(); document.removeEventListener("visibilitychange", vis); };
+    orbStop = () => {
+      stop(); ro.disconnect(); io.disconnect();
+      document.removeEventListener("visibilitychange", vis);
+      motionMQ.removeEventListener?.("change", motionChange);
+      if (hero) { hero.removeEventListener("pointermove", move); hero.removeEventListener("pointerleave", leave); }
+    };
   }
+
+  // Background atmosphere (CSS): hold its animations while the tab is hidden.
+  const syncHidden = () => document.body.classList.toggle("tab-hidden", document.hidden);
+  document.addEventListener("visibilitychange", syncHidden);
+  syncHidden();
 
   // ---------- technical drawer ----------
   function gapsPanel(ans) {
