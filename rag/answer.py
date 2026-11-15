@@ -44,6 +44,14 @@ CONDITION_KEYS = {
     "diameter": ["diameter", "thickness", "size", "dimension"],
     "temperature": ["temp", "temperature"],
 }
+# Columns a needle matches by accident. "o2" is inside "CO2", and CO2 columns
+# have shorter names than O2 ones, so without this BASS-II's "Initial CO2 %"
+# was reported (and handed to the model) as oxygen. "Flow restrictor" is a
+# hardware setting, not an airflow speed.
+CONDITION_EXCLUDE = {
+    "oxygen": re.compile(r"co2|\bco\b", re.I),
+    "flow": re.compile(r"restrictor", re.I),
+}
 
 
 class EvidenceLedger:
@@ -72,13 +80,18 @@ class EvidenceLedger:
                     low = col.lower()
                     if not any(n in low for n in needles):
                         continue
+                    if label in CONDITION_EXCLUDE and CONDITION_EXCLUDE[label].search(low):
+                        continue
                     # "Sample #" / "Test #" are counters, not conditions.
                     if re.search(r"(^|\W)(#|no\.?|num|index|id)(\W|$)", low):
                         continue
                     numeric = bool(re.fullmatch(r"-?[\d.,;:\s%]+", val.strip()))
                     # A fuel or material is named, not numbered; a measurement is.
                     wanted_text = label in ("fuel",)
-                    score = (0 if numeric == wanted_text else 1, -len(low))
+                    # Prefer the condition a test ran at over the value left
+                    # after the burn ("initial O2" over "final O2").
+                    score = (0 if numeric == wanted_text else 1,
+                             0 if "final" in low else 1, -len(low))
                     if best is None or score > best[0]:
                         best = (score, col, val)
                 if best:
