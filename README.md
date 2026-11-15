@@ -10,10 +10,11 @@ measures where fire stops burning in space, and says plainly when NASA has no da
 [![Live demo](https://img.shields.io/badge/Live_demo-GitHub_Pages-0b7d74?style=flat-square)](https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/)
 [![NASA Space Apps 2026](https://img.shields.io/badge/NASA_Space_Apps-2026-1f3b73?style=flat-square)](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/)
 [![Data: NASA PSI](https://img.shields.io/badge/Data-NASA_PSI-f5c46b?style=flat-square)](https://psi.nasa.gov/)
+[![Demo video](https://img.shields.io/badge/Demo_video-YouTube-c4302b?style=flat-square)](https://www.youtube.com/watch?v=jFU_ZWw31QY)
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-3776ab?style=flat-square)
 ![LLM: Ollama or Groq](https://img.shields.io/badge/LLM-Ollama_%7C_Groq-555?style=flat-square)
 
-**[▶ Open the live demo](https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/)** · Team **Cosmic Outliers** · Challenge: *Flame in Freefall*
+**[▶ Open the live demo](https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/)** · **[▶ Watch the 30 s video](https://www.youtube.com/watch?v=jFU_ZWw31QY)** · Team **Cosmic Outliers** · Challenge: *Flame in Freefall*
 
 ![FlameScope home screen](docs/screenshots/home.png)
 
@@ -160,9 +161,10 @@ FlameScope is built on one rule: **show NASA's words first, and never let the AI
 |---|
 | ![Method page explaining the pipeline and flammability model](docs/screenshots/method.png) |
 
-**Demo video (30 s):** click the image to play it on GitHub.
+**Demo video (30 s):** click the image to watch it on [YouTube](https://www.youtube.com/watch?v=jFU_ZWw31QY).
+The video file is also in the repo: [`docs/video/FlameScope_SpaceApps_30s.mp4`](docs/video/FlameScope_SpaceApps_30s.mp4).
 
-[![FlameScope 30-second demo video](docs/video/FlameScope_thumbnail.jpg)](docs/video/FlameScope_SpaceApps_30s.mp4)
+[![FlameScope 30-second demo video](docs/video/FlameScope_thumbnail.jpg)](https://www.youtube.com/watch?v=jFU_ZWw31QY)
 
 The video uses real screen captures of the app; the voiceover is AI-generated. Script, storyboard and asset
 credits are in [`docs/video/VIDEO_NOTES.md`](docs/video/VIDEO_NOTES.md).
