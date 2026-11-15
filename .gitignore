@@ -3,9 +3,6 @@ __pycache__/
 *.py[cod]
 *.pyo
 
-# Env
-fifenv/
-
 # Virtual environments
 venv/
 .venv/
@@ -45,9 +42,6 @@ htmlcov/
 # Large raw PSI downloads (re-fetch with data/fetch_psi.py)
 data/raw/investigations/
 CLAUDE.md
-
-# Streamlit secrets (API keys) - never commit
-.streamlit/secrets.toml
 
 # Large raw PSI documents for the RAG corpus (re-fetch with rag/prep/download_documents.py)
 data/raw/documents/

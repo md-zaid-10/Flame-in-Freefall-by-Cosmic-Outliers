@@ -645,7 +645,7 @@
       <li><b>Verification.</b> Every number must appear verbatim in a source and every citation must name a retrieved investigation, or the summary is blocked.</li>
       <li><b>Gap radar.</b> Partial-gravity questions trigger a hard “no data” response; thin coverage is flagged.</li>
       <li><b>Flame model.</b> Empirical burn envelope from BASS-II acrylic-rod runs with Jeffreys intervals.</li>
-    </ol><p class="small muted" style="margin:10px 0 0">${LIVE ? "Live answers on." : "Live answers off in this copy: only pre-computed questions are answered (start frontend/serve.py with Ollama for live answers)."} Data cache built ${esc(D.built)}.</p></div>`;
+    </ol><p class="small muted" style="margin:10px 0 0">${LIVE ? "Live answers on." : "Live answers off in this copy: only pre-computed questions are answered (start frontend/serve.py with a Groq key or Ollama for live answers)."} Data cache built ${esc(D.built)}.</p></div>`;
   }
 
   function drawerContent() {

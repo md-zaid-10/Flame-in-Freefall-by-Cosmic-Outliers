@@ -1,14 +1,13 @@
-"""Adapter for app.py — implements the interface the dashboard already expects.
+"""The interface the frontend uses (frontend/serve.py, frontend/build_cache.py).
 
-app.py was written against `from rag import search as rag` with three calls:
+`from rag import search as rag` gives three calls:
 
     search(q, k=6) -> [{"id", "title", "score", "snippet", "doi"}, ...]
     summarize(id)  -> dict shown in an expander
     ask(question)  -> {"answer": str, "sources": [str, ...], ...}
 
-This module provides exactly those on top of rag.answer.EvidenceLedger, so the
-existing Research finder tab works unchanged, and `ask()` additionally returns
-the evidence ledger, condition rows and gap radar for the richer rendering.
+This module provides exactly those on top of rag.answer.EvidenceLedger, and
+`ask()` additionally returns the evidence ledger, condition rows and gap radar for the richer rendering.
 
 Retrieval is chunk-level; `search()` rolls chunks up to investigations, scoring
 each by its best-matching chunks. Loading is lazy and cached, because building
@@ -82,7 +81,7 @@ def _get_meta():
 
 
 def available() -> bool:
-    """True when the corpus has been built, so app.py can fall back cleanly."""
+    """True when the corpus has been built, so callers can fall back cleanly."""
     return os.path.exists(os.path.join(ROOT, "data", "rag", "chunks.jsonl"))
 
 
@@ -137,7 +136,7 @@ def search(q: str, k: int = 6):
             "score": round(a["score"], 5),
             "snippet": " ".join((best.get("text") or "").split())[:320],
             "doi": s.get("doi", ""),
-            # extras app.py may use; harmless to the existing card layout
+            # extras the frontend shows next to each result
             "acronym": depth.get("acronym") or s.get("investigationAcronym") or "",
             "evidence_level": depth.get("evidence_level", "unknown"),
             "matched_chunks": a["chunks"],

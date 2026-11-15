@@ -35,8 +35,7 @@ The main screens use plain language only. Verification verdicts, file names, pag
 smoke-detector headline quote is no longer found verbatim in a NASA passage, or if the Moon
 question stops returning the hard partial-gravity gap. Rebuild it after any change to `rag/` or `ml/`.
 
-`shape.py` hides condition values whose column is mislabelled by `rag/answer.py`
-(CO2 columns matched as "oxygen", "Flow restrictor" matched as "flow"). Remove it once that is fixed in `rag/`.
+`shape.py` trims a `rag.ask()` response to the fields the browser needs.
 
 ## Honesty rules this UI follows
 
@@ -50,8 +49,8 @@ question stops returning the hard partial-gravity gap. Rebuild it after any chan
 to https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/ on every push to `main`
 that touches `frontend/`. The public site is static: the three scenarios, the example questions
 in `EXAMPLES` (`build_cache.py`), the research map, flame map and method page all work; answers
-to new questions need `serve.py` + Ollama and show a short notice instead.
+to new questions need `serve.py` with a Groq key or Ollama, and show a short notice instead.
 
 To change what the public site answers: edit `PRESETS` / `EXAMPLES`, run
 `venv/bin/python frontend/build_cache.py --keep-answers` (keeps existing answers, asks only new
-questions; needs Ollama running), check the results, then commit `frontend/data/demo.js`.
+questions; needs a Groq key or Ollama running), check the results, then commit `frontend/data/demo.js`.

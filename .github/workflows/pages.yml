@@ -1,7 +1,7 @@
 # Publish frontend/ to GitHub Pages on every push to main.
 # The site is static: scenarios, example questions, research map, flame map and
 # method page all come from frontend/data/demo.js. Live AI answers need
-# frontend/serve.py + Ollama and are not part of the public site.
+# frontend/serve.py with a Groq key or Ollama and are not part of the public site.
 name: Deploy frontend to GitHub Pages
 
 on:

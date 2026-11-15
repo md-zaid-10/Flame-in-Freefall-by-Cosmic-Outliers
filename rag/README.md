@@ -40,11 +40,13 @@ python -m rag.evaluate --k 5                  # measured scorecard
 steps are only needed to rebuild from scratch. Embeddings regenerate on first
 retrieval (~1 min) and are gitignored.
 
-The answer layer uses **Ollama** by default (`qwen2.5:7b`), so no API key and no
-network are needed. `FIF_LLM=anthropic` with `ANTHROPIC_API_KEY` switches
-backends. With no model reachable, the evidence ledger still works.
+The answer layer uses **Groq** when `GROQ_API_KEY` is set (free tier, fast), and
+otherwise a local **Ollama** model (`qwen2.5:7b`) with no key and no network. If
+Groq fails or hits its rate limit, it falls back to Ollama. `FIF_LLM` forces one
+backend (`groq`, `ollama` or `anthropic`). With no model reachable, the evidence
+ledger still works.
 
-## Using it from `app.py`
+## Using it from Python
 
 ```python
 from rag.answer import EvidenceLedger
@@ -60,7 +62,7 @@ res["completeness"]     # chunks and investigations searched, near-misses
 res["verification"]     # verdict + which numbers/citations were rejected
 ```
 
-In Streamlit, wrap construction in `@st.cache_resource`.
+The frontend uses the simpler `rag/search.py` interface (`search`, `summarize`, `ask`).
 
 ## Modules
 
@@ -72,7 +74,7 @@ In Streamlit, wrap construction in `@st.cache_resource`.
 | `decompose.py` | splits compound questions; blocks partial-gravity extrapolation |
 | `verify.py` | verbatim number and citation grounding |
 | `answer.py` | orchestrates all of the above into the evidence ledger |
-| `llm.py` | Ollama / Anthropic backend |
+| `llm.py` | Groq / Ollama / Anthropic backend, with Ollama as fallback |
 | `evaluate.py` | runs `data/rag/gold_set.json` and prints the scorecard |
 | `prep/` | one-off ingestion: manifest, download, legacy conversion, extraction check |
 
