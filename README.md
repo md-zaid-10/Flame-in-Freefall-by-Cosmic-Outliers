@@ -11,7 +11,7 @@ measures where fire stops burning in space, and says plainly when NASA has no da
 [![NASA Space Apps 2026](https://img.shields.io/badge/NASA_Space_Apps-2026-1f3b73?style=flat-square)](https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/)
 [![Data: NASA PSI](https://img.shields.io/badge/Data-NASA_PSI-f5c46b?style=flat-square)](https://psi.nasa.gov/)
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-3776ab?style=flat-square)
-![Local LLM: Ollama](https://img.shields.io/badge/LLM-local_Ollama-555?style=flat-square)
+![LLM: Ollama or Groq](https://img.shields.io/badge/LLM-Ollama_%7C_Groq-555?style=flat-square)
 
 **[▶ Open the live demo](https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/)** · Team **Cosmic Outliers** · Challenge: *Flame in Freefall*
 
@@ -179,7 +179,7 @@ FlameScope is built on one rule: **show NASA's words first, and never let the AI
 | **Frontend** | Plain HTML, CSS and JavaScript, with no framework and no build step. Charts are hand-drawn SVG. |
 | **Backend** | Python 3.12 standard-library HTTP server (`frontend/serve.py`) exposing `/api/ask` and `/api/health` |
 | **Retrieval** | `rank-bm25`, scikit-learn TF-IDF, `sentence-transformers` (`all-MiniLM-L6-v2`), reciprocal-rank fusion |
-| **AI summaries** | Local LLM through [Ollama](https://ollama.com/) (`qwen2.5:7b` by default). An Anthropic API backend is optional. |
+| **AI summaries** | [Groq](https://groq.com/) API (free tier; picks the best available model, e.g. `openai/gpt-oss-120b`) when `GROQ_API_KEY` is set, otherwise a local model through [Ollama](https://ollama.com/) (`qwen2.5:7b`). If Groq hits its rate limit, answers fall back to Ollama. An Anthropic backend is optional. |
 | **Data and modeling** | pandas, NumPy, SciPy (Jeffreys intervals), matplotlib |
 | **Document extraction** | pypdf, python-docx, python-pptx, openpyxl |
 | **Data source** | NASA Physical Sciences Informatics (PSI) web API |
@@ -207,7 +207,7 @@ flowchart LR
     subgraph CORE["Python core"]
         RET["rag/retrieve.py<br/>BM25 + TF-IDF + embeddings (RRF)"]
         DEC["rag/decompose.py<br/>splits questions · blocks partial-g"]
-        LLM["rag/llm.py<br/>Ollama (local)"]
+        LLM["rag/llm.py<br/>Groq or Ollama (local)"]
         VER["rag/verify.py<br/>number + citation check"]
         ML["ml/model.py<br/>predict() · boundary() · envelope()"]
         BASE["ml/gravity_bounds/baselines.py<br/>cited 1 g values"]
@@ -302,7 +302,7 @@ gravity mixed convection blowoff limits with microgravity forced flow blowoff li
 
 - **Python 3.12** (other recent 3.x versions will likely work but were not tested)
 - **Git**
-- **[Ollama](https://ollama.com/)**, optional: only needed for live AI answers to new questions
+- For live AI answers to new questions (optional), either a free **[Groq API key](https://console.groq.com/keys)** or **[Ollama](https://ollama.com/)** running locally
 - About 2 GB of disk space for Python dependencies (PyTorch is pulled in by `sentence-transformers`)
 
 ### 1. Clone the repository
@@ -328,12 +328,13 @@ python3.12 -m venv venv
 source venv/bin/activate          # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-ollama pull qwen2.5:7b            # optional: the local model for AI summaries
+export GROQ_API_KEY=your_key_here  # optional: fast cloud summaries (never commit this)
+ollama pull qwen2.5:7b            # optional: local model, also the fallback for Groq
 python frontend/serve.py          # → http://localhost:8765
 ```
 
 On the first search, the embedding model (`all-MiniLM-L6-v2`) downloads, and passage embeddings are
-computed and cached in `data/rag/embeddings.npy`. This takes about a minute. Without Ollama running,
+computed and cached in `data/rag/embeddings.npy`. This takes about a minute. With neither Groq nor Ollama available,
 searches still return NASA's passages and measured values, just without an AI summary.
 
 ### Environment variables (all optional)
@@ -341,7 +342,9 @@ searches still return NASA's passages and measured values, just without an AI su
 | Variable | Default | Purpose |
 |---|---|---|
 | `PORT` | `8765` | Port for `frontend/serve.py` |
-| `FIF_LLM` | `ollama` | Summary backend: `ollama` or `anthropic` |
+| `GROQ_API_KEY` | none | Groq API key. When set, Groq writes the summaries. Keep it server-side; never commit it. |
+| `FIF_GROQ_MODEL` | auto | Pin a Groq model; by default the best model the key can reach is chosen |
+| `FIF_LLM` | auto | Force one backend: `groq`, `ollama` or `anthropic`. Unset: Groq if a key is set, else Ollama. |
 | `FIF_OLLAMA_MODEL` | `qwen2.5:7b` | Ollama model name |
 | `FIF_OLLAMA_HOST` | `http://localhost:11434` | Ollama server address |
 | `ANTHROPIC_API_KEY` | none | Needed only when `FIF_LLM=anthropic` |
@@ -421,7 +424,7 @@ model.predict("cotton", 1, 21, 5)                     # → all NaN: no data for
 │   ├── decompose.py          # Splits compound questions; blocks partial-g extrapolation
 │   ├── answer.py             # Builds the evidence ledger
 │   ├── verify.py             # Number and citation grounding check
-│   ├── llm.py                # Ollama / Anthropic backend
+│   ├── llm.py                # Groq / Ollama / Anthropic backend
 │   ├── corpus.py, enrich.py  # Build and clean the passage corpus
 │   ├── evaluate.py           # Retrieval scorecard against a gold set
 │   └── prep/                 # One-off document download and extraction
@@ -537,6 +540,7 @@ In line with Space Apps rules:
   teams behind BASS, BASS-II, Saffire, SAME, SAME-R, DAFT, FLEX, FLEX-2, CFI, ACME and SPICE, whose openly
   published data makes this project possible.
 - **Marcum, Olson & Ferkul (2016)** for the published Earth-gravity blowoff limits used as the 1 g baseline.
+- [Groq](https://groq.com/) for fast hosted inference.
 - Open-source tools: [Ollama](https://ollama.com/), [Qwen2.5](https://github.com/QwenLM/Qwen2.5),
   [sentence-transformers](https://www.sbert.net/), [rank-bm25](https://github.com/dorianbrown/rank_bm25),
   [scikit-learn](https://scikit-learn.org/), [pandas](https://pandas.pydata.org/),

@@ -69,6 +69,7 @@ GROQ_PREFERRED = [
 GROQ_SKIP = ("guard", "whisper", "tts", "embed", "orpheus", "safeguard")
 # Groq rejects urllib's default user-agent with 403, so always send one.
 GROQ_UA = "flamescope-rag"
+_groq_pick = None  # cached by pick_groq_model() once the listing succeeds
 
 # Low temperature: we want the model to restate the sources, not to write.
 TEMPERATURE = 0.1
@@ -190,15 +191,16 @@ def pick_groq_model(preferred: str = GROQ_MODEL) -> str:
     """
     if preferred:
         return preferred
+    global _groq_pick
+    if _groq_pick:
+        return _groq_pick
     have = groq_models()
     if not have:
         # Listing failed (offline, or the key cannot list). Fall back to the
         # first preference and let the request itself report the real error.
         return GROQ_PREFERRED[0]
-    for cand in GROQ_PREFERRED:
-        if cand in have:
-            return cand
-    return have[0]
+    _groq_pick = next((c for c in GROQ_PREFERRED if c in have), have[0])
+    return _groq_pick
 
 
 def groq_generate(prompt: str, model: str | None = None, system: str | None = None,
@@ -336,14 +338,50 @@ def describe() -> dict:
     return d
 
 
+# Typography some models (gpt-oss in particular) emit that would otherwise
+# break the pipeline: 【TAG】 citations are invisible to rag.verify's [TAG]
+# check and the site's citation chips, and narrow/no-break spaces and
+# non-breaking hyphens make a verbatim number look different from its source.
+_TIDY = str.maketrans({
+    "【": "[", "】": "]",
+    " ": " ", " ": " ", " ": " ", " ": " ",
+    "‑": "-", "‐": "-",
+})
+
+# Which backend and model produced the most recent answer (set by generate).
+_last: dict | None = None
+
+
+def last_used() -> dict | None:
+    """{"backend", "model"} of the most recent successful generate(), or None."""
+    return _last
+
+
 def generate(prompt: str, system: str | None = None, max_tokens: int = 900) -> str:
+    global _last
     name = backend_name()
     if name == "groq":
-        return groq_generate(prompt, system=system, max_tokens=max_tokens)
+        try:
+            model = pick_groq_model()
+            text = groq_generate(prompt, model=model, system=system, max_tokens=max_tokens)
+            _last = {"backend": "groq", "model": model}
+            return text.translate(_TIDY)
+        except LLMUnavailable:
+            # Free-tier rate limits (8k tokens/min) are easy to hit in a live
+            # demo. Fall back to the local model rather than drop the summary.
+            if os.environ.get("FIF_LLM", "").lower() != "groq" and ollama_available():
+                name = "ollama"
+            else:
+                raise
     if name == "ollama":
-        return ollama_generate(prompt, system=system, max_tokens=max_tokens)
+        model = pick_ollama_model()
+        text = ollama_generate(prompt, model=model, system=system, max_tokens=max_tokens)
+        _last = {"backend": "ollama", "model": model}
+        return text.translate(_TIDY)
     if name == "anthropic":
-        return anthropic_generate(prompt, system=system, max_tokens=max_tokens)
+        text = anthropic_generate(prompt, system=system, max_tokens=max_tokens)
+        _last = {"backend": "anthropic", "model": ANTHROPIC_MODEL}
+        return text.translate(_TIDY)
     raise LLMUnavailable(
         "No language model available. Set GROQ_API_KEY (free tier), start "
         "ollama (no key needed), or set ANTHROPIC_API_KEY. The evidence "

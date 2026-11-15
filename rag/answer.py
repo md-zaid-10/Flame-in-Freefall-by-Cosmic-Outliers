@@ -302,7 +302,7 @@ class EvidenceLedger:
         } for row in result["condition_rows"]]
 
         verdict, report = verify.enforce(draft, check_against)
-        info = llm.describe()
+        info = llm.last_used() or llm.describe()
         result["verification"] = {
             "verdict": verdict,
             "backend": info["backend"],
