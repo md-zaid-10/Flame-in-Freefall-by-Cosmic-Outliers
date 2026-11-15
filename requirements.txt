@@ -20,6 +20,9 @@ openpyxl>=3.1           # .xlsx test matrices
 rank-bm25>=0.2.2        # lexical retrieval (exact technical terms)
 sentence-transformers>=3.0   # semantic retrieval (all-MiniLM-L6-v2)
 
-# The answer layer runs on a local Ollama model by default - no API key needed.
+# The answer layer picks a backend at runtime and needs no extra package:
+#   Groq free tier  - set GROQ_API_KEY (preferred; plain HTTP, no SDK)
+#   local Ollama    - no key, used when there is no Groq key
+# Never expose GROQ_API_KEY to the browser; the published site is static.
 # Optional, only if FIF_LLM=anthropic:
 # anthropic>=0.40
