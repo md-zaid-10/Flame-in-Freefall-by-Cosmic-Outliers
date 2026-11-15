@@ -258,6 +258,43 @@ def research_block():
             "rankings": rankings, "earth": earth}
 
 
+# Screens that never display an AI answer: measured data (oxygen), the Moon
+# refusal, and Moon/Mars example questions (no AI summary by rule). Their AI
+# draft is not stored, so an unchecked sentence can't sit in the public cache.
+UNSHOWN_PRESET_KINDS = ("measured", "refusal")
+
+
+def keep_tie_order(research, prev_rankings):
+    """rag.search sorts by score only, so studies with equal scores (e.g.
+    Saffire-II and -III) come out in a different order from one run to the
+    next. With --keep-answers, keep the published order when a habitat's
+    ranking has exactly the same studies and scores; any real change is used
+    as-is and reported."""
+    for h, new in research["rankings"].items():
+        old = prev_rankings.get(h)
+        if old is None or old == new:
+            continue
+        key = lambda r: sorted((x["id"], x["score"]) for x in r)
+        if key(old) == key(new) and [x["score"] for x in old] == [x["score"] for x in new]:
+            print(f"research ranking {h!r}: tied scores, keeping the published order")
+            research["rankings"][h] = old
+        else:
+            print(f"research ranking {h!r}: CHANGED (scores differ from the published cache)")
+    return research
+
+
+def drop_unshown_answer(ans):
+    g = ans.get("grounding") or {}
+    ans["answer"] = None
+    ans["grounding"] = {
+        "verdict": "not_shown",
+        "backend": g.get("backend"),
+        "model": g.get("model"),
+        "note": "AI answer not stored: this screen never displays one.",
+    }
+    return ans
+
+
 def main():
     if not rag.available():
         raise SystemExit("RAG corpus not built (data/rag/chunks.jsonl missing).")
@@ -267,12 +304,13 @@ def main():
 
     # --keep-answers reuses the answers already in demo.js, so a rebuild for
     # other data does not regenerate (and possibly change) the AI summaries.
-    kept = {}
+    kept, prev_rankings = {}, {}
     if "--keep-answers" in sys.argv:
         prev = open(os.path.join(HERE, "data", "demo.js"), encoding="utf-8").read()
         prev = json.loads(prev[prev.index("=") + 1:].rstrip().rstrip(";"))
         kept = {p["question"]: p["ask"] for p in prev["presets"]}
         kept |= {e["question"]: e["ask"] for e in prev.get("examples", [])}
+        prev_rankings = prev.get("research", {}).get("rankings", {})
 
     presets = []
     for p in PRESETS:
@@ -291,6 +329,8 @@ def main():
                     and g["severity"] == "hard"]
             if not hard:
                 raise SystemExit(f"expected a hard partial-gravity gap for {p['question']!r}")
+        if p["kind"] in UNSHOWN_PRESET_KINDS:
+            drop_unshown_answer(ans)
         presets.append(item)
 
     examples = []
@@ -309,6 +349,8 @@ def main():
         if ans is None:
             print(f"  SKIPPED (did not behave as expected 3 times): {q}")
             continue
+        if expect == "no_data":
+            drop_unshown_answer(ans)
         examples.append({"question": q, "expect": expect, "ask": ans})
 
     out = {
@@ -324,7 +366,7 @@ def main():
         "examples": examples,
         "map": map_block(),
         "method": method_block(),
-        "research": research_block(),
+        "research": keep_tie_order(research_block(), prev_rankings),
     }
     path = os.path.join(HERE, "data", "demo.js")
     with open(path, "w", encoding="utf-8") as fh:
