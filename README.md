@@ -171,7 +171,8 @@ credits are in [`docs/video/VIDEO_NOTES.md`](docs/video/VIDEO_NOTES.md).
 
 > The public site is static. The three scenarios, nine example questions, research map, flame map and method
 > page all work there. Answers to **new** questions need the local server with a Groq key or a local AI model; see
-> [Installation and setup](#-installation-and-setup).
+> [Installation and setup](#-installation-and-setup). To host live answers for everyone (free Hugging Face Space
+> + Groq), see [`deploy/README.md`](deploy/README.md).
 
 **Keyboard shortcuts:** `1` `2` `3` scenarios · `→` / `n` next question · `m` flame map ·
 `d` "How it works" drawer · `Esc` / `h` home. Screens can be linked directly:
@@ -420,7 +421,7 @@ model.predict("cotton", 1, 21, 5)                     # → all NaN: no data for
 │   ├── index.html            # Page shell
 │   ├── app.js                # All screens: Ask, Research, Flame map, Method
 │   ├── style.css             # Design system (dark teal)
-│   ├── serve.py              # Local server: static files + /api/ask
+│   ├── serve.py              # Server: static files + /api/ask (local or Hugging Face Space)
 │   ├── build_cache.py        # Pre-computes data/demo.js from rag/ and ml/
 │   ├── shape.py              # Cleans answer payloads for display
 │   ├── count_psi_files.py    # Counts files in the PSI archive for the home screen

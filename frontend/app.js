@@ -24,6 +24,7 @@
   const INV = Object.fromEntries(D.method.investigations.map((r) => [r.id, r]));
   const live = {};          // question -> shaped ask() response from serve.py
   let LIVE = false;         // serve.py reachable?
+  const API = (window.FLAMESCOPE_API || "").replace(/\/+$/, "");   // hosted answer server, see config.js
   let current = null;       // {question, ans, preset} | {loading} | {error} | {page} | null
   let counted = false;
 
@@ -1012,7 +1013,7 @@
       current = { question: ex.question, ans: ex.ask, preset: null };
       return renderResults();
     }
-    if (!LIVE) {
+    if (!LIVE && !API) {
       current = { question: q, error: "This public version answers the scenarios and the example questions on the left. Answers to new questions come from an AI model that runs on the team's own computer, so they aren't available here." };
       return renderResults();
     }
@@ -1020,14 +1021,17 @@
     renderResults();
     try {
       if (!live[q]) {
-        const r = await fetch(`/api/ask?q=${encodeURIComponent(q)}`);
+        const r = await fetch(`${API}/api/ask?q=${encodeURIComponent(q)}`);
         const body = await r.json();
         if (!r.ok) throw new Error(body.error || r.statusText);
         live[q] = body;
       }
       if (current?.question === q) { current = { question: q, ans: live[q], preset: null }; renderResults(); }
     } catch (e) {
-      current = { question: q, error: `Could not get an answer: ${e.message}` };
+      const msg = API && e instanceof TypeError
+        ? "The answer server is waking up or busy. Please try again in about a minute."
+        : `Could not get an answer: ${e.message}`;
+      current = { question: q, error: msg };
       renderResults();
     }
   }
@@ -1073,8 +1077,8 @@
   });
   window.addEventListener("hashchange", () => go(location.hash));
 
-  if (location.protocol.startsWith("http")) {
-    fetch("/api/health").then((r) => r.ok ? r.json() : null)
+  if (API || location.protocol.startsWith("http")) {
+    fetch(`${API}/api/health`).then((r) => r.ok ? r.json() : null)
       .then((j) => { LIVE = !!j?.live; if (!drawer.hidden) drawerBody.innerHTML = drawerContent(); }).catch(() => {});
   }
   go(location.hash);

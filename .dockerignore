@@ -1,0 +1,7 @@
+venv/
+.git/
+docs/
+**/__pycache__/
+*.ipynb
+.DS_Store
+data/rag/embeddings.npy

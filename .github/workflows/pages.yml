@@ -1,7 +1,8 @@
 # Publish frontend/ to GitHub Pages on every push to main.
 # The site is static: scenarios, example questions, research map, flame map and
-# method page all come from frontend/data/demo.js. Live AI answers need
-# frontend/serve.py with a Groq key or Ollama and are not part of the public site.
+# method page all come from frontend/data/demo.js. New questions go to the
+# answer server on Hugging Face (space.yml) when the repository variable
+# FLAMESCOPE_API holds its URL, e.g. https://your-hf-name-flamescope.hf.space
 name: Deploy frontend to GitHub Pages
 
 on:
@@ -31,7 +32,10 @@ jobs:
         # Only the files the browser needs; the Python build/serve scripts stay out.
         run: |
           mkdir -p _site/data
-          cp frontend/index.html frontend/app.js frontend/style.css _site/
+          cp frontend/index.html frontend/app.js frontend/style.css frontend/config.js _site/
+          if [ -n "${{ vars.FLAMESCOPE_API }}" ]; then
+            echo 'window.FLAMESCOPE_API = "${{ vars.FLAMESCOPE_API }}";' > _site/config.js
+          fi
           cp frontend/data/demo.js _site/data/
           touch _site/.nojekyll
       - uses: actions/configure-pages@v6

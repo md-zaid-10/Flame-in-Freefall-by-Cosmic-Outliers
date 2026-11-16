@@ -1,0 +1,43 @@
+# Deploy the live answer server to a Hugging Face Docker Space on every push to main.
+# Setup (once): repository secret HF_TOKEN (a Hugging Face write token) and
+# repository variable HF_SPACE, e.g. "your-hf-name/flamescope". The Space holds
+# GROQ_API_KEY as its own secret. Without HF_TOKEN this workflow does nothing.
+name: Deploy answer server to Hugging Face
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["docs/**", "**.md"]
+  workflow_dispatch:
+
+concurrency:
+  group: hf-space
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      HF_SPACE: ${{ vars.HF_SPACE }}
+    steps:
+      - uses: actions/checkout@v7
+        if: env.HF_TOKEN != '' && env.HF_SPACE != ''
+      - name: Push to the Space
+        if: env.HF_TOKEN != '' && env.HF_SPACE != ''
+        # A fresh one-commit snapshot without docs/ (the demo video is too large
+        # for a Space without Git LFS). The Space needs its own README header.
+        run: |
+          mkdir _space
+          git archive HEAD | tar -x -C _space
+          rm -rf _space/docs
+          cp deploy/space_README.md _space/README.md
+          cd _space
+          git init -q -b main
+          git -c user.name="github-actions" -c user.email="actions@github.com" add -A
+          git -c user.name="github-actions" -c user.email="actions@github.com" commit -qm "Deploy ${GITHUB_SHA::7}"
+          user="${HF_SPACE%%/*}"
+          git push --force "https://${user}:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE}" main
+      - name: Skipped
+        if: env.HF_TOKEN == '' || env.HF_SPACE == ''
+        run: echo "HF_TOKEN secret or HF_SPACE variable not set; nothing deployed."
