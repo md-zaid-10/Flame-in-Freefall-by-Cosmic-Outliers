@@ -45,11 +45,12 @@ question stops returning the hard partial-gravity gap. Rebuild it after any chan
 
 ## Public site (GitHub Pages)
 
-`.github/workflows/pages.yml` publishes `index.html`, `app.js`, `style.css` and `data/demo.js`
+`.github/workflows/pages.yml` publishes `index.html`, `app.js`, `style.css`, `config.js` and `data/demo.js`
 to https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/ on every push to `main`
-that touches `frontend/`. The public site is static: the three scenarios, the example questions
-in `EXAMPLES` (`build_cache.py`), the research map, flame map and method page all work; answers
-to new questions need `serve.py` with a Groq key or Ollama, and show a short notice instead.
+that touches `frontend/`. The scenarios, the example questions in `EXAMPLES` (`build_cache.py`),
+the research map, flame map and method page are pre-computed. New questions go to the answer
+server on Render (https://flamescope.onrender.com), set in `config.js`; see `deploy/README.md`.
+If that server can't be reached, the page shows a short notice instead.
 
 To change what the public site answers: edit `PRESETS` / `EXAMPLES`, run
 `venv/bin/python frontend/build_cache.py --keep-answers` (keeps existing answers, asks only new

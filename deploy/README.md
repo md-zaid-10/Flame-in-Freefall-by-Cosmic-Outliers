@@ -40,5 +40,6 @@ From then on, every push to `main` updates both Render and GitHub Pages.
   repeated questions are cached. Groq's free tier also has a per-minute limit; when it is
   hit, visitors still get NASA's passages without the AI summary.
 - **The Render URL is a full copy of the site**, so it works on its own too.
-- **Full search quality** needs ~2 GB of memory: use the [`Dockerfile`](../Dockerfile) on a
-  larger host (Render paid, Google Cloud Run, a VM) and set `GROQ_API_KEY` there.
+- **Full search quality** needs ~2 GB of memory: on a larger host (Render paid, a VM), install
+  `requirements.txt`, set `GROQ_API_KEY` and `HOST=0.0.0.0`, and run `python frontend/serve.py`
+  without `FIF_EMBEDDINGS=0`.

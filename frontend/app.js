@@ -1014,7 +1014,7 @@
       return renderResults();
     }
     if (!LIVE && !API) {
-      current = { question: q, error: "This public version answers the scenarios and the example questions on the left. Answers to new questions come from an AI model that runs on the team's own computer, so they aren't available here." };
+      current = { question: q, error: "This copy can't reach the answer server, so it only answers the scenarios and the example questions on the left. Ask new questions at https://flamescope.onrender.com." };
       return renderResults();
     }
     current = { question: q, loading: true };

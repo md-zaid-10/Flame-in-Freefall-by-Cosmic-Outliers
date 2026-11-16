@@ -473,7 +473,6 @@ model.predict("cotton", 1, 21, 5)                     # → all NaN: no data for
 ├── requirements.txt          # Full local setup
 ├── requirements-server.txt   # Lite packages for the free Render server
 ├── render.yaml               # Render Blueprint for the answer server
-├── Dockerfile                # Full-quality server for larger hosts
 └── .github/workflows/pages.yml   # Deploys frontend/ to GitHub Pages
 ```
 
