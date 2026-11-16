@@ -1,4 +1,5 @@
-# FlameScope answer server for a Hugging Face Docker Space (or any container host).
+# FlameScope answer server, full search quality, for any container host with ~2 GB RAM.
+# The free Render setup does not use this file; it uses render.yaml (lite search).
 # The LLM runs on Groq: set GROQ_API_KEY as a secret on the host, never in this file.
 FROM python:3.12-slim
 
@@ -19,8 +20,8 @@ RUN pip install torch --index-url https://download.pytorch.org/whl/cpu \
 COPY . .
 
 # Download the embedding model and compute passage embeddings at build time,
-# so the first visitor does not wait about a minute. Hugging Face runs the
-# container as user 1000, so the app folder must be writable.
+# so the first visitor does not wait about a minute. Some hosts run the
+# container as a non-root user, so the app folder must be writable.
 RUN python -c "import sys; sys.path.insert(0, '.'); from rag.retrieve import Retriever; r = Retriever(); assert r.emb is not None, 'embeddings missing'" \
  && chmod -R a+rwX /app
 

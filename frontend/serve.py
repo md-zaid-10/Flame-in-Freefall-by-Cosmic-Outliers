@@ -6,8 +6,8 @@ The demo questions come from data/demo.js and need no server; opening
 index.html directly works for those. This server adds /api/ask for any other
 question, calling rag.ask() from rag/search.py.
 
-Hosted (see deploy/README.md) it also serves the API to the GitHub Pages copy
-of the site, so HOST, CORS and a per-visitor limit are configurable:
+Hosted on Render (see deploy/README.md) it also serves the API to the GitHub
+Pages copy of the site, so HOST, CORS and a per-visitor limit are configurable:
     HOST              default 127.0.0.1; 0.0.0.0 inside a container
     PORT              default 8765
     FIF_CORS_ORIGIN   default *; e.g. https://md-zaid-10.github.io

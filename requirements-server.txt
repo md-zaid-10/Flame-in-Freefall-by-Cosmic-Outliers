@@ -1,0 +1,5 @@
+# Minimal packages for the hosted answer server in lite mode (FIF_EMBEDDINGS=0):
+# keyword search (BM25 + TF-IDF) and Groq over plain HTTP. No PyTorch.
+# The full app, notebooks and data builds use requirements.txt.
+scikit-learn>=1.3
+rank-bm25>=0.2.2

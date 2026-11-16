@@ -68,7 +68,9 @@ def _get_ledger():
         with _lock:
             if _ledger is None:
                 from rag.answer import EvidenceLedger
-                _ledger = EvidenceLedger()
+                # FIF_EMBEDDINGS=0 skips the semantic model (no PyTorch): keyword
+                # search only, small enough for a 512 MB free server.
+                _ledger = EvidenceLedger(use_embeddings=os.environ.get("FIF_EMBEDDINGS", "1") != "0")
     return _ledger
 
 

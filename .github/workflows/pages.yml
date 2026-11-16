@@ -1,8 +1,8 @@
 # Publish frontend/ to GitHub Pages on every push to main.
 # The site is static: scenarios, example questions, research map, flame map and
 # method page all come from frontend/data/demo.js. New questions go to the
-# answer server on Hugging Face (space.yml) when the repository variable
-# FLAMESCOPE_API holds its URL, e.g. https://your-hf-name-flamescope.hf.space
+# answer server on Render (render.yaml) when the repository variable
+# FLAMESCOPE_API holds its URL, e.g. https://flamescope.onrender.com
 name: Deploy frontend to GitHub Pages
 
 on:

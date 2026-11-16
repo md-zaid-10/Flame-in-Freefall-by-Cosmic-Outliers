@@ -1,0 +1,25 @@
+# Render Blueprint: the FlameScope answer server on Render's free plan.
+# Render > New > Blueprint > pick this repo. It asks for GROQ_API_KEY once.
+services:
+  - type: web
+    name: flamescope
+    runtime: python
+    plan: free
+    branch: main
+    autoDeploy: true
+    buildCommand: pip install -r requirements-server.txt
+    startCommand: python frontend/serve.py
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: HOST
+        value: 0.0.0.0
+      - key: FIF_EMBEDDINGS
+        value: "0"        # lite search: fits the 512 MB free plan
+      - key: FIF_LLM
+        value: groq
+      - key: FIF_CORS_ORIGIN
+        value: https://md-zaid-10.github.io
+      - key: GROQ_API_KEY
+        sync: false       # entered in the Render dashboard, never committed
