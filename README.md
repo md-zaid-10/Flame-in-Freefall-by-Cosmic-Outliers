@@ -14,7 +14,7 @@ measures where fire stops burning in space, and says plainly when NASA has no da
 ![Python 3.12](https://img.shields.io/badge/Python-3.12-3776ab?style=flat-square)
 ![LLM: Ollama or Groq](https://img.shields.io/badge/LLM-Ollama_%7C_Groq-555?style=flat-square)
 
-**[▶ Open the live demo](https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/)** · **[▶ Watch the 30 s video](https://www.youtube.com/watch?v=jFU_ZWw31QY)** · Team **Cosmic Outliers** · Challenge: *Flame in Freefall*
+**[▶ Open the live demo](https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/)** · **[▶ Live AI server](https://flamescope.onrender.com/)** · **[▶ Watch the 30 s video](https://www.youtube.com/watch?v=jFU_ZWw31QY)** · Team **Cosmic Outliers** · Challenge: *Flame in Freefall*
 
 ![FlameScope home screen](docs/screenshots/home.png)
 
@@ -169,10 +169,11 @@ The video file is also in the repo: [`docs/video/FlameScope_SpaceApps_30s.mp4`](
 The video uses real screen captures of the app; the voiceover is AI-generated. Script, storyboard and asset
 credits are in [`docs/video/VIDEO_NOTES.md`](docs/video/VIDEO_NOTES.md).
 
-> The public site is static. The three scenarios, nine example questions, research map, flame map and method
-> page all work there. Answers to **new** questions need the local server with a Groq key or a local AI model; see
-> [Installation and setup](#-installation-and-setup). To host live answers for everyone (free Render server
-> + Groq), see [`deploy/README.md`](deploy/README.md).
+> The public site answers **new** questions through a free server on Render
+> ([flamescope.onrender.com](https://flamescope.onrender.com/)) with a Groq-hosted AI model. The server sleeps after
+> 15 minutes without visitors, so the first answer can take about a minute. The free server uses keyword search only;
+> the local setup adds semantic search (see [Installation and setup](#-installation-and-setup) and
+> [`deploy/README.md`](deploy/README.md)).
 
 **Keyboard shortcuts:** `1` `2` `3` scenarios · `→` / `n` next question · `m` flame map ·
 `d` "How it works" drawer · `Esc` / `h` home. Screens can be linked directly:
