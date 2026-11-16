@@ -22,8 +22,22 @@ measures where fire stops burning in space, and says plainly when NASA has no da
 
 ---
 
+## 🚀 Try it live (no login)
+
+- **Live app with AI answers:** https://flamescope.onrender.com. Ask any fire-safety question about
+  spacecraft, stations or Moon bases.
+- **Demo site:** https://md-zaid-10.github.io/Flame-in-Freefall-by-Cosmic-Outliers/
+- **30-second video:** https://www.youtube.com/watch?v=jFU_ZWw31QY
+- **Code (open source, MIT):** this repository
+
+> The live server is on a free plan and sleeps when nobody is using it. If the first answer takes about a
+> minute, it is waking up.
+
+---
+
 ## Contents
 
+- [Try it live](#-try-it-live-no-login)
 - [Overview](#-overview)
 - [The challenge](#-the-challenge)
 - [Our solution](#-our-solution)
@@ -113,6 +127,12 @@ FlameScope is built on one rule: **show NASA's words first, and never let the AI
 - **Measured, not modeled.** The flame map reports how often similar space-station runs kept burning, with
   95% intervals, instead of a curve fitted past the data.
 
+**How it works.** FlameScope is public and needs no login. The website runs on GitHub Pages. New questions
+go to a small server on Render that searches 7,770 passages from 19 NASA PSI combustion investigations. That
+server sends only the matching NASA passages to an AI model (hosted on Groq), which writes a short, cited
+summary. Before the summary is shown, a checker removes it if it contains a number or source that isn't in
+NASA's text.
+
 ---
 
 ## ✨ Key features
@@ -192,7 +212,7 @@ credits are in [`docs/video/VIDEO_NOTES.md`](docs/video/VIDEO_NOTES.md).
 | **Data and modeling** | pandas, NumPy, SciPy (Jeffreys intervals), matplotlib |
 | **Document extraction** | pypdf, python-docx, python-pptx, openpyxl |
 | **Data source** | NASA Physical Sciences Informatics (PSI) web API |
-| **Hosting** | GitHub Pages, deployed by GitHub Actions |
+| **Hosting** | Website on GitHub Pages (deployed by GitHub Actions); answer server on [Render](https://render.com/) free plan (`render.yaml`, auto-deploys from `main`) |
 | **Storage** | Flat files (JSON, JSONL, CSV) committed to the repo. No database. |
 
 ---
@@ -448,8 +468,12 @@ model.predict("cotton", 1, 21, 5)                     # → all NaN: no data for
 │   ├── raw/tables/           # PSI experimental tables (CSV)
 │   └── rag/                  # Passages, condition rows, gold set, eval results
 ├── docs/                     # Validation checklist, screenshots, demo video
+├── deploy/README.md          # How the public answer server is set up
 ├── demo.ipynb                # Quick look at the BASS-II table and labels
-├── requirements.txt
+├── requirements.txt          # Full local setup
+├── requirements-server.txt   # Lite packages for the free Render server
+├── render.yaml               # Render Blueprint for the answer server
+├── Dockerfile                # Full-quality server for larger hosts
 └── .github/workflows/pages.yml   # Deploys frontend/ to GitHub Pages
 ```
 
@@ -493,6 +517,9 @@ refusals 4/4 and question decomposition 2/2.
 - Everything above **22.2% oxygen** is outside the tested range. A 30% Moon base sits 7.8 points beyond it.
 - The checker proves numbers and citations exist in the sources, not that the AI's reasoning is right.
   AI summaries are labeled and can be wrong; trust NASA's passages.
+- To run for free, the public server uses keyword search. The full version, which runs locally, also uses
+  semantic search and finds related passages a bit more reliably. The free server also sleeps after
+  15 minutes without visitors.
 - Matching table columns to condition names is heuristic, because PSI's CSV headers vary between
   investigations. The original value and source row are always shown.
 
